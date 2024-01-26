@@ -5,7 +5,7 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
 import chroma from "chroma-js";
-import { sankeyData } from "./data";
+import data from "./data.json";
 
 interface SankeyChartProps {
   width: number;
@@ -52,6 +52,8 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
 
 const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  const sankeyData = data;
 
   useEffect(() => {
     if (!sankeyData) {
