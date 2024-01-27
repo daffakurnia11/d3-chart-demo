@@ -72,7 +72,6 @@ export const SunburstVisDataExample = {
         { title: "Communication skills" },
         {
           title: "Inclusive mindset and intercultural competence",
-          size: 500,
         },
         { title: "Mobilization skills" },
         { title: "Trust" },
@@ -103,7 +102,6 @@ export const SunburstVisDataExample = {
         { title: "Complexity Awareness" },
         {
           title: "Long-term orientation and Visioning",
-          size: 500,
         },
         { title: "Sense-making" },
         { title: "Critical Thinking" },

@@ -1,0 +1,118 @@
+{
+  "name": "ROOT",
+  "children": [
+    {
+      "name": "COLLABORATING",
+      "children": [
+        {
+          "name": "Co-creation skills",
+          "value": 1
+        },
+        {
+          "name": "Communication skills",
+          "value": 1
+        },
+        {
+          "name": "Inclusive mindset and intercultural competence",
+          "value": 1
+        },
+        {
+          "name": "Mobilization skills",
+          "value": 1
+        },
+        {
+          "name": "Trust",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "BEING",
+      "children": [
+        {
+          "name": "Presence",
+          "value": 1
+        },
+        {
+          "name": "Inner Compass",
+          "value": 1
+        },
+        {
+          "name": "Integrity and Authenticity",
+          "value": 1
+        },
+        {
+          "name": "Openness and Learning Mindset",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "ACTING",
+      "children": [
+        {
+          "name": "Optimism",
+          "value": 1
+        },
+        {
+          "name": "Perseverance",
+          "value": 1
+        },
+        {
+          "name": "Courage",
+          "value": 1
+        },
+        {
+          "name": "Creativity",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "THINKING",
+      "children": [
+        {
+          "name": "Perspective Skills",
+          "value": 1
+        },
+        {
+          "name": "Complexity Awareness",
+          "value": 1
+        },
+        {
+          "name": "Long-term orientation and Visioning",
+          "value": 1
+        },
+        {
+          "name": "Sense-making",
+          "value": 1
+        },
+        {
+          "name": "Critical Thinking",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "RELATING",
+      "children": [
+        {
+          "name": "Empathy and Compassion",
+          "value": 1
+        },
+        {
+          "name": "Appreciation",
+          "value": 1
+        },
+        {
+          "name": "Humility",
+          "value": 1
+        },
+        {
+          "name": "Connectedness",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}
