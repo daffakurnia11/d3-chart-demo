@@ -16,6 +16,11 @@ export default function Home() {
               Sunburst
             </button>
           </Link>
+          <Link href={"/bar"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
+              Bar
+            </button>
+          </Link>
         </div>
       </main>
     </>

@@ -1,4 +1,4 @@
-import BarChart from "@/components/BarChart";
+import BarChart from "@/app/bar/BarChart";
 import CircleChart from "@/components/CircleChart";
 import PercentChart from "@/components/PercentChart";
 import SankeyChart from "@/components/SankeyChart";

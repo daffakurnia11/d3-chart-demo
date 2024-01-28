@@ -1,0 +1,34 @@
+{
+  "labels": [
+    "Sense Making",
+    "Complexity Awareness",
+    "Perspective Skills",
+    "Self Awareness",
+    "Courage",
+    "Inner Compass"
+  ],
+  "datasets": [
+    {
+      "label": "Score",
+      "data": [
+        4.8,
+        5.2,
+        5.1,
+        5.0,
+        4.7,
+        4.9
+      ]
+    },
+    {
+      "label": "Baseline",
+      "data": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ]
+    }
+  ]
+}
