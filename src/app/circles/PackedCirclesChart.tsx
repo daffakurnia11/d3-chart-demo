@@ -7,26 +7,80 @@ import data from "./data.json";
 
 const PackedCirclesChart = () => {
   const svgRef = useRef(null);
+  const width = 400,
+    height = 400;
+
+  const createColorScale = (data: any) =>
+    chroma.scale("Set2").mode("lch").colors(data.length);
+
+  const wrapText = (text: any, diameter: number) => {
+    let words = text.text().split(/\s+/);
+    text.text(null);
+    let line: string[] = [];
+    let lineNumber = 0;
+    let lineHeight = 1.1; // ems
+    let y = text.attr("y");
+    let dy = parseFloat(text.attr("dy"));
+    let tspan = text
+      .append("tspan")
+      .attr("x", 0)
+      .attr("y", y)
+      .attr("dy", dy + "em");
+
+    words.forEach((word: string) => {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > diameter) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text
+          .append("tspan")
+          .attr("x", 0)
+          .attr("y", y)
+          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+          .text(word);
+      }
+    });
+
+    // Applying the logic for lines with a colon
+    text.selectAll("tspan").each(function (d: any, i: number) {
+      const currentLine = d3.select(this).text();
+      if (currentLine.includes(":")) {
+        const parts = currentLine.split(":");
+        d3.select(this).text(parts[0]);
+        text
+          .append("tspan")
+          .text("(" + parts[1] + ")")
+          .attr("x", 0)
+          .attr("dy", "1.2em");
+      }
+    });
+
+    // Calculate total text height
+    let textHeight = 0;
+    text.selectAll("tspan").each(function () {
+      textHeight += this.getBBox().height;
+    });
+
+    // Adjust text position to center it vertically within the circle
+    const textOffset = diameter - textHeight / 3.5;
+    text.attr("transform", `translate(0, ${-(diameter / 2 - textOffset / 2)})`);
+  };
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
-    const width = 400;
-    const height = 400;
-
     const pack = d3.pack().size([width, height]).padding(3);
-
     const root = d3.hierarchy({ children: data }).sum((d: any) => d.value);
-
     pack(root);
 
-    const color = chroma.scale("Set2").mode("lch").colors(data.length);
+    const color = createColorScale(data);
 
     const node = svg
       .append("g")
       .selectAll("g")
       .data(root.leaves())
-      .enter()
-      .append("g")
+      .join("g")
       .attr("transform", (d: any) => `translate(${d.x}, ${d.y})`);
 
     node
@@ -43,80 +97,19 @@ const PackedCirclesChart = () => {
         d3.selectAll("circle").style("opacity", 1);
       });
 
-    const textLabel = node
+    node
       .append("text")
       .attr("text-anchor", "middle")
-      .attr("dy", "-0.25em")
+      .attr("dy", "0.3em")
       .style("fill", "#333")
-      .style("font-size", "16px");
-
-    textLabel
+      .style("font-size", "16px")
       .text((d: any) => d.data.name + ":" + d.data.value + "%")
       .each(function (d: any) {
-        const circleDiameter = d.r * 2;
-        let text = d3.select(this),
-          words = text.text().split(/\s+/),
-          tspan = text
-            .text(null)
-            .append("tspan")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("dy", "0em");
-        const output = [];
-        let current = "";
-
-        for (let word of words) {
-          const tempText = current === "" ? word : current + " " + word;
-          tspan.text(tempText);
-          if (tspan.node()?.getComputedTextLength() < circleDiameter - 20) {
-            current = tempText;
-          } else {
-            if (current !== "") {
-              output.push(current);
-            }
-            current = word;
-          }
-        }
-        if (current !== "") {
-          output.push(current);
-        }
-        text.text(null);
-
-        output.forEach((line, index) => {
-          if (line.includes(":")) {
-            const parts = line.split(":");
-            text
-              .append("tspan")
-              .text(parts[0])
-              .attr("x", 0)
-              .attr("dy", index === 0 ? "0em" : "1.2em");
-            text
-              .append("tspan")
-              .text("(" + parts[1] + ")")
-              .attr("x", 0)
-              .attr("dy", "1.2em");
-          } else {
-            text
-              .append("tspan")
-              .text(line)
-              .attr("x", 0)
-              .attr("dy", index === 0 ? "0em" : "1.2em");
-          }
-        });
-
-        let textHeight = 0;
-        text.selectAll("tspan").each(function () {
-          textHeight += this?.getBBox().height;
-        });
-        const textOffset = circleDiameter - textHeight / 3.5;
-        text.style(
-          "transform",
-          `translateY(-${circleDiameter / 2 - textOffset / 2}px)`
-        );
+        wrapText(d3.select(this), d.r * 2 - 20);
       });
   }, []);
 
-  return <svg ref={svgRef} width={400} height={400} />;
+  return <svg ref={svgRef} width={width} height={height} />;
 };
 
 export default PackedCirclesChart;
