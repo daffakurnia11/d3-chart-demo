@@ -53,7 +53,7 @@ const PackedCirclesChart = () => {
           .append("tspan")
           .text("(" + parts[1] + ")")
           .attr("x", 0)
-          .attr("dy", "1.2em");
+          .attr("dy", "1.5em");
       }
     });
 
@@ -64,7 +64,7 @@ const PackedCirclesChart = () => {
     });
 
     // Adjust text position to center it vertically within the circle
-    const textOffset = diameter - textHeight / 3.5;
+    const textOffset = diameter - textHeight / 2;
     text.attr("transform", `translate(0, ${-(diameter / 2 - textOffset / 2)})`);
   };
 
