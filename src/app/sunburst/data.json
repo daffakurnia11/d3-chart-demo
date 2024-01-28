@@ -3,113 +3,140 @@
   "children": [
     {
       "name": "COLLABORATING",
+      "highlight": true,
       "children": [
         {
           "name": "Co-creation skills",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Communication skills",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Inclusive mindset and intercultural competence",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Mobilization skills",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Trust",
+          "highlight": false,
           "value": 1
         }
       ]
     },
     {
       "name": "BEING",
+      "highlight": true,
       "children": [
         {
           "name": "Presence",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Inner Compass",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Integrity and Authenticity",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Openness and Learning Mindset",
+          "highlight": true,
           "value": 1
         }
       ]
     },
     {
       "name": "ACTING",
+      "highlight": true,
       "children": [
         {
           "name": "Optimism",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Perseverance",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Courage",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Creativity",
+          "highlight": true,
           "value": 1
         }
       ]
     },
     {
       "name": "THINKING",
+      "highlight": true,
       "children": [
         {
           "name": "Perspective Skills",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Complexity Awareness",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Long-term orientation and Visioning",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Sense-making",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Critical Thinking",
+          "highlight": true,
           "value": 1
         }
       ]
     },
     {
       "name": "RELATING",
+      "highlight": true,
       "children": [
         {
           "name": "Empathy and Compassion",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Appreciation",
+          "highlight": true,
           "value": 1
         },
         {
           "name": "Humility",
+          "highlight": false,
           "value": 1
         },
         {
           "name": "Connectedness",
+          "highlight": true,
           "value": 1
         }
       ]

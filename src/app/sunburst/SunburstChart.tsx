@@ -10,7 +10,7 @@ interface SunburstChartProps {
   height: number;
 }
 
-const colorPalette = chroma.scale("Set2").colors(5);
+const colorPalette = chroma.scale("Set2").colors(8);
 
 export function assignColorsToData(data: any, color?: string) {
   data.children.forEach((child: any, i: number) => {
@@ -63,7 +63,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       .style("fill", (d: any) => (d.depth === 0 ? "transparent" : d.data.color))
       .style("stroke", "white")
       .style("stroke-width", 1)
-      .style("opacity", 1)
+      .style("opacity", (d: any) => (!d.data.highlight ? 0.6 : 1))
       .style("transition", "opacity 0.3s ease-in-out");
 
     g.selectAll("text")
@@ -87,7 +87,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
           .append("tspan")
           .text((d: any) => d)
           .attr("x", 0)
-          .attr("dy", (_, i) => (i === 0 ? "5px" : lineHeight + "px"));
+          .attr("dy", (_, i) => (i === 0 ? "6px" : +lineHeight + "px"));
 
         const totalHeight = words.length * lineHeight;
 
@@ -109,7 +109,9 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
     };
 
     path.on("mouseenter", handleMouseEnter);
-    path.on("mouseleave", () => path.style("opacity", 1));
+    path.on("mouseleave", () =>
+      path.style("opacity", (d: any) => (!d.data.highlight ? 0.6 : 1))
+    );
 
     return () => {
       svg.selectAll("*").remove();
