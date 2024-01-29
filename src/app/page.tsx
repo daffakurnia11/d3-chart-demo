@@ -23,7 +23,12 @@ export default function Home() {
           </Link>
           <Link href={"/circles"} className="block w-full">
             <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
-              Parked Circles
+              Packed Circles
+            </button>
+          </Link>
+          <Link href={"/radialtree"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
+              Radial Tree
             </button>
           </Link>
         </div>
