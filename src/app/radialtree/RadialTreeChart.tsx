@@ -44,7 +44,7 @@ const RadialTreeChart = () => {
         .attr("transform", `translate(${width / 2},${height / 2})`);
 
       // Create a root for the tree layout
-      const treeLayout = d3.tree<Node>().size([2 * Math.PI, radius - 130]);
+      const treeLayout = d3.tree<Node>().size([2 * Math.PI, radius - 180]);
 
       // Compute the new tree layout
       treeLayout(root);
@@ -99,17 +99,37 @@ const RadialTreeChart = () => {
           d.data.color ? d.data.color : "transparent"
         );
 
+      nodes
+        .append("rect")
+        .attr("x", -5) // Position based on the text
+        .attr("y", "-0.5em") // Align with the text vertically
+        .attr("width", (d: any) => (d.data.value / 100) * 75) // Set a fixed width or calculate based on text length
+        .attr("height", "1em") // Height based on text size
+        .style("fill", (d: any) =>
+          d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
+            ? d.data.color
+            : "transparent"
+        );
+
       // Draw node labels
       nodes
         .append("text")
         .attr("dy", ".31em")
-        .attr("x", (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
+        .attr("x", (d: any) => {
+          let padding: number;
+          if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
+            padding = (d.data.value / 100) * 75;
+          } else {
+            padding = 6;
+          }
+          return d.x < Math.PI === !d.children ? padding : -padding;
+        })
         .attr("text-anchor", (d: any) =>
           d.x < Math.PI === !d.children ? "start" : "end"
         )
         .attr("transform", (d: any) => (d.x >= Math.PI ? "rotate(180)" : null))
         .text((d) => (d.data.name !== "ROOT" ? d.data.name : ""))
-        .style("font-size", "10px")
+        .style("font-size", "8px")
         .style("user-select", "none")
         .style(
           "text-shadow",
