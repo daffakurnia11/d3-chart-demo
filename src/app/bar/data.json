@@ -1,34 +1,32 @@
-{
-  "labels": [
-    "Sense Making",
-    "Complexity Awareness",
-    "Perspective Skills",
-    "Self Awareness",
-    "Courage",
-    "Inner Compass"
-  ],
-  "datasets": [
-    {
-      "label": "Score",
-      "data": [
-        4.8,
-        5.2,
-        5.1,
-        5.0,
-        4.7,
-        4.9
-      ]
-    },
-    {
-      "label": "Baseline",
-      "data": [
-        10,
-        10,
-        10,
-        10,
-        10,
-        10
-      ]
-    }
-  ]
-}
+[
+  {
+    "label": "Sense Making",
+    "score": 4.8,
+    "baseline": 10
+  },
+  {
+    "label": "Complexity Awareness",
+    "score": 5.2,
+    "baseline": 10
+  },
+  {
+    "label": "Perspective Skills",
+    "score": 5.1,
+    "baseline": 10
+  },
+  {
+    "label": "Self Awareness",
+    "score": 5.0,
+    "baseline": 10
+  },
+  {
+    "label": "Courage",
+    "score": 4.7,
+    "baseline": 10
+  },
+  {
+    "label": "Inner Compass",
+    "score": 4.9,
+    "baseline": 10
+  }
+]

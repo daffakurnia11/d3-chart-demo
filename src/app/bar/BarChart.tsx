@@ -26,16 +26,58 @@ interface SunburstChartProps {
   height: number;
 }
 
+type DatasetType = {
+  label: string;
+  score: number;
+  baseline: number;
+};
+
+type ChartDatasetType = {
+  label: "Score" | "Baseline";
+  data: number[];
+  backgroundColor?: string | null;
+};
+
+type ChartDataType = {
+  labels: string[];
+  datasets: ChartDatasetType[];
+};
+
 const colorPalette = chroma.scale("Set2").colors(8);
 
-export function assignColorsToData(data: any) {
-  data.datasets.forEach((dataset: any, i: number) => {
-    dataset.backgroundColor = colorPalette[i];
+export function datasetGenerator(data: DatasetType[]) {
+  let chartDataset: ChartDataType;
+  let labels: string[] = [];
+  let scoreData: number[] = [];
+  let baselineData: number[] = [];
+
+  data.map((item: DatasetType) => {
+    labels.push(item.label);
+    scoreData.push(item.score);
+    baselineData.push(item.baseline);
   });
-  return data;
+
+  chartDataset = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Score",
+        data: scoreData,
+        backgroundColor: colorPalette[0],
+      },
+      {
+        label: "Baseline",
+        data: baselineData,
+        backgroundColor: colorPalette[1],
+      },
+    ],
+  };
+  return chartDataset;
 }
 
 const BarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
+  const dataset: any = datasetGenerator(data);
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -45,7 +87,6 @@ const BarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       },
     },
   };
-  const dataset = assignColorsToData(data);
 
   return (
     <div style={{ width, height }}>
