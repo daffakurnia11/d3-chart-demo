@@ -8,6 +8,17 @@ interface Node {
   children?: Node[];
   value?: number;
 }
+const colorPalette = chroma.scale("Set2").colors(8);
+
+export function assignColorsToData(data: any, color?: string) {
+  data.children.forEach((child: any, i: number) => {
+    child.color = color ? color : colorPalette[i];
+    if (child.children) {
+      assignColorsToData(child, child.color);
+    }
+  });
+  return data;
+}
 
 const RadialTreeChart = () => {
   const d3Container = useRef<SVGSVGElement | null>(null);
@@ -17,12 +28,13 @@ const RadialTreeChart = () => {
       const width = 700;
       const height = 700;
       const radius = width / 2;
+      const dataset = assignColorsToData(data);
 
       // Clear the container in case of re-render
       d3.select(d3Container.current).selectAll("*").remove();
 
       // Adjust the data by skipping the ROOT node
-      const rootData = d3.hierarchy(data, (d: Node) => d.children).children;
+      const root = d3.hierarchy(dataset, (d: Node) => d.children);
 
       // Create primary SVG container
       const svg = d3
@@ -32,8 +44,7 @@ const RadialTreeChart = () => {
         .attr("transform", `translate(${width / 2},${height / 2})`);
 
       // Create a root for the tree layout
-      const root = d3.hierarchy({ children: rootData } as Node);
-      const treeLayout = d3.tree<Node>().size([2 * Math.PI, radius - 100]);
+      const treeLayout = d3.tree<Node>().size([2 * Math.PI, radius - 130]);
 
       // Compute the new tree layout
       treeLayout(root);
@@ -70,22 +81,41 @@ const RadialTreeChart = () => {
         .style("stroke", "#555");
 
       // Draw nodes
-      svg
+      const nodes = svg
         .selectAll(".node")
         .data(root.descendants())
         .enter()
-        .append("circle")
+        .append("g")
         .attr("class", "node")
         .attr(
           "transform",
           (d: any) => `rotate(${(d.x * 180) / Math.PI - 90})translate(${d.y},0)`
-        )
-        .attr("r", 5)
-        .style("fill", (d: any, i) =>
-          d.data.data
-            ? color(i / root.descendants().length).hex()
-            : "transparent"
         );
+
+      nodes
+        .append("circle")
+        .attr("r", 5)
+        .style("fill", (d: any) =>
+          d.data.color ? d.data.color : "transparent"
+        );
+
+      // Draw node labels
+      nodes
+        .append("text")
+        .attr("dy", ".31em")
+        .attr("x", (d: any) => (d.x < Math.PI === !d.children ? 6 : -6))
+        .attr("text-anchor", (d: any) =>
+          d.x < Math.PI === !d.children ? "start" : "end"
+        )
+        .attr("transform", (d: any) => (d.x >= Math.PI ? "rotate(180)" : null))
+        .text((d) => (d.data.name !== "ROOT" ? d.data.name : ""))
+        .style("font-size", "10px")
+        .style("user-select", "none")
+        .style(
+          "text-shadow",
+          "2px 2px 3px white, 2px -2px 3px white, -2px 2px 3px white, -2px -2px 3px white"
+        )
+        .style("cursor", "default");
     }
   }, []);
 
