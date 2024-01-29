@@ -67,7 +67,7 @@ const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
         [width - 15, height - 15],
       ]);
 
-    const { nodes, links } = sankeyGenerator(sankeyData);
+    const { nodes, links } = sankeyGenerator(sankeyData as any);
 
     const colorScale = chroma.scale("Set2").colors(nodes.length);
 

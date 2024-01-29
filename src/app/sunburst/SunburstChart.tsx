@@ -59,7 +59,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       .data(partition(root).descendants())
       .enter()
       .append("path")
-      .attr("d", arc)
+      .attr("d", arc as any)
       .style("fill", (d: any) => (d.depth === 0 ? "transparent" : d.data.color))
       .style("stroke", "white")
       .style("stroke-width", 1)

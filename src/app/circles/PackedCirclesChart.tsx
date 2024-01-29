@@ -72,7 +72,7 @@ const PackedCirclesChart = () => {
     const svg = d3.select(svgRef.current);
     const pack = d3.pack().size([width, height]).padding(3);
     const root = d3.hierarchy({ children: data }).sum((d: any) => d.value);
-    pack(root);
+    pack(root as any);
 
     const color = createColorScale(data);
 
