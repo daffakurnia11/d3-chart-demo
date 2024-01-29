@@ -26,8 +26,6 @@ interface SunburstChartProps {
   height: number;
 }
 
-const colorPalette = chroma.scale("Set2").colors(8);
-
 type DatasetType = {
   category: string;
   negative: number;
@@ -45,6 +43,8 @@ type ChartDataType = {
   labels: string[];
   datasets: ChartDatasetType[];
 };
+
+const colorPalette = chroma.scale("Set2").colors(8);
 
 export function datasetGenerator(data: DatasetType[]) {
   let chartDataset: ChartDataType;
@@ -84,7 +84,9 @@ export function datasetGenerator(data: DatasetType[]) {
 }
 
 const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
-  const options = {
+  const dataset: any = datasetGenerator(data);
+
+  const options: any = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -95,18 +97,26 @@ const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
     scales: {
       x: {
         stacked: true,
+        ticks: {
+          maxRotation: 90,
+          minRotation: 90,
+          callback: function (value: number) {
+            const stringValue = dataset.labels[value].toString();
+            return stringValue.length > 25
+              ? stringValue.substring(0, 25) + "..."
+              : stringValue;
+          },
+        },
       },
       y: {
         stacked: true,
       },
     },
   };
-  // const dataset = assignColorsToData(data);
-  console.log(datasetGenerator(data));
 
   return (
     <div style={{ width, height }}>
-      <Bar options={options} data={datasetGenerator(data) as any} />
+      <Bar options={options} data={dataset} />
     </div>
   );
 };
