@@ -6,11 +6,11 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 41
+          "value": 0
         },
         {
           "name": "Workspace Processes",
-          "value": 89
+          "value": 100
         },
         {
           "name": "Leadership",
@@ -51,7 +51,7 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 99
+          "value": 0
         },
         {
           "name": "Workspace Processes",
@@ -120,7 +120,7 @@
         },
         {
           "name": "Management Processes",
-          "value": 45
+          "value": 100
         },
         {
           "name": "Sales Processes",
