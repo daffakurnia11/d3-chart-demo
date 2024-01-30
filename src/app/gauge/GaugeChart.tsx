@@ -17,10 +17,9 @@ const GaugeChart = () => {
 
     const width = 800;
     const height = 400;
-    const needleValue = 68; // Needle points to 68%
     const innerRadius = 100;
     const outerRadius = 200;
-    const colorScale = chroma.scale("Set3").colors(data.length);
+    const colorScale = chroma.scale("Spectral").colors(data.length);
 
     const svg = d3
       .select(ref.current)
@@ -41,7 +40,7 @@ const GaugeChart = () => {
       .sort(null)
       .value((d) => d.max - d.min);
 
-    const arcs = svg
+    svg
       .selectAll(".arc")
       .data(pie(data))
       .enter()
@@ -49,28 +48,6 @@ const GaugeChart = () => {
       .attr("class", "arc")
       .attr("fill", (d, i) => colorScale[i])
       .attr("d", arcGenerator);
-
-    // Calculate the angle for the needle
-    const scale = d3
-      .scaleLinear()
-      .range([-Math.PI / 2, Math.PI / 2])
-      .domain([0, 100]);
-
-    const needleAngle = scale(needleValue);
-
-    // Draw the needle
-    const line = d3
-      .line()
-      .x((d) => d.x)
-      .y((d) => d.y);
-
-    const needleLine = [
-      { x: 0, y: 0 }, // center
-      {
-        x: outerRadius * Math.cos(needleAngle),
-        y: -outerRadius * Math.sin(needleAngle),
-      }, // outer point
-    ];
   }, []);
 
   return <svg ref={ref} />;
