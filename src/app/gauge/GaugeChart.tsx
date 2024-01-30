@@ -7,12 +7,12 @@ const GaugeChart = () => {
 
   useEffect(() => {
     const data: any = [
-      { label: "Deteriorating-Apathic", min: 0, max: 25 },
-      { label: "Inhibiting-Non Compliant", min: 25, max: 45 },
-      { label: "Entropic-Formal", min: 45, max: 60 },
-      { label: "Scalable-Compliant", min: 60, max: 75 },
-      { label: "Innovative-Enrolled", min: 75, max: 90 },
-      { label: "Regenerative-Committed", min: 90, max: 100 },
+      { label: "Deteriorating-(Apathic)", min: 0, max: 25 },
+      { label: "Inhibiting-(Non Compliant)", min: 25, max: 45 },
+      { label: "Entropic-(Formal)", min: 45, max: 60 },
+      { label: "Scalable-(Compliant)", min: 60, max: 75 },
+      { label: "Innovative-(Enrolled)", min: 75, max: 90 },
+      { label: "Regenerative-(Committed)", min: 90, max: 100 },
     ];
 
     const width = 800;
@@ -54,11 +54,26 @@ const GaugeChart = () => {
 
     arcs
       .append("text")
-      .attr("transform", (d) => `translate(${arcGenerator.centroid(d)})`)
+      // .attr("transform", (d) => {
+      //   const centroid = arcGenerator.centroid(d);
+      //   return `translate(${centroid[0]}, ${centroid[1]})`;
+      // })
+      .attr("transform", (d) => {
+        const centroid = arcGenerator.centroid(d);
+        // Position the text below the arc
+        centroid[1] += -8;
+        return `translate(${centroid})`;
+      })
       .attr("dy", "0.35em")
       .style("text-anchor", "middle")
       .style("font-size", "12px")
-      .text((d: any) => d.data.label);
+      .selectAll("tspan")
+      .data((d: any) => d.data.label.split("-"))
+      .enter()
+      .append("tspan")
+      .text((text: any) => text)
+      .attr("x", 0)
+      .attr("dy", (d, i) => i * 16); // Adjust dy for line spacing
 
     const scale = d3
       .scaleLinear()
