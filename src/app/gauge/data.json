@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Sense Making",
+    "score": 4.8,
+    "baseline": 10
+  },
+  {
+    "label": "Complexity Awareness",
+    "score": 5.2,
+    "baseline": 10
+  },
+  {
+    "label": "Perspective Skills",
+    "score": 5.1,
+    "baseline": 10
+  },
+  {
+    "label": "Self Awareness",
+    "score": 5.0,
+    "baseline": 10
+  },
+  {
+    "label": "Courage",
+    "score": 4.7,
+    "baseline": 10
+  },
+  {
+    "label": "Inner Compass",
+    "score": 4.9,
+    "baseline": 10
+  }
+]
