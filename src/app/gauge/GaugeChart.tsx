@@ -2,30 +2,6 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import chroma from "chroma-js";
 
-const needleImage = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="75"
-    height="454"
-    viewBox="0 0 75 454"
-    fill="none"
-  >
-    <path
-      d="M35.0434 1.32009C35.1462 0.103309 36.9244 0.0970937 37.0357 1.31313L74.4643 410.148C71.4469 392.463 56.0456 379 37.5 379C18.7721 379 3.25064 392.729 0.450353 410.671L35.0434 1.32009Z"
-      fill="#7B8794"
-    />
-    <path d="M74.9967 416L74.9962 415.958L75 416H74.9967Z" fill="#7B8794" />
-    <path
-      d="M0.00389531 415.954L0.00326517 416H0L0.00389531 415.954Z"
-      fill="#7B8794"
-    />
-    <path
-      d="M38 454C57.33 454 73 438.33 73 419C73 399.67 57.33 384 38 384C18.67 384 3 399.67 3 419C3 438.33 18.67 454 38 454Z"
-      fill="#7B8794"
-    />
-  </svg>
-);
-
 const GaugeChart = () => {
   const ref = useRef(null);
 
@@ -160,10 +136,10 @@ const GaugeChart = () => {
 
     // Needle dimensions
     const needleLength = outerRadius - 20; // Adjust as needed
-    const needleWidth = 5; // Adjust as needed
+    const needleWidth = 10; // Adjust as needed
 
     // Needle Value (set this to whatever value you need to point at)
-    const needleValue = 85; // Example value
+    const needleValue = 67; // Example value
 
     // Create a group for the needle
     const needleGroup = svg
@@ -171,24 +147,41 @@ const GaugeChart = () => {
       .attr("class", "needle")
       .attr("transform", `translate(0, 0)`);
 
-    // Draw the needle circle base
+    // Draw the needle triangle
+    const needleTriangle: any = [
+      { x: 0, y: -needleLength }, // Tip of the triangle
+      { x: -needleWidth, y: 0 }, // Left point of the base
+      { x: needleWidth, y: 0 }, // Right point of the base
+      { x: 0, y: -needleLength }, // Closing point to complete the triangle
+    ];
+
+    const needlePath = d3
+      .line()
+      .x((d: any) => d.x)
+      .y((d: any) => d.y)
+      .curve(d3.curveLinearClosed); // Connect the points to close the path
+
+    needleGroup
+      .append("path")
+      .attr("class", "needle")
+      .attr("d", needlePath(needleTriangle))
+      .attr("fill", "#7B8794");
+
+    // Draw the needle circle base with a white border
+    needleGroup
+      .append("circle")
+      .attr("cx", 0)
+      .attr("cy", 0)
+      .attr("r", needleWidth + 2) // Adjust the border width as needed
+      .attr("fill", "white"); // Set the border color to white
+
+    // Draw the main circle for the needle
     needleGroup
       .append("circle")
       .attr("cx", 0)
       .attr("cy", 0)
       .attr("r", needleWidth)
-      .attr("fill", "#464A4F");
-
-    // Draw the needle line
-    needleGroup
-      .append("line")
-      .attr("class", "needle")
-      .attr("x1", 0)
-      .attr("y1", 0)
-      .attr("x2", 0)
-      .attr("y2", -needleLength)
-      .attr("stroke", "#464A4F")
-      .attr("stroke-width", needleWidth);
+      .attr("fill", "#7B8794"); // Set the main color of the needle
 
     // Rotate the needle
     const rotationScale = d3
