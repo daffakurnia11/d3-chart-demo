@@ -36,6 +36,11 @@ export default function Home() {
               Radial Tree
             </button>
           </Link>
+          <Link href={"/gauge"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
+              Gauge
+            </button>
+          </Link>
         </div>
       </main>
     </>
