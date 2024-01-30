@@ -54,15 +54,10 @@ const GaugeChart = () => {
 
     arcs
       .append("text")
-      // .attr("transform", (d) => {
-      //   const centroid = arcGenerator.centroid(d);
-      //   return `translate(${centroid[0]}, ${centroid[1]})`;
-      // })
       .attr("transform", (d) => {
         const centroid = arcGenerator.centroid(d);
-        // Position the text below the arc
-        centroid[1] += -8;
-        return `translate(${centroid})`;
+        const angle = (d.startAngle + d.endAngle) / 2;
+        return `translate(${centroid}) rotate(${(angle * 180) / Math.PI})`;
       })
       .attr("dy", "0.35em")
       .style("text-anchor", "middle")
@@ -73,7 +68,7 @@ const GaugeChart = () => {
       .append("tspan")
       .text((text: any) => text)
       .attr("x", 0)
-      .attr("dy", (d, i) => i * 16); // Adjust dy for line spacing
+      .attr("dy", (_, i) => i * 16); // Adjust dy for line spacing
 
     const scale = d3
       .scaleLinear()
