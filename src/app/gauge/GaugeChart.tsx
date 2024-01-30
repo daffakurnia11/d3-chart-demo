@@ -63,12 +63,38 @@ const GaugeChart = () => {
       .style("text-anchor", "middle")
       .style("font-size", "12px")
       .selectAll("tspan")
-      .data((d: any) => d.data.label.split("-"))
+      .data((d: any) => {
+        const label = d.data.label.split("-");
+        return label;
+      })
       .enter()
       .append("tspan")
-      .text((text: any) => text)
+      .text((text: any, i: number, nodes: any) => {
+        const currentData = nodes[i].parentNode.__data__;
+        const hiddenText: any = svg
+          .append("text")
+          .attr("opacity", 0)
+          .style("font-size", "12px")
+          .text(text);
+        const textWidth = hiddenText.node().getComputedTextLength();
+        hiddenText.remove();
+
+        const maxTextWidth =
+          (currentData.endAngle - currentData.startAngle) * (innerRadius - 20);
+
+        if (textWidth > maxTextWidth) {
+          const truncatedText =
+            text.substring(
+              0,
+              Math.floor((maxTextWidth / textWidth) * text.length)
+            ) + "...";
+          return truncatedText;
+        }
+
+        return text;
+      })
       .attr("x", 0)
-      .attr("dy", (_, i) => i * 16); // Adjust dy for line spacing
+      .attr("dy", (_, i) => i * 16);
 
     const scale = d3
       .scaleLinear()
