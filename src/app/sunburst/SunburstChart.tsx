@@ -63,7 +63,13 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       .style("fill", (d: any) => d.data.color)
       .style("stroke", "white")
       .style("stroke-width", 1)
-      .style("opacity", (d: any) => (!d.data.highlight ? 0.6 : 1))
+      .style("opacity", (d: any) =>
+        d.data.score < 60
+          ? 0.3
+          : d.data.score < 70 && d.data.score >= 60
+          ? 0.7
+          : 1
+      )
       .style("transition", "opacity 0.3s ease-in-out");
 
     g.selectAll("text")
@@ -110,7 +116,13 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
 
     path.on("mouseenter", handleMouseEnter);
     path.on("mouseleave", () =>
-      path.style("opacity", (d: any) => (!d.data.highlight ? 0.6 : 1))
+      path.style("opacity", (d: any) =>
+        d.data.score < 60
+          ? 0.3
+          : d.data.score < 70 && d.data.score >= 60
+          ? 0.7
+          : 1
+      )
     );
 
     return () => {
