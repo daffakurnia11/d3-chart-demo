@@ -3,10 +3,10 @@ import * as d3 from "d3";
 import chroma from "chroma-js";
 
 const GaugeChart = () => {
-  const ref = useRef();
+  const ref = useRef(null);
 
   useEffect(() => {
-    const data = [
+    const data: any = [
       { label: "Deteriorating", min: 0, max: 25 },
       { label: "Inhibiting", min: 25, max: 45 },
       { label: "Entropic", min: 45, max: 60 },
@@ -28,17 +28,17 @@ const GaugeChart = () => {
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    const arcGenerator = d3
+    const arcGenerator: any = d3
       .arc()
       .innerRadius(innerRadius)
       .outerRadius(outerRadius);
 
     const pie = d3
       .pie()
-      .startAngle(-Math.PI / 1.5)
-      .endAngle(Math.PI / 1.5)
+      .startAngle(-Math.PI / 1.4)
+      .endAngle(Math.PI / 1.4)
       .sort(null)
-      .value((d) => d.max - d.min);
+      .value((d: any) => d.max - d.min);
 
     svg
       .selectAll(".arc")
@@ -48,6 +48,44 @@ const GaugeChart = () => {
       .attr("class", "arc")
       .attr("fill", (d, i) => colorScale[i])
       .attr("d", arcGenerator);
+
+    const scale = d3
+      .scaleLinear()
+      .domain([0, 100])
+      .range([Math.PI / 1.4, -Math.PI / 1.4]);
+
+    const largeTicks = scale.ticks(11);
+    const largeTickLength = 25;
+    const smallTicks = scale.ticks(51);
+    const smallTickLength = 15;
+
+    svg
+      .selectAll(".large-tick")
+      .data(largeTicks)
+      .enter()
+      .append("line")
+      .attr("class", "large-tick")
+      .attr("x1", (d) => outerRadius * Math.cos(scale(d)))
+      .attr("y1", (d) => outerRadius * Math.sin(scale(d)))
+      .attr("x2", (d) => (outerRadius - largeTickLength) * Math.cos(scale(d)))
+      .attr("y2", (d) => (outerRadius - largeTickLength) * Math.sin(scale(d)))
+      .attr("stroke", "black")
+      .attr("stroke-width", 3)
+      .attr("transform", `rotate(${-90})`);
+
+    svg
+      .selectAll(".small-tick")
+      .data(smallTicks)
+      .enter()
+      .append("line")
+      .attr("class", "small-tick")
+      .attr("x1", (d) => outerRadius * Math.cos(scale(d)))
+      .attr("y1", (d) => outerRadius * Math.sin(scale(d)))
+      .attr("x2", (d) => (outerRadius - smallTickLength) * Math.cos(scale(d)))
+      .attr("y2", (d) => (outerRadius - smallTickLength) * Math.sin(scale(d)))
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
+      .attr("transform", `rotate(${-90})`);
   }, []);
 
   return <svg ref={ref} />;
