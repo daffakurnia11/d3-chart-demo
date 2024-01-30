@@ -7,12 +7,12 @@ const GaugeChart = () => {
 
   useEffect(() => {
     const data: any = [
-      { label: "Deteriorating", min: 0, max: 25 },
-      { label: "Inhibiting", min: 25, max: 45 },
-      { label: "Entropic", min: 45, max: 60 },
-      { label: "Scalable", min: 60, max: 75 },
-      { label: "Innovative", min: 75, max: 90 },
-      { label: "Regenerative", min: 90, max: 100 },
+      { label: "Deteriorating-Apathic", min: 0, max: 25 },
+      { label: "Inhibiting-Non Compliant", min: 25, max: 45 },
+      { label: "Entropic-Formal", min: 45, max: 60 },
+      { label: "Scalable-Compliant", min: 60, max: 75 },
+      { label: "Innovative-Enrolled", min: 75, max: 90 },
+      { label: "Regenerative-Committed", min: 90, max: 100 },
     ];
 
     const width = 800;
@@ -40,14 +40,25 @@ const GaugeChart = () => {
       .sort(null)
       .value((d: any) => d.max - d.min);
 
-    svg
+    const arcs = svg
       .selectAll(".arc")
       .data(pie(data))
       .enter()
+      .append("g")
+      .attr("class", "arc");
+
+    arcs
       .append("path")
-      .attr("class", "arc")
-      .attr("fill", (d, i) => colorScale[i])
+      .attr("fill", (_, i) => colorScale[i])
       .attr("d", arcGenerator);
+
+    arcs
+      .append("text")
+      .attr("transform", (d) => `translate(${arcGenerator.centroid(d)})`)
+      .attr("dy", "0.35em")
+      .style("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text((d: any) => d.data.label);
 
     const scale = d3
       .scaleLinear()
