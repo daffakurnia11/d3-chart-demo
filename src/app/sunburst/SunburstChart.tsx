@@ -3,21 +3,49 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import data from "./data.json";
-import chroma from "chroma-js";
+import * as palette from "../colors";
 
 interface SunburstChartProps {
   width: number;
   height: number;
 }
 
-const colorPalette = chroma.scale("Set2").colors(8);
+export function assignColorPalette(data: any, color: string[]) {
+  data.color = color[0];
+  if (data.children) {
+    data.children.map((child: any) => {
+      if (child.score > 69) {
+        child.color = color[0];
+      } else if (child.score <= 69 && child.score > 60) {
+        child.color = color[1];
+      } else {
+        child.color = color[2];
+      }
+    });
+  }
+}
 
-export function assignColorsToData(data: any, color?: string) {
+export function assignColorsToData(data: any) {
+  let colorPalette: string[];
   data.children.forEach((child: any, i: number) => {
-    child.color = color ? color : colorPalette[i];
-    if (child.children) {
-      assignColorsToData(child, child.color);
+    switch (child.name) {
+      case "COLLABORATING":
+        colorPalette = palette.colorCollaborating;
+        break;
+      case "BEING":
+        colorPalette = palette.colorBeing;
+        break;
+      case "ACTING":
+        colorPalette = palette.colorActing;
+        break;
+      case "THINKING":
+        colorPalette = palette.colorThinking;
+        break;
+      default:
+        colorPalette = palette.colorRelating;
+        break;
     }
+    assignColorPalette(child, colorPalette);
   });
   return data;
 }
@@ -63,13 +91,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       .style("fill", (d: any) => d.data.color)
       .style("stroke", "white")
       .style("stroke-width", 1)
-      .style("opacity", (d: any) =>
-        d.data.score < 60
-          ? 0.3
-          : d.data.score < 70 && d.data.score >= 60
-          ? 0.7
-          : 1
-      )
+      .style("opacity", 1)
       .style("transition", "opacity 0.3s ease-in-out");
 
     g.selectAll("text")
@@ -78,7 +100,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
       .append("text")
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
-      .style("fill", "black")
+      .style("fill", "white")
       .style("font-size", "10px")
       .style("pointer-events", "none")
       .each(function (d: any) {
@@ -115,15 +137,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
     };
 
     path.on("mouseenter", handleMouseEnter);
-    path.on("mouseleave", () =>
-      path.style("opacity", (d: any) =>
-        d.data.score < 60
-          ? 0.3
-          : d.data.score < 70 && d.data.score >= 60
-          ? 0.7
-          : 1
-      )
-    );
+    path.on("mouseleave", () => path.style("opacity", 1));
 
     return () => {
       svg.selectAll("*").remove();
