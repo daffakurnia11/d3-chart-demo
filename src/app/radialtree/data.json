@@ -6,43 +6,43 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 0
+          "score": 0
         },
         {
           "name": "Workspace Processes",
-          "value": 100
+          "score": 100
         },
         {
           "name": "Leadership",
-          "value": 73
+          "score": 73
         },
         {
           "name": "Financial Structures",
-          "value": 88
+          "score": 88
         },
         {
           "name": "HR Processes",
-          "value": 73
+          "score": 73
         },
         {
           "name": "Governance",
-          "value": 65
+          "score": 65
         },
         {
           "name": "Management Processes",
-          "value": 50
+          "score": 50
         },
         {
           "name": "Sales Processes",
-          "value": 94
+          "score": 94
         },
         {
           "name": "Operating Model",
-          "value": 92
+          "score": 92
         },
         {
           "name": "HR Strategy",
-          "value": 72
+          "score": 72
         }
       ]
     },
@@ -51,43 +51,43 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 0
+          "score": 0
         },
         {
           "name": "Workspace Processes",
-          "value": 86
+          "score": 86
         },
         {
           "name": "Leadership",
-          "value": 61
+          "score": 61
         },
         {
           "name": "Financial Structures",
-          "value": 91
+          "score": 91
         },
         {
           "name": "HR Processes",
-          "value": 79
+          "score": 79
         },
         {
           "name": "Governance",
-          "value": 73
+          "score": 73
         },
         {
           "name": "Management Processes",
-          "value": 69
+          "score": 69
         },
         {
           "name": "Sales Processes",
-          "value": 39
+          "score": 39
         },
         {
           "name": "Operating Model",
-          "value": 85
+          "score": 85
         },
         {
           "name": "HR Strategy",
-          "value": 54
+          "score": 54
         }
       ]
     },
@@ -96,43 +96,43 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 56
+          "score": 56
         },
         {
           "name": "Workspace Processes",
-          "value": 45
+          "score": 45
         },
         {
           "name": "Leadership",
-          "value": 89
+          "score": 89
         },
         {
           "name": "Financial Structures",
-          "value": 58
+          "score": 58
         },
         {
           "name": "HR Processes",
-          "value": 39
+          "score": 39
         },
         {
           "name": "Governance",
-          "value": 42
+          "score": 42
         },
         {
           "name": "Management Processes",
-          "value": 100
+          "score": 100
         },
         {
           "name": "Sales Processes",
-          "value": 94
+          "score": 94
         },
         {
           "name": "Operating Model",
-          "value": 94
+          "score": 94
         },
         {
           "name": "HR Strategy",
-          "value": 77
+          "score": 77
         }
       ]
     },
@@ -141,43 +141,43 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 67
+          "score": 67
         },
         {
           "name": "Workspace Processes",
-          "value": 81
+          "score": 81
         },
         {
           "name": "Leadership",
-          "value": 81
+          "score": 81
         },
         {
           "name": "Financial Structures",
-          "value": 90
+          "score": 90
         },
         {
           "name": "HR Processes",
-          "value": 83
+          "score": 83
         },
         {
           "name": "Governance",
-          "value": 74
+          "score": 74
         },
         {
           "name": "Management Processes",
-          "value": 72
+          "score": 72
         },
         {
           "name": "Sales Processes",
-          "value": 65
+          "score": 65
         },
         {
           "name": "Operating Model",
-          "value": 93
+          "score": 93
         },
         {
           "name": "HR Strategy",
-          "value": 96
+          "score": 96
         }
       ]
     },
@@ -186,43 +186,43 @@
       "children": [
         {
           "name": "Value Propotion",
-          "value": 76
+          "score": 76
         },
         {
           "name": "Workspace Processes",
-          "value": 84
+          "score": 84
         },
         {
           "name": "Leadership",
-          "value": 62
+          "score": 62
         },
         {
           "name": "Financial Structures",
-          "value": 68
+          "score": 68
         },
         {
           "name": "HR Processes",
-          "value": 70
+          "score": 70
         },
         {
           "name": "Governance",
-          "value": 95
+          "score": 95
         },
         {
           "name": "Management Processes",
-          "value": 41
+          "score": 41
         },
         {
           "name": "Sales Processes",
-          "value": 77
+          "score": 77
         },
         {
           "name": "Operating Model",
-          "value": 99
+          "score": 99
         },
         {
           "name": "HR Strategy",
-          "value": 68
+          "score": 68
         }
       ]
     }

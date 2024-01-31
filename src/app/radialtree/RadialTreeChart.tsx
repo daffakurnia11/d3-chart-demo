@@ -1,21 +1,50 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import chroma from "chroma-js";
 import data from "./data.json";
+import * as palette from "../colors";
 
 interface Node {
   name: string;
   children?: Node[];
   value?: number;
 }
-const colorPalette = chroma.scale("Set2").colors(8);
 
-export function assignColorsToData(data: any, color?: string) {
+export function assignColorPalette(data: any, color: string[]) {
+  data.color = color[0];
+  if (data.children) {
+    data.children.map((child: any) => {
+      if (child.score > 69) {
+        child.color = color[0];
+      } else if (child.score <= 69 && child.score > 60) {
+        child.color = color[1];
+      } else {
+        child.color = color[2];
+      }
+    });
+  }
+}
+
+export function assignColorsToData(data: any) {
+  let colorPalette: string[];
   data.children.forEach((child: any, i: number) => {
-    child.color = color ? color : colorPalette[i];
-    if (child.children) {
-      assignColorsToData(child, child.color);
+    switch (child.name) {
+      case "COLLABORATING":
+        colorPalette = palette.colorCollaborating;
+        break;
+      case "BEING":
+        colorPalette = palette.colorBeing;
+        break;
+      case "ACTING":
+        colorPalette = palette.colorActing;
+        break;
+      case "THINKING":
+        colorPalette = palette.colorThinking;
+        break;
+      default:
+        colorPalette = palette.colorRelating;
+        break;
     }
+    assignColorPalette(child, colorPalette);
   });
   return data;
 }
@@ -48,9 +77,6 @@ const RadialTreeChart = () => {
 
       // Compute the new tree layout
       treeLayout(root);
-
-      // Set3 color palette
-      const color = chroma.scale("Set3");
 
       // Draw links (edges)
       const linkCurvedGenerator = d3
@@ -107,7 +133,7 @@ const RadialTreeChart = () => {
         .append("rect")
         .attr("x", -5) // Position based on the text
         .attr("y", "-0.5em") // Align with the text vertically
-        .attr("width", (d: any) => (d.data.value / 100) * (100 - 28) + 28) // Set a fixed width or calculate based on text length
+        .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28) // Set a fixed width or calculate based on text length
         .attr("height", "1em") // Height based on text size
         .style("fill", (d: any) =>
           d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
@@ -130,7 +156,7 @@ const RadialTreeChart = () => {
         .attr("transform", (d: any) => (d.x >= Math.PI ? "rotate(180)" : null))
         .text((d: any) =>
           d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
-            ? d.data.value + "%"
+            ? d.data.score + "%"
             : ""
         )
         .style("font-size", "8px")
@@ -150,7 +176,7 @@ const RadialTreeChart = () => {
         .attr("x", (d: any) => {
           let padding: number;
           if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
-            padding = (d.data.value / 100) * (100 - 28) + 28;
+            padding = (d.data.score / 100) * (100 - 28) + 28;
           } else {
             padding = 6;
           }
