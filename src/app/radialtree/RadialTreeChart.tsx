@@ -1,52 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import data from "./data.json";
-import * as palette from "../colors";
+import { assignColorsToData } from "../utils";
 
 interface Node {
   name: string;
   children?: Node[];
   value?: number;
-}
-
-export function assignColorPalette(data: any, color: string[]) {
-  data.color = color[0];
-  if (data.children) {
-    data.children.map((child: any) => {
-      if (child.score > 69) {
-        child.color = color[0];
-      } else if (child.score <= 69 && child.score > 60) {
-        child.color = color[1];
-      } else {
-        child.color = color[2];
-      }
-    });
-  }
-}
-
-export function assignColorsToData(data: any) {
-  let colorPalette: string[];
-  data.children.forEach((child: any, i: number) => {
-    switch (child.name) {
-      case "COLLABORATING":
-        colorPalette = palette.colorCollaborating;
-        break;
-      case "BEING":
-        colorPalette = palette.colorBeing;
-        break;
-      case "ACTING":
-        colorPalette = palette.colorActing;
-        break;
-      case "THINKING":
-        colorPalette = palette.colorThinking;
-        break;
-      default:
-        colorPalette = palette.colorRelating;
-        break;
-    }
-    assignColorPalette(child, colorPalette);
-  });
-  return data;
 }
 
 const RadialTreeChart = () => {

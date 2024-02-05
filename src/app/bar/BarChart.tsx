@@ -36,6 +36,7 @@ type ChartDatasetType = {
   label: "Score" | "Baseline";
   data: number[];
   backgroundColor?: string | null;
+  borderRadius: number;
 };
 
 type ChartDataType = {
@@ -43,7 +44,7 @@ type ChartDataType = {
   datasets: ChartDatasetType[];
 };
 
-const colorPalette = chroma.scale("Set2").colors(8);
+const colorPalette = chroma.scale(["#FF6821", "FFBFA3"]).mode("lch").colors(2);
 
 export function datasetGenerator(data: DatasetType[]) {
   let chartDataset: ChartDataType;
@@ -63,11 +64,13 @@ export function datasetGenerator(data: DatasetType[]) {
       {
         label: "Score",
         data: scoreData,
+        borderRadius: 8,
         backgroundColor: colorPalette[0],
       },
       {
         label: "Baseline",
         data: baselineData,
+        borderRadius: 8,
         backgroundColor: colorPalette[1],
       },
     ],

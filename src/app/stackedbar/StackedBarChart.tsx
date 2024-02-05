@@ -44,7 +44,10 @@ type ChartDataType = {
   datasets: ChartDatasetType[];
 };
 
-const colorPalette = chroma.scale("Set2").colors(8);
+const colorPalette = chroma
+  .scale(["EEE3D2", "E1CFB1", "D4B88C"])
+  .mode("lch")
+  .colors(3);
 
 export function datasetGenerator(data: DatasetType[]) {
   let chartDataset: ChartDataType;

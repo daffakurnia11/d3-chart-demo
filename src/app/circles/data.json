@@ -1,14 +1,17 @@
 [
   {
     "name": "Courage",
+    "type": "ACTING",
     "value": 36
   },
   {
     "name": "Long Term Orientation and Visioning",
+    "type": "THINKING",
     "value": 55
   },
   {
     "name": "Critical Thinking",
+    "type": "THINKING",
     "value": 45
   }
 ]

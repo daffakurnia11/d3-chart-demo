@@ -13,7 +13,13 @@ const GaugeChart = () => {
     const height = 400;
     const innerRadius = 100;
     const outerRadius = 200;
-    const colorScale = chroma.scale("Spectral").colors(data.length);
+    const borderWidth = 2; // Adjust the border width as needed
+    const borderColor = "#000"; // Adjust the border color as needed
+
+    const colorScale = chroma
+      .scale(["#EEE3D2", "#EEE3D2", "#E1CFB1", "#E1CFB1", "#D4B88C", "#D4B88C"])
+      .mode("lch")
+      .colors(data.length);
 
     const svg = d3
       .select(ref.current)

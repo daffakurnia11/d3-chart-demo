@@ -2,16 +2,13 @@
 
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
-import chroma from "chroma-js";
 import data from "./data.json";
+import { assignPaletteData } from "../utils";
 
 const PackedCirclesChart = () => {
   const svgRef = useRef(null);
   const width = 400,
     height = 400;
-
-  const createColorScale = (data: any) =>
-    chroma.scale("Set2").mode("lch").colors(data.length);
 
   const wrapText = (text: any, diameter: number) => {
     let words = text.text().split(/\s+/);
@@ -74,8 +71,6 @@ const PackedCirclesChart = () => {
     const root = d3.hierarchy({ children: data }).sum((d: any) => d.value);
     pack(root as any);
 
-    const color = createColorScale(data);
-
     const node = svg
       .append("g")
       .selectAll("g")
@@ -86,7 +81,9 @@ const PackedCirclesChart = () => {
     node
       .append("circle")
       .attr("r", (d: any) => d.r)
-      .style("fill", (_, i) => color[i])
+      .style("fill", (d: any) => {
+        return assignPaletteData(d.data.type)[0];
+      })
       .style("opacity", 1)
       .style("transition", "opacity 0.3s ease-in-out")
       .on("mouseenter", function () {
@@ -101,11 +98,21 @@ const PackedCirclesChart = () => {
       .append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
-      .style("fill", "#333")
+      .style("fill", "white")
       .style("font-size", "16px")
       .text((d: any) => d.data.name + ":" + d.data.value + "%")
       .each(function (d: any) {
         wrapText(d3.select(this), d.r * 2 - 20);
+      });
+
+    node
+      .selectAll("text") // Select all the text elements within the group
+      .on("mouseenter", function () {
+        d3.selectAll("circle").style("opacity", 0.2);
+        d3.select(this?.parentNode).select("circle").style("opacity", 1); // Select the circle within the same group
+      })
+      .on("mouseleave", function () {
+        d3.selectAll("circle").style("opacity", 1);
       });
   }, []);
 
