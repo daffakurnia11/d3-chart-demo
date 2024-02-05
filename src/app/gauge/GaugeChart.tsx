@@ -13,8 +13,6 @@ const GaugeChart = () => {
     const height = 400;
     const innerRadius = 100;
     const outerRadius = 200;
-    const borderWidth = 2; // Adjust the border width as needed
-    const borderColor = "#000"; // Adjust the border color as needed
 
     const colorScale = chroma
       .scale(["#EEE3D2", "#EEE3D2", "#E1CFB1", "#E1CFB1", "#D4B88C", "#D4B88C"])
@@ -51,6 +49,29 @@ const GaugeChart = () => {
       .append("path")
       .attr("fill", (_, i) => colorScale[i])
       .attr("d", arcGenerator);
+
+    // Separator lines
+    const separatorLines = arcs.data().map((d: any, i) => {
+      return {
+        // angle: (d.startAngle + d.endAngle) / 2,
+        angle: d.endAngle,
+        label: data[i].label, // Assuming your data items have a 'label' property
+        stroke: i !== data.length - 1,
+      };
+    });
+
+    // Draw the separator lines
+    separatorLines.forEach((d) => {
+      // Convert the angle from radians to degrees
+      const degrees = (d.angle * 180) / Math.PI;
+      svg
+        .append("line")
+        .attr("y1", -innerRadius)
+        .attr("y2", -outerRadius)
+        .attr("stroke", d.stroke ? "black" : "transparent")
+        .attr("stroke-width", 4)
+        .attr("transform", `rotate(${degrees})`);
+    });
 
     arcs
       .append("text")
