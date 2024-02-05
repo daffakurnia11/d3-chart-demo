@@ -1,32 +1,35 @@
-[
-  {
-    "label": "Sense Making",
-    "score": 4.8,
-    "baseline": 10
-  },
-  {
-    "label": "Complexity Awareness",
-    "score": 5.2,
-    "baseline": 10
-  },
-  {
-    "label": "Perspective Skills",
-    "score": 5.1,
-    "baseline": 10
-  },
-  {
-    "label": "Self Awareness",
-    "score": 5.0,
-    "baseline": 10
-  },
-  {
-    "label": "Courage",
-    "score": 4.7,
-    "baseline": 10
-  },
-  {
-    "label": "Inner Compass",
-    "score": 4.9,
-    "baseline": 10
-  }
-]
+{
+  "value": 85,
+  "data": [
+    {
+      "label": "Deteriorating-(Apathic)",
+      "min": 0,
+      "max": 25
+    },
+    {
+      "label": "Inhibiting-(Non Compliant)",
+      "min": 25,
+      "max": 45
+    },
+    {
+      "label": "Entropic-(Formal)",
+      "min": 45,
+      "max": 60
+    },
+    {
+      "label": "Scalable-(Compliant)",
+      "min": 60,
+      "max": 75
+    },
+    {
+      "label": "Innovative-(Enrolled)",
+      "min": 75,
+      "max": 90
+    },
+    {
+      "label": "Regenerative-(Committed)",
+      "min": 90,
+      "max": 100
+    }
+  ]
+}

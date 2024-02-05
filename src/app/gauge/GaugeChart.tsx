@@ -1,19 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import chroma from "chroma-js";
+import dataset from "./data.json";
 
 const GaugeChart = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const data: any = [
-      { label: "Deteriorating-(Apathic)", min: 0, max: 25 },
-      { label: "Inhibiting-(Non Compliant)", min: 25, max: 45 },
-      { label: "Entropic-(Formal)", min: 45, max: 60 },
-      { label: "Scalable-(Compliant)", min: 60, max: 75 },
-      { label: "Innovative-(Enrolled)", min: 75, max: 90 },
-      { label: "Regenerative-(Committed)", min: 90, max: 100 },
-    ];
+    const data: any = dataset.data;
 
     const width = 800;
     const height = 400;
@@ -139,7 +133,7 @@ const GaugeChart = () => {
     const needleWidth = 10; // Adjust as needed
 
     // Needle Value (set this to whatever value you need to point at)
-    const needleValue = 67; // Example value
+    const needleValue = dataset.value; // Example value
 
     // Create a group for the needle
     const needleGroup = svg
