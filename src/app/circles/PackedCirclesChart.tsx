@@ -41,11 +41,11 @@ const PackedCirclesChart = () => {
     });
 
     // Applying the logic for lines with a colon
-    text.selectAll("tspan").each(function (d: any, i: number) {
-      const currentLine = d3.select(this).text();
+    text.selectAll("tspan").each(function (d: any, i: number, nodes: any) {
+      const currentLine = d3.select(nodes[i]).text();
       if (currentLine.includes(":")) {
         const parts = currentLine.split(":");
-        d3.select(this).text(parts[0]);
+        d3.select(nodes[i]).text(parts[0]);
         text
           .append("tspan")
           .text("(" + parts[1] + ")")
@@ -56,7 +56,7 @@ const PackedCirclesChart = () => {
 
     // Calculate total text height
     let textHeight = 0;
-    text.selectAll("tspan").each(function () {
+    text.selectAll("tspan").each(function (this: SVGTSpanElement) {
       textHeight += this.getBBox().height;
     });
 
@@ -107,7 +107,7 @@ const PackedCirclesChart = () => {
 
     node
       .selectAll("text") // Select all the text elements within the group
-      .on("mouseenter", function () {
+      .on("mouseenter", function (this: any) {
         d3.selectAll("circle").style("opacity", 0.2);
         d3.select(this?.parentNode).select("circle").style("opacity", 1); // Select the circle within the same group
       })

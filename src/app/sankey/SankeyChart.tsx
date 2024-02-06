@@ -16,7 +16,7 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
   svg
     .selectAll(".node-text")
     .style("opacity", 1)
-    .each(function (d: any) {
+    .each(function (this: SVGTextElement, d: any) {
       const self = d3.select(this);
       const bbox = self.node()!.getBBox();
       const textHeight = bbox.height;
@@ -27,27 +27,33 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
       }
     });
 
-  svg.selectAll(".node-text").each(function (d: any, i: number) {
-    const self = d3.select(this);
-    const textLength = self.node()!.getComputedTextLength();
-    let availableWidth;
+  svg
+    .selectAll(".node-text")
+    .each(function (this: SVGTextElement, d: any, i: number) {
+      const self = d3.select(this);
+      const textLength = self.node()!.getComputedTextLength();
+      let availableWidth;
 
-    if (i === 0) {
-      const minTargetX0 = Math.min(
-        ...links.filter((l: any) => l.source === d).map((l: any) => l.target.x0)
-      );
-      availableWidth = minTargetX0 - d.x1 - 12;
-    } else {
-      const maxSourceX1 = Math.max(
-        ...links.filter((l: any) => l.target === d).map((l: any) => l.source.x1)
-      );
-      availableWidth = d.x0 - maxSourceX1 - 10;
-    }
+      if (i === 0) {
+        const minTargetX0 = Math.min(
+          ...links
+            .filter((l: any) => l.source === d)
+            .map((l: any) => l.target.x0)
+        );
+        availableWidth = minTargetX0 - d.x1 - 12;
+      } else {
+        const maxSourceX1 = Math.max(
+          ...links
+            .filter((l: any) => l.target === d)
+            .map((l: any) => l.source.x1)
+        );
+        availableWidth = d.x0 - maxSourceX1 - 10;
+      }
 
-    if (textLength > availableWidth) {
-      self.style("opacity", 0);
-    }
-  });
+      if (textLength > availableWidth) {
+        self.style("opacity", 0);
+      }
+    });
 }
 
 const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
