@@ -69,7 +69,7 @@ const GaugeChart = () => {
         .attr("y1", -innerRadius)
         .attr("y2", -outerRadius)
         .attr("stroke", d.stroke ? "black" : "transparent")
-        .attr("stroke-width", 4)
+        .attr("stroke-width", 1)
         .attr("transform", `rotate(${degrees})`);
     });
 
