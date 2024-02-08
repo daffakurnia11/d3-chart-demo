@@ -29,14 +29,13 @@ interface SunburstChartProps {
 type DatasetType = {
   label: string;
   score: number;
-  baseline: number;
 };
 
 type ChartDatasetType = {
   label: "Score" | "Baseline";
   data: number[];
   backgroundColor?: string | null;
-  borderRadius: number;
+  borderRadius?: number;
 };
 
 type ChartDataType = {
@@ -50,12 +49,10 @@ export function datasetGenerator(data: DatasetType[]) {
   let chartDataset: ChartDataType;
   let labels: string[] = [];
   let scoreData: number[] = [];
-  let baselineData: number[] = [];
 
   data.map((item: DatasetType) => {
     labels.push(item.label);
     scoreData.push(item.score);
-    baselineData.push(item.baseline);
   });
 
   chartDataset = {
@@ -64,14 +61,8 @@ export function datasetGenerator(data: DatasetType[]) {
       {
         label: "Score",
         data: scoreData,
-        borderRadius: 8,
+        borderRadius: 2,
         backgroundColor: colorPalette[0],
-      },
-      {
-        label: "Baseline",
-        data: baselineData,
-        borderRadius: 8,
-        backgroundColor: colorPalette[1],
       },
     ],
   };
@@ -82,11 +73,25 @@ const BarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
   const dataset: any = datasetGenerator(data);
 
   const options = {
+    indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "bottom" as const,
+      },
+    },
+    scales: {
+      x: {
+        suggestedMax: 10,
+        grid: {
+          color: "rgba(0, 0, 0, 0.05)",
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(0, 0, 0, 0.05)",
+        },
       },
     },
   };
