@@ -2,7 +2,7 @@ import * as palette from "./colors";
 
 export const assignPaletteData = (type: string) => {
   let colorPalette: string[];
-  switch (type) {
+  switch (type.toUpperCase()) {
     case "COLLABORATING":
       colorPalette = palette.colorCollaborating;
       break;

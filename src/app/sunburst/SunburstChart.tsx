@@ -6,6 +6,7 @@ import { assignColorsToData } from "../utils";
 
 interface SunburstChartProps {
   data: any;
+  state?: "all" | "positive" | "negative";
   width?: number | string;
   height?: number | string;
 }
@@ -14,6 +15,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
   width,
   height,
   data,
+  state,
 }) => {
   const svgRef = useRef(null);
 
@@ -46,16 +48,38 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
       .append("g")
       .attr("transform", `translate(${width / 2},${height / 2})`);
 
+    const stateControl = (d: any) => {
+      if ("children" in d.data) {
+        return 1;
+      }
+      switch (state) {
+        case "positive":
+          if (d.data.score > 69) {
+            return 1;
+          } else {
+            return 0.3;
+          }
+        case "negative":
+          if (d.data.score <= 69) {
+            return 1;
+          } else {
+            return 0.3;
+          }
+        default:
+          return 1;
+      }
+    };
+
     const path = g
       .selectAll("path")
       .data(partition(root).descendants())
       .enter()
       .append("path")
-      .attr("d", (d: any) => (d.data.name !== "ROOT" ? arc(d) : null))
+      .attr("d", (d: any) => (d.value !== 23 ? arc(d) : null))
       .style("fill", (d: any) => d.data.color)
       .style("stroke", "white")
       .style("stroke-width", 1)
-      .style("opacity", 1)
+      .style("opacity", (d) => stateControl(d))
       .style("transition", "opacity 0.3s ease-in-out");
 
     g.selectAll("text")
@@ -106,7 +130,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
     return () => {
       svg.selectAll("*").remove();
     };
-  }, [data]);
+  }, [data, state]);
 
   return (
     <svg width={width} height={height} viewBox="0 0 600 600">

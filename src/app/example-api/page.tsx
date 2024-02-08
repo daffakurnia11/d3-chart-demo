@@ -1,16 +1,34 @@
 "use client";
 
 import React, { useState } from "react";
-import SunburstChart from "../sunburst/SunburstChart";
-import SunburstData from "../sunburst/data.json";
-import PackedCirclesChart from "../circles/PackedCirclesChart";
-import PackedCirclesData from "../circles/data.json";
-import BarChart from "../bar/BarChart";
-import BarData from "../bar/data.json";
+import OverviewData from "./OverviewData";
+import QuotesData from "./QuotesData";
+import HighestOpportunityData from "./HighestOpportunityData";
+import HighestCultureData from "./HighestCultureData";
+import HighestTransformationData from "./HighestTransformationData";
+import LowestGapData from "./LowestGapData";
+import LowestInnovationData from "./LowestInnovationData";
+import LowestAppreciationData from "./LowestAppreciationData";
+
+const highestCultureUrl =
+  "/api/v1/chart/data?survey_id=1&type=defining-culture&class=high-percentile&chart-type=bar";
+const highestTransformationUrl =
+  "/api/v1/chart/data?survey_id=1&type=ecosystem-transformation&class=high-percentile&chart-type=bar";
+const highestCircleUrl =
+  "/api/v1/chart/data?survey_id=1&type=perception-of-opportunity&class=high-percentile&chart-type=buble";
+
+const lowestInnovationUrl =
+  "/api/v1/chart/data?survey_id=1&type=systemic-innovation&class=low-percentile&chart-type=bar";
+const lowestAppreciationUrl =
+  "/api/v1/chart/data?survey_id=1&type=change-implementation&class=low-percentile&chart-type=bar";
+const lowestCircleUrl =
+  "/api/v1/chart/data?survey_id=1&type=perception-of-gap&class=low-percentile&chart-type=buble";
 
 export default function ApiExamplePage() {
   const [tabActive, setTabActive] = useState("report");
-  const [paramActive, setParamActive] = useState("overview");
+  const [paramActive, setParamActive] = useState<
+    "all" | "positive" | "negative"
+  >("all");
 
   return (
     <div className="min-h-screen bg-neutral-100 report">
@@ -42,9 +60,9 @@ export default function ApiExamplePage() {
           <div className="flex button-group border border-solid rounded overflow-hidden">
             <button
               className={`text-xs button-item p-3 ${
-                paramActive === "overview" ? "active" : ""
+                paramActive === "all" ? "active" : ""
               }`}
-              onClick={() => setParamActive("overview")}
+              onClick={() => setParamActive("all")}
             >
               Overview
             </button>
@@ -68,104 +86,28 @@ export default function ApiExamplePage() {
         </div>
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  The Inner Development Goals
-                </p>
-              </div>
-              <div className="p-4 flex justify-center">
-                <SunburstChart width={250} height={250} data={SunburstData} />
-              </div>
-            </div>
+            <OverviewData state={paramActive} />
           </div>
           <div className="col-span-2">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">Quotes</p>
-              </div>
-            </div>
+            <QuotesData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills perceived as crucial in the next 12 months by
-                  %respondents
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <PackedCirclesChart
-                  width={200}
-                  height={200}
-                  data={PackedCirclesData}
-                />
-              </div>
-            </div>
+            <HighestOpportunityData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills above the cultural threshold(&gt;7.0)
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <BarChart width={375} height={200} data={BarData} />
-              </div>
-            </div>
+            <HighestCultureData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills above the transformation threshold(&gt;7.4)
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <BarChart width={375} height={200} data={BarData} />
-              </div>
-            </div>
+            <HighestTransformationData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills perceived as critically lacking by %respondents
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <PackedCirclesChart
-                  width={200}
-                  height={200}
-                  data={PackedCirclesData}
-                />
-              </div>
-            </div>
+            <LowestGapData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills below the innovation threshold(&gt;6.0)
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <BarChart width={375} height={200} data={BarData} />
-              </div>
-            </div>
+            <LowestInnovationData />
           </div>
           <div className="col-span-1">
-            <div className="rounded-lg w-full h-full bg-white">
-              <div className="pt-6 pb-3">
-                <p className="text-xs text-center font-semibold">
-                  Skills below the appreciation threshold (&gt;6.4)
-                </p>
-              </div>
-              <div className="pb-4 flex justify-center">
-                <BarChart width={375} height={200} data={BarData} />
-              </div>
-            </div>
+            <LowestAppreciationData />
           </div>
         </div>
       </div>
