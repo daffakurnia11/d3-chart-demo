@@ -19,7 +19,6 @@ export default function OverviewData({
   const fetchData = async () => {
     const response = await fetch(baseUrl + dataUrl);
     const json = await response.json();
-    console.log(assignColorsToData(json.data));
     setData(json.data);
   };
 
@@ -37,9 +36,14 @@ export default function OverviewData({
         </p>
       </div>
       <div className="p-4 flex justify-center">
-        <div style={{ width: 350, height: 350 }}>
+        <div style={{ width: 350, height: "auto", aspectRatio: "1/1" }}>
           {data && (
-            <SunburstChart width={350} height={350} data={data} state={state} />
+            <SunburstChart
+              width={"100%"}
+              height={"100%"}
+              data={data}
+              state={state}
+            />
           )}
         </div>
       </div>
