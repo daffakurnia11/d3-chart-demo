@@ -1,3 +1,180 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Merriweather Font Face */
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/Merriweather/Merriweather-BlackItalic.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+/* Inter Font Face */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Styles */
+body {
+  font-family: "Inter", serif;
+}
+
+.font-merriweather {
+  font-family: "Merriweather", serif;
+}
+
+.tab-group .tab-item {
+  position: relative;
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.tab-group .tab-item::after {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0097b2;
+}
+
+.tab-group .tab-item.active {
+  color: #0097b2;
+}
+
+.tab-group .tab-item.active::after {
+  opacity: 1;
+}
+
+.button-group {
+  border-color: #0097b2;
+}
+
+.button-group .button-item {
+  color: #0097b2;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-group .button-item:not(:first-child) {
+  border-left: 1px solid #0097b2;
+}
+
+.button-group .button-item.active {
+  background-color: #0097b2;
+  color: white;
+}
