@@ -9,7 +9,6 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import data from "./data.json";
 import chroma from "chroma-js";
 
 ChartJS.register(
@@ -24,6 +23,7 @@ ChartJS.register(
 interface SunburstChartProps {
   width: number;
   height: number;
+  data: any;
 }
 
 type DatasetType = {
@@ -69,7 +69,7 @@ export function datasetGenerator(data: DatasetType[]) {
   return chartDataset;
 }
 
-const BarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
+const BarChart: React.FC<SunburstChartProps> = ({ width, height, data }) => {
   const dataset: any = datasetGenerator(data);
 
   const options = {

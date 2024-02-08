@@ -2,15 +2,19 @@
 
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import data from "./data.json";
 import { assignColorsToData } from "../utils";
 
 interface SunburstChartProps {
-  width: number;
-  height: number;
+  data: any;
+  width?: number | string;
+  height?: number | string;
 }
 
-const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
+const SunburstChart: React.FC<SunburstChartProps> = ({
+  width,
+  height,
+  data,
+}) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -102,12 +106,12 @@ const SunburstChart: React.FC<SunburstChartProps> = ({ width, height }) => {
     return () => {
       svg.selectAll("*").remove();
     };
-  }, []);
+  }, [data]);
 
   return (
-    <div style={{ width: "fit-content", overflowX: "auto" }}>
-      <svg ref={svgRef} width={width} height={height} />
-    </div>
+    <svg width={width} height={height} viewBox="0 0 600 600">
+      <svg ref={svgRef} width={"100%"} height={"100%"} />
+    </svg>
   );
 };
 

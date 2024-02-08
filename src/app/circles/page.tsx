@@ -2,6 +2,7 @@
 
 import React from "react";
 import PackedCirclesChart from "./PackedCirclesChart";
+import data from "./data.json";
 
 export default function SankeyPage() {
   return (
@@ -10,7 +11,7 @@ export default function SankeyPage() {
         Packed Circles Chart Test
       </h1>
       <div className="flex justify-center items-center">
-        <PackedCirclesChart />
+        <PackedCirclesChart width={300} height={300} data={data} />
       </div>
     </div>
   );

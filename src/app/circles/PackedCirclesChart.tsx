@@ -2,13 +2,20 @@
 
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
-import data from "./data.json";
 import { assignPaletteData } from "../utils";
 
-const PackedCirclesChart = () => {
+interface SunburstChartProps {
+  data: any;
+  width?: number | string;
+  height?: number | string;
+}
+
+const PackedCirclesChart: React.FC<SunburstChartProps> = ({
+  width,
+  height,
+  data,
+}) => {
   const svgRef = useRef(null);
-  const width = 400,
-    height = 400;
 
   const wrapText = (text: any, diameter: number) => {
     let words = text.text().split(/\s+/);
@@ -66,6 +73,8 @@ const PackedCirclesChart = () => {
   };
 
   useEffect(() => {
+    const width = 400,
+      height = 400;
     const svg = d3.select(svgRef.current);
     const pack = d3.pack().size([width, height]).padding(3);
     const root = d3.hierarchy({ children: data }).sum((d: any) => d.value);
@@ -102,7 +111,7 @@ const PackedCirclesChart = () => {
       .style("font-size", "16px")
       .text((d: any) => d.data.name + ":" + d.data.value + "%")
       .each(function (d: any) {
-        wrapText(d3.select(this), d.r * 2 - 20);
+        wrapText(d3.select(this), d.r * 2 - 30);
       });
 
     node
@@ -116,7 +125,11 @@ const PackedCirclesChart = () => {
       });
   }, []);
 
-  return <svg ref={svgRef} width={width} height={height} />;
+  return (
+    <svg width={width} height={height} viewBox="0 0 400 400">
+      <svg ref={svgRef} width={"100%"} height={"100%"} />
+    </svg>
+  );
 };
 
 export default PackedCirclesChart;
