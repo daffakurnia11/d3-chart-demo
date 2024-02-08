@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import SunburstChart from "../sunburst/SunburstChart";
-import { assignColorsToData } from "../utils";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
@@ -26,7 +25,7 @@ export default function OverviewData({
     if (data === null) {
       fetchData();
     }
-  }, [data, state]);
+  }, [data]);
 
   return (
     <div className="rounded-lg w-full h-full bg-white">
