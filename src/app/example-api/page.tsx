@@ -10,17 +10,9 @@ import LowestGapData from "./LowestGapData";
 import LowestInnovationData from "./LowestInnovationData";
 import LowestAppreciationData from "./LowestAppreciationData";
 
-const highestCultureUrl =
-  "/api/v1/chart/data?survey_id=1&type=defining-culture&class=high-percentile&chart-type=bar";
-const highestTransformationUrl =
-  "/api/v1/chart/data?survey_id=1&type=ecosystem-transformation&class=high-percentile&chart-type=bar";
 const highestCircleUrl =
   "/api/v1/chart/data?survey_id=1&type=perception-of-opportunity&class=high-percentile&chart-type=buble";
 
-const lowestInnovationUrl =
-  "/api/v1/chart/data?survey_id=1&type=systemic-innovation&class=low-percentile&chart-type=bar";
-const lowestAppreciationUrl =
-  "/api/v1/chart/data?survey_id=1&type=change-implementation&class=low-percentile&chart-type=bar";
 const lowestCircleUrl =
   "/api/v1/chart/data?survey_id=1&type=perception-of-gap&class=low-percentile&chart-type=buble";
 

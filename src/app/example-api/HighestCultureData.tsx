@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BarChart from "../bar/BarChart";
-import BarData from "../bar/data.json";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
@@ -14,7 +13,6 @@ export default function HighestCultureData() {
     const response = await fetch(baseUrl + dataUrl);
     const json = await response.json();
     setData(json.data);
-    console.log(json.data);
   };
 
   useEffect(() => {
@@ -32,7 +30,14 @@ export default function HighestCultureData() {
       </div>
       <div className="pb-4 flex justify-center px-3">
         <div style={{ width: "100%", height: 400 }}>
-          {data && <BarChart width={"100%"} height={"100%"} data={data} />}
+          {data && (
+            <BarChart
+              width={"100%"}
+              height={"100%"}
+              data={data}
+              color="#E84139"
+            />
+          )}
         </div>
       </div>
     </div>

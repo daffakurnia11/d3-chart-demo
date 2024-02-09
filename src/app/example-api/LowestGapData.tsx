@@ -10,8 +10,17 @@ export default function LowestGapData() {
           Skills perceived as critically lacking by %respondents
         </p>
       </div>
-      <div className="pb-4 flex justify-center">
-        <PackedCirclesChart width={200} height={200} data={PackedCirclesData} />
+      <div
+        className="pb-4 flex justify-center items-center"
+        style={{ height: 400 }}
+      >
+        <div style={{ width: "100%", height: 300 }}>
+          <PackedCirclesChart
+            width={"100%"}
+            height={"100%"}
+            data={PackedCirclesData}
+          />
+        </div>
       </div>
     </div>
   );
