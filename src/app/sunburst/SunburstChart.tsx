@@ -76,7 +76,6 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
       .enter()
       .append("path")
       .attr("d", (d: any) => {
-        console.log(d);
         return d.value < 20 ? arc(d) : null;
       })
       .style("fill", (d: any) => d.data.color)

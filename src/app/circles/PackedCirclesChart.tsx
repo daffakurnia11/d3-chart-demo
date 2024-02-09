@@ -21,7 +21,6 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
     let words = text.text().split(/\s+/);
     text.text(null);
     let line: string[] = [];
-    let lineNumber = 0;
     let lineHeight = 1.1; // ems
     let y = text.attr("y");
     let dy = parseFloat(text.attr("dy"));
@@ -42,7 +41,7 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
           .append("tspan")
           .attr("x", 0)
           .attr("y", y)
-          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+          .attr("dy", lineHeight + dy + "em")
           .text(word);
       }
     });
@@ -111,7 +110,7 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
       .style("font-size", "16px")
       .text((d: any) => d.data.name + ":" + d.data.value + "%")
       .each(function (d: any) {
-        wrapText(d3.select(this), d.r * 2 - 30);
+        wrapText(d3.select(this), d.r * 2 - 10);
       });
 
     node

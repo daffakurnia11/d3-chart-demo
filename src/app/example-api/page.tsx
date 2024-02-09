@@ -10,12 +10,6 @@ import LowestGapData from "./LowestGapData";
 import LowestInnovationData from "./LowestInnovationData";
 import LowestAppreciationData from "./LowestAppreciationData";
 
-const highestCircleUrl =
-  "/api/v1/chart/data?survey_id=1&type=perception-of-opportunity&class=high-percentile&chart-type=buble";
-
-const lowestCircleUrl =
-  "/api/v1/chart/data?survey_id=1&type=perception-of-gap&class=low-percentile&chart-type=buble";
-
 export default function ApiExamplePage() {
   const [tabActive, setTabActive] = useState("report");
   const [paramActive, setParamActive] = useState<
