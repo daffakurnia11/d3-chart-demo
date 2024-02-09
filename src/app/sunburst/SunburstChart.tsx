@@ -75,7 +75,10 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
       .data(partition(root).descendants())
       .enter()
       .append("path")
-      .attr("d", (d: any) => (d.value !== 23 ? arc(d) : null))
+      .attr("d", (d: any) => {
+        console.log(d);
+        return d.value < 20 ? arc(d) : null;
+      })
       .style("fill", (d: any) => d.data.color)
       .style("stroke", "white")
       .style("stroke-width", 1)
