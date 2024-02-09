@@ -83,32 +83,60 @@ export default function ApiExamplePage() {
           <div className="col-span-2">
             <QuotesData />
           </div>
-          {(paramActive === "all" || paramActive === "positive") && (
-            <>
-              <div className="col-span-1">
-                <HighestOpportunityData />
-              </div>
-              <div className="col-span-1">
-                <HighestCultureData />
-              </div>
-              <div className="col-span-1">
-                <HighestTransformationData />
-              </div>
-            </>
-          )}
-          {(paramActive === "all" || paramActive === "negative") && (
-            <>
-              <div className="col-span-1">
-                <LowestGapData />
-              </div>
-              <div className="col-span-1">
-                <LowestInnovationData />
-              </div>
-              <div className="col-span-1">
-                <LowestAppreciationData />
-              </div>
-            </>
-          )}
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "positive"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <HighestOpportunityData />
+          </div>
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "positive"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <HighestCultureData />
+          </div>
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "positive"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <HighestTransformationData />
+          </div>
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "negative"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <LowestGapData />
+          </div>
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "negative"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <LowestInnovationData />
+          </div>
+          <div
+            className={`col-span-1 ${
+              paramActive === "all" || paramActive === "negative"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            <LowestAppreciationData />
+          </div>
         </div>
       </div>
     </div>
