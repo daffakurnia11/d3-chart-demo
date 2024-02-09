@@ -9,7 +9,6 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import chroma from "chroma-js";
 
 ChartJS.register(
   CategoryScale,
@@ -21,9 +20,10 @@ ChartJS.register(
 );
 
 interface SunburstChartProps {
-  width: number;
-  height: number;
   data: any;
+  width?: number | string;
+  height?: number | string;
+  color?: string;
 }
 
 type DatasetType = {
@@ -43,9 +43,7 @@ type ChartDataType = {
   datasets: ChartDatasetType[];
 };
 
-const colorPalette = chroma.scale(["#FF6821", "FFBFA3"]).mode("lch").colors(2);
-
-export function datasetGenerator(data: DatasetType[]) {
+export function datasetGenerator(data: DatasetType[], color?: string) {
   let chartDataset: ChartDataType;
   let labels: string[] = [];
   let scoreData: number[] = [];
@@ -62,17 +60,22 @@ export function datasetGenerator(data: DatasetType[]) {
         label: "Score",
         data: scoreData,
         borderRadius: 2,
-        backgroundColor: colorPalette[0],
+        backgroundColor: color ?? "#FF6821",
       },
     ],
   };
   return chartDataset;
 }
 
-const BarChart: React.FC<SunburstChartProps> = ({ width, height, data }) => {
-  const dataset: any = datasetGenerator(data);
+const BarChart: React.FC<SunburstChartProps> = ({
+  width,
+  height,
+  data,
+  color,
+}) => {
+  const dataset: any = datasetGenerator(data, color);
 
-  const options = {
+  const options: any = {
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
@@ -91,6 +94,14 @@ const BarChart: React.FC<SunburstChartProps> = ({ width, height, data }) => {
       y: {
         grid: {
           color: "rgba(0, 0, 0, 0.05)",
+        },
+        ticks: {
+          callback: function (value: number) {
+            const stringValue = dataset.labels[value].toString();
+            return stringValue.length > 20
+              ? stringValue.substring(0, 20) + "..."
+              : stringValue;
+          },
         },
       },
     },
