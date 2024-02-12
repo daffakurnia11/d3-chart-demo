@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import BarChart from "../bar/BarChart";
+import BarChart from "../../bar/BarChart";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
 const dataUrl =
-  "/api/v1/chart/data?survey_id=1&type=ecosystem-transformation&class=high-percentile&chart-type=bar";
+  "/api/v1/chart/data?survey_id=1&type=systemic-innovation&class=low-percentile&chart-type=bar";
 
-export default function HighestTransformationData() {
+export default function LowestInnovationData() {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
@@ -25,7 +25,7 @@ export default function HighestTransformationData() {
     <div className="rounded-lg w-full h-full bg-white">
       <div className="pt-6 pb-3">
         <p className="text-xs text-center font-semibold">
-          Skills above the transformation threshold(&gt;7.4)
+          Skills below the innovation threshold(&gt;6.0)
         </p>
       </div>
       <div className="pb-4 flex justify-center px-3">
@@ -35,7 +35,7 @@ export default function HighestTransformationData() {
               width={"100%"}
               height={"100%"}
               data={data}
-              color="#E585A1"
+              color="#661A30"
             />
           )}
         </div>

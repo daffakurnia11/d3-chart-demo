@@ -1,17 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import OverviewData from "./OverviewData";
-import QuotesData from "./QuotesData";
-import HighestOpportunityData from "./HighestOpportunityData";
-import HighestCultureData from "./HighestCultureData";
-import HighestTransformationData from "./HighestTransformationData";
-import LowestGapData from "./LowestGapData";
-import LowestInnovationData from "./LowestInnovationData";
-import LowestAppreciationData from "./LowestAppreciationData";
+import ReportPage from "./Report/ReportPage";
+import AnalysisPage from "./Analysis/AnalysisPage";
 
 export default function ApiExamplePage() {
-  const [tabActive, setTabActive] = useState("report");
+  const [tabActive, setTabActive] = useState<"report" | "analysis">("report");
   const [paramActive, setParamActive] = useState<
     "all" | "positive" | "negative"
   >("all");
@@ -70,68 +64,11 @@ export default function ApiExamplePage() {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-1">
-            <OverviewData state={paramActive} />
-          </div>
-          <div className="col-span-2">
-            <QuotesData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "positive"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <HighestOpportunityData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "positive"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <HighestCultureData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "positive"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <HighestTransformationData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "negative"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <LowestGapData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "negative"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <LowestInnovationData />
-          </div>
-          <div
-            className={`col-span-1 ${
-              paramActive === "all" || paramActive === "negative"
-                ? "block"
-                : "hidden"
-            }`}
-          >
-            <LowestAppreciationData />
-          </div>
-        </div>
+        {tabActive === "report" ? (
+          <ReportPage state={paramActive} />
+        ) : (
+          <AnalysisPage state={paramActive} />
+        )}
       </div>
     </div>
   );

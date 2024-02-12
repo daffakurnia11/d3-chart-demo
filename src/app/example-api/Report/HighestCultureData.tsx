@@ -1,18 +1,12 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
-import SunburstChart from "../sunburst/SunburstChart";
+import BarChart from "../../bar/BarChart";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
 const dataUrl =
-  "/api/v1/chart/data?survey_id=1&type=overview&class=overview&chart-type=sunburst";
+  "/api/v1/chart/data?survey_id=1&type=defining-culture&class=high-percentile&chart-type=bar";
 
-export default function OverviewData({
-  state,
-}: {
-  state: "all" | "positive" | "negative";
-}) {
+export default function HighestCultureData() {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
@@ -31,17 +25,17 @@ export default function OverviewData({
     <div className="rounded-lg w-full h-full bg-white">
       <div className="pt-6 pb-3">
         <p className="text-xs text-center font-semibold">
-          The Inner Development Goals
+          Skills above the cultural threshold(&gt;7.0)
         </p>
       </div>
-      <div className="p-4 flex justify-center">
-        <div style={{ width: 350, height: "auto", aspectRatio: "1/1" }}>
+      <div className="pb-4 flex justify-center px-3">
+        <div style={{ width: "100%", height: 400 }}>
           {data && (
-            <SunburstChart
+            <BarChart
               width={"100%"}
               height={"100%"}
               data={data}
-              state={state}
+              color="#E84139"
             />
           )}
         </div>

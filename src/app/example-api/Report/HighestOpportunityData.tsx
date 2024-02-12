@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import BarChart from "../bar/BarChart";
+import PackedCirclesChart from "../../circles/PackedCirclesChart";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
 const dataUrl =
-  "/api/v1/chart/data?survey_id=1&type=change-implementation&class=low-percentile&chart-type=bar";
+  "/api/v1/chart/data?survey_id=1&type=perception-of-opportunity&class=high-percentile&chart-type=buble";
 
-export default function LowestAppreciationData() {
+export default function HighestOpportunityData() {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
     const response = await fetch(baseUrl + dataUrl);
     const json = await response.json();
-    setData(json.data);
+    setData(json.data.datasets);
   };
 
   useEffect(() => {
@@ -25,18 +25,16 @@ export default function LowestAppreciationData() {
     <div className="rounded-lg w-full h-full bg-white">
       <div className="pt-6 pb-3">
         <p className="text-xs text-center font-semibold">
-          Skills below the appreciation threshold (&gt;6.4)
+          Skills perceived as crucial in the next 12 months by %respondents
         </p>
       </div>
-      <div className="pb-4 flex justify-center px-3">
-        <div style={{ width: "100%", height: 400 }}>
+      <div
+        className="pb-4 flex justify-center items-center"
+        style={{ height: 400 }}
+      >
+        <div style={{ width: "100%", height: 300 }}>
           {data && (
-            <BarChart
-              width={"100%"}
-              height={"100%"}
-              data={data}
-              color="#D4B88C"
-            />
+            <PackedCirclesChart width={"100%"} height={"100%"} data={data} />
           )}
         </div>
       </div>

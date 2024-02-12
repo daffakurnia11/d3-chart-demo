@@ -1,12 +1,18 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import BarChart from "../bar/BarChart";
+import SunburstChart from "../../sunburst/SunburstChart";
 
 // STATIC URL FOR DEMO ONLY
 const baseUrl = "https://ecologies-api.staging.iavtest.com";
 const dataUrl =
-  "/api/v1/chart/data?survey_id=1&type=systemic-innovation&class=low-percentile&chart-type=bar";
+  "/api/v1/chart/data?survey_id=1&type=overview&class=overview&chart-type=sunburst";
 
-export default function LowestInnovationData() {
+export default function OverviewData({
+  state,
+}: {
+  state: "all" | "positive" | "negative";
+}) {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
@@ -25,17 +31,17 @@ export default function LowestInnovationData() {
     <div className="rounded-lg w-full h-full bg-white">
       <div className="pt-6 pb-3">
         <p className="text-xs text-center font-semibold">
-          Skills below the innovation threshold(&gt;6.0)
+          The Inner Development Goals
         </p>
       </div>
-      <div className="pb-4 flex justify-center px-3">
-        <div style={{ width: "100%", height: 400 }}>
+      <div className="p-4 flex justify-center">
+        <div style={{ width: 350, height: "auto", aspectRatio: "1/1" }}>
           {data && (
-            <BarChart
+            <SunburstChart
               width={"100%"}
               height={"100%"}
               data={data}
-              color="#661A30"
+              state={state}
             />
           )}
         </div>
