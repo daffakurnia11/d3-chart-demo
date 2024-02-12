@@ -14,7 +14,7 @@ import Image from "next/image";
 export default function QuotesData() {
   const pagination = {
     clickable: true,
-    renderBullet: function (_, className) {
+    renderBullet: function (_: any, className: string) {
       return '<span class="' + className + '"></span>';
     },
   };
