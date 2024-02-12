@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 
 import "@/styles/globals.css";
 
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
 
 export default function QuotesData() {
@@ -23,7 +23,10 @@ export default function QuotesData() {
     <div className="rounded-lg w-full h-full overflow-hidden">
       <Swiper
         pagination={pagination}
-        modules={[Pagination]}
+        autoplay={{
+          delay: 4000,
+        }}
+        modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
         {[...Array(5)].map((_, index) => (
