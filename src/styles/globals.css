@@ -178,3 +178,45 @@ body {
   background-color: #0097b2;
   color: white;
 }
+
+.quotes-container {
+  background-color: #ff6821;
+}
+
+.quotes-container > .quotes-content {
+  max-width: 575px;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper .swiper-pagination-bullet {
+  background-color: #f9b89b;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.swiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: white;
+  width: 43px;
+  height: 10px;
+  border-radius: 10px;
+}
