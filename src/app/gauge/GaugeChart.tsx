@@ -15,7 +15,7 @@ const GaugeChart = () => {
     const outerRadius = 200;
 
     const colorScale = chroma
-      .scale(["#EEE3D2", "#EEE3D2", "#E1CFB1", "#E1CFB1", "#D4B88C", "#D4B88C"])
+      .scale(["#535554", "#5D6768", "#01474F", "#206970", "#0097B2", "#A9EDF8"])
       .mode("lch")
       .colors(data.length);
 
@@ -216,6 +216,17 @@ const GaugeChart = () => {
       .transition()
       .duration(1500) // Transition time in milliseconds
       .attr("transform", `rotate(${(needleRotation * 180) / Math.PI})`);
+
+    // Add text value
+    svg
+      .append("text")
+      .attr("class", "gauge-value")
+      .attr("x", 0)
+      .attr("y", innerRadius / 2)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "2em")
+      .attr("font-weight", "bold")
+      .text(`${needleValue}%`);
   }, []);
 
   return <svg ref={ref} />;
