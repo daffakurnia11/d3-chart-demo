@@ -7,6 +7,8 @@ import {
   Title,
   Tooltip,
   Legend,
+  PointElement,
+  LineElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import data from "./data.json";
@@ -18,7 +20,9 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  PointElement,
+  LineElement
 );
 
 interface SunburstChartProps {
@@ -28,15 +32,27 @@ interface SunburstChartProps {
 
 type DatasetType = {
   category: string;
-  negative: number;
-  neutral: number;
-  positive: number;
+  non_active: number;
+  non_complaint: number;
+  grudging: number;
+  complaint: number;
+  engaged: number;
+  committed: number;
+  value: number;
 };
 
 type ChartDatasetType = {
-  label: "Negative" | "Neutral" | "Positive";
+  label:
+    | "Non-Active"
+    | "Non-Complaint"
+    | "Grudging"
+    | "Complaint"
+    | "Engaged"
+    | "Committed"
+    | "Value";
   data: number[];
   backgroundColor?: string | null;
+  type: string;
 };
 
 type ChartDataType = {
@@ -45,41 +61,101 @@ type ChartDataType = {
 };
 
 const colorPalette = chroma
-  .scale(["EEE3D2", "E1CFB1", "D4B88C"])
+  .scale([
+    "#535554",
+    "#5D6768",
+    "#01474F",
+    "#206970",
+    "#0097B2",
+    "#A9EDF8",
+    "#7ED957",
+  ])
   .mode("lch")
-  .colors(3);
+  .colors(7);
 
 export function datasetGenerator(data: DatasetType[]) {
-  let chartDataset: ChartDataType;
+  let chartDataset: ChartDataType | any;
   let labels: string[] = [];
-  let negativeData: number[] = [];
-  let neutralData: number[] = [];
-  let positiveData: number[] = [];
+  let nonActiveData: number[] = [];
+  let nonComplaintData: number[] = [];
+  let grudgingData: number[] = [];
+  let complaintData: number[] = [];
+  let engagedData: number[] = [];
+  let committedData: number[] = [];
+  let valueData: number[] = [];
 
   data.map((item: DatasetType) => {
     labels.push(item.category);
-    negativeData.push(item.negative);
-    neutralData.push(item.neutral);
-    positiveData.push(item.positive);
+    nonActiveData.push(item.non_active);
+    nonComplaintData.push(item.non_complaint);
+    grudgingData.push(item.grudging);
+    complaintData.push(item.complaint);
+    engagedData.push(item.engaged);
+    committedData.push(item.committed);
+    valueData.push(item.value);
   });
 
   chartDataset = {
     labels: labels,
     datasets: [
       {
-        label: "Negative",
-        data: negativeData,
+        label: "Value",
+        stack: "stack1",
+        order: 1,
+        data: valueData,
+        backgroundColor: colorPalette[6],
+        borderColor: colorPalette[6],
+        type: "bar",
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      },
+      {
+        label: "Non-Active",
+        stack: "stack2",
+        order: 2,
+        data: nonActiveData,
         backgroundColor: colorPalette[0],
+        type: "bar",
       },
       {
-        label: "Neutral",
-        data: neutralData,
+        label: "Non-Complaint",
+        stack: "stack2",
+        order: 2,
+        data: nonComplaintData,
         backgroundColor: colorPalette[1],
+        type: "bar",
       },
       {
-        label: "Positive",
-        data: positiveData,
+        label: "Grudging",
+        stack: "stack2",
+        order: 2,
+        data: grudgingData,
         backgroundColor: colorPalette[2],
+        type: "bar",
+      },
+      {
+        label: "Complaint",
+        stack: "stack2",
+        order: 2,
+        data: complaintData,
+        backgroundColor: colorPalette[3],
+        type: "bar",
+      },
+      {
+        label: "Engaged",
+        stack: "stack2",
+        order: 2,
+        data: engagedData,
+        backgroundColor: colorPalette[4],
+        type: "bar",
+      },
+      {
+        label: "Committed",
+        stack: "stack2",
+        order: 2,
+        data: committedData,
+        backgroundColor: colorPalette[5],
+        type: "bar",
       },
     ],
   };
@@ -90,19 +166,23 @@ const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
   const dataset: any = datasetGenerator(data);
 
   const options: any = {
+    indexAxis: "y",
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        display: false,
+      },
+      tooltip: {
+        filter: function (tooltipItem: any) {
+          return tooltipItem.dataset.stack === "stack1";
+        },
       },
     },
     scales: {
-      x: {
+      y: {
         stacked: true,
         ticks: {
-          maxRotation: 90,
-          minRotation: 90,
           callback: function (value: number) {
             const stringValue = dataset.labels[value].toString();
             return stringValue.length > 25
@@ -111,8 +191,13 @@ const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
           },
         },
       },
-      y: {
+      x: {
         stacked: true,
+        ticks: {
+          callback: function (value: number) {
+            return value + "%";
+          },
+        },
       },
     },
   };

@@ -1,122 +1,102 @@
 [
   {
-    "category": "Vision and SDG Alignment",
-    "negative": 17,
-    "neutral": 0,
-    "positive": 33
+    "category": "Workplace Processes",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 75
   },
   {
-    "category": "Organizational Strategy for Sustainability",
-    "negative": 20,
-    "neutral": 9,
-    "positive": 21
+    "category": "Value Proposition",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 73
   },
   {
-    "category": "Corporate Social Responsibility Initiatives",
-    "negative": 35,
-    "neutral": 0,
-    "positive": 15
+    "category": "Leadership",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 69
   },
   {
-    "category": "Employee Engagement in SDGs",
-    "negative": 29,
-    "neutral": 16,
-    "positive": 5
+    "category": "Sales Processes",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 66
   },
   {
-    "category": "Talent Acquisition and Diversity",
-    "negative": 36,
-    "neutral": 7,
-    "positive": 7
+    "category": "Financial Structures",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 65
   },
   {
-    "category": "Leadership and Governance for Sustainability",
-    "negative": 9,
-    "neutral": 14,
-    "positive": 27
+    "category": "Operating Model",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 61
   },
   {
-    "category": "Financial Transparency and Ethical Investments",
-    "negative": 28,
-    "neutral": 12,
-    "positive": 10
+    "category": "Governance",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 58
   },
   {
-    "category": "Incentive Programs for Sustainable Practices",
-    "negative": 11,
-    "neutral": 6,
-    "positive": 33
+    "category": "HR Processes",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 55
   },
   {
-    "category": "Professional Development in Sustainability",
-    "negative": 20,
-    "neutral": 13,
-    "positive": 17
+    "category": "HR Strategy",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 50
   },
   {
-    "category": "Operational Efficiency and Eco-friendly Practices",
-    "negative": 17,
-    "neutral": 26,
-    "positive": 7
-  },
-  {
-    "category": "Career Pathways in Green Jobs",
-    "negative": 22,
-    "neutral": 9,
-    "positive": 19
-  },
-  {
-    "category": "Health and Well-being Programs",
-    "negative": 33,
-    "neutral": 12,
-    "positive": 5
-  },
-  {
-    "category": "Fair Trade and Ethical Sourcing",
-    "negative": 25,
-    "neutral": 8,
-    "positive": 17
-  },
-  {
-    "category": "Innovation and Sustainable Solutions",
-    "negative": 31,
-    "neutral": 0,
-    "positive": 19
-  },
-  {
-    "category": "Energy Management and Renewable Resources",
-    "negative": 21,
-    "neutral": 10,
-    "positive": 19
-  },
-  {
-    "category": "Waste Reduction and Recycling Efforts",
-    "negative": 12,
-    "neutral": 6,
-    "positive": 32
-  },
-  {
-    "category": "Sustainable Product Development",
-    "negative": 29,
-    "neutral": 8,
-    "positive": 13
-  },
-  {
-    "category": "Community Engagement and Partnerships",
-    "negative": 21,
-    "neutral": 19,
-    "positive": 10
-  },
-  {
-    "category": "Supply Chain Sustainability",
-    "negative": 14,
-    "neutral": 32,
-    "positive": 4
-  },
-  {
-    "category": "Marketing and Consumer Awareness of SDGs",
-    "negative": 13,
-    "neutral": 34,
-    "positive": 3
+    "category": "Management Processes",
+    "non_active": 25,
+    "non_complaint": 20,
+    "grudging": 15,
+    "complaint": 15,
+    "engaged": 15,
+    "committed": 10,
+    "value": 47
   }
 ]
