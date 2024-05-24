@@ -118,16 +118,16 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
 
     const handleMouseEnter = (event: any, d: any) => {
       path.style("opacity", 0.3);
-      d3.select(event.target).style("opacity", 1);
+      d3.select(event.target).style("opacity", (d) => stateControl(d));
 
       if (d.parent) {
         const parentPath = path.filter((node) => node === d.parent);
-        parentPath.style("opacity", 1);
+        parentPath.style("opacity", (d) => stateControl(d));
       }
     };
 
     path.on("mouseenter", handleMouseEnter);
-    path.on("mouseleave", () => path.style("opacity", 1));
+    path.on("mouseleave", () => path.style("opacity", (d) => stateControl(d)));
 
     return () => {
       svg.selectAll("*").remove();
