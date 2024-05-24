@@ -3,14 +3,9 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { assignPaletteData } from "../utils";
+import { PackedCirclesProps } from "./PackedCirclesChartType";
 
-interface SunburstChartProps {
-  data: any;
-  width?: number | string;
-  height?: number | string;
-}
-
-const PackedCirclesChart: React.FC<SunburstChartProps> = ({
+const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   width,
   height,
   data,
@@ -76,7 +71,7 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
       height = 400;
     const svg = d3.select(svgRef.current);
     const pack = d3.pack().size([width, height]).padding(3);
-    const root = d3.hierarchy({ children: data }).sum((d: any) => d.value);
+    const root = d3.hierarchy({ children: data.data }).sum((d: any) => d.value);
     pack(root as any);
 
     const node = svg
@@ -107,8 +102,8 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
       .attr("text-anchor", "middle")
       .attr("dy", "0.3em")
       .style("fill", "white")
-      .style("font-size", "16px")
-      .text((d: any) => d.data.name + ":" + d.data.value + "%")
+      .style("font-size", "14px")
+      .text((d: any) => d.data.label + ":" + d.data.value + "%")
       .each(function (d: any) {
         wrapText(d3.select(this), d.r * 2 - 10);
       });
@@ -122,7 +117,7 @@ const PackedCirclesChart: React.FC<SunburstChartProps> = ({
       .on("mouseleave", function () {
         d3.selectAll("circle").style("opacity", 1);
       });
-  }, []);
+  }, [data]);
 
   return (
     <svg width={width} height={height} viewBox="0 0 400 400">

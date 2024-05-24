@@ -27,6 +27,6 @@ export type BarGaugeDataType = {
 
 export type BarGaugeProps = {
   data: BarGaugeDataType
-  width?: number
-  height?: number
+  width?: number | string;
+  height?: number | string;
 }

@@ -17,6 +17,6 @@ export type TornadoDataType = {
 
 export type TornadoProps = {
   data: TornadoDataType;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 };
