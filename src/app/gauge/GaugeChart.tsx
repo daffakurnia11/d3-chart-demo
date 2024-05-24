@@ -2,14 +2,14 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import chroma from "chroma-js";
 import {
-  BarGaugeDataType,
-  BarGaugeDatasetType,
+  GaugeDataType,
+  GaugeDatasetType,
   GenerateDatasetType,
 } from "./GaugeChartType";
 
-const generateDataset = (data: BarGaugeDataType, index: number) => {
+const generateDataset = (data: GaugeDataType, index: number) => {
   const { value } = data.data[index];
-  let dataArray: BarGaugeDatasetType[] = [];
+  let dataArray: GaugeDatasetType[] = [];
   let increament = 0;
   for (let i = 0; i < data.parameter.length; i++) {
     dataArray.push({
@@ -26,7 +26,7 @@ const generateDataset = (data: BarGaugeDataType, index: number) => {
   };
 };
 
-const GaugeChart = ({ data }: { data: BarGaugeDataType }) => {
+const GaugeChart = ({ data }: { data: GaugeDataType }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const GaugeChart = ({ data }: { data: BarGaugeDataType }) => {
       })
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .style("font-size", "12px")
+      .style("font-size", "10px")
       .selectAll("tspan")
       .data((d: any) => d.data.label)
       .enter()

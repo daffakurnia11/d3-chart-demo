@@ -1,4 +1,4 @@
-export type BarGaugeDataType = {
+export type GaugeDataType = {
   parameter: {
     id: number;
     label: string;
@@ -11,7 +11,7 @@ export type BarGaugeDataType = {
   }[];
 };
 
-export type BarGaugeDatasetType = {
+export type GaugeDatasetType = {
   label: string;
   min: number;
   max: number;
@@ -19,5 +19,5 @@ export type BarGaugeDatasetType = {
 
 export type GenerateDatasetType = {
   value: number;
-  data: BarGaugeDatasetType[];
+  data: GaugeDatasetType[];
 };

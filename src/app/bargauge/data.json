@@ -1,70 +1,86 @@
 {
   "parameter": [
     {
-      "name": "Non-Active",
+      "id": 0,
+      "label": "Non-Active",
       "value": 25
     },
     {
-      "name": "Non-Compliant",
+      "id": 0,
+      "label": "Non-Compliant",
       "value": 20
     },
     {
-      "name": "Grudging",
+      "id": 0,
+      "label": "Grudging",
       "value": 15
     },
     {
-      "name": "Compliant",
+      "id": 0,
+      "label": "Compliant",
       "value": 15
     },
     {
-      "name": "Engaged",
+      "id": 0,
+      "label": "Engaged",
       "value": 15
     },
     {
-      "name": "Committed",
+      "id": 0,
+      "label": "Committed",
       "value": 10
     }
   ],
   "data": [
     {
+      "id": 0,
       "label": "Workplace Processes",
-      "score": 75
+      "value": 75
     },
     {
+      "id": 0,
       "label": "Value Proposition",
-      "score": 73
+      "value": 73
     },
     {
+      "id": 0,
       "label": "Leadership",
-      "score": 69
+      "value": 69
     },
     {
+      "id": 0,
       "label": "Sales Processes",
-      "score": 66
+      "value": 66
     },
     {
+      "id": 0,
       "label": "Financial Structures",
-      "score": 65
+      "value": 65
     },
     {
+      "id": 0,
       "label": "Operating Model",
-      "score": 61
+      "value": 61
     },
     {
+      "id": 0,
       "label": "Governance",
-      "score": 58
+      "value": 58
     },
     {
+      "id": 0,
       "label": "HR Processes",
-      "score": 55
+      "value": 55
     },
     {
+      "id": 0,
       "label": "HR Strategy",
-      "score": 50
+      "value": 50
     },
     {
+      "id": 0,
       "label": "Management Processes",
-      "score": 47
+      "value": 47
     }
   ]
 }

@@ -11,8 +11,13 @@ import {
   LineElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import data from "./data.json";
 import chroma from "chroma-js";
+import {
+  BarGaugeDataType,
+  BarGaugeDatasetDataType,
+  BarGaugeDatasetType,
+  BarGaugeProps,
+} from "./BarGaugeChartType";
 
 ChartJS.register(
   CategoryScale,
@@ -24,36 +29,6 @@ ChartJS.register(
   PointElement,
   LineElement
 );
-
-interface SunburstChartProps {
-  width: number;
-  height: number;
-}
-
-type DatasetType = {
-  parameter: {
-    name: string;
-    value: number;
-  }[];
-  data: {
-    label: string;
-    score: number;
-  }[];
-};
-
-type ChartDatasetType = {
-  label: string;
-  stack: string;
-  order: number;
-  data: string[] | number[];
-  backgroundColor: string;
-  type: string;
-};
-
-type ChartDataType = {
-  labels: string[];
-  datasets: ChartDatasetType[];
-};
 
 const colorPalette = chroma
   .scale([
@@ -68,15 +43,15 @@ const colorPalette = chroma
   .mode("lch")
   .colors(7);
 
-export function datasetGenerator(data: DatasetType) {
-  let chartDataset: ChartDataType;
+function generateDataset(data: BarGaugeDataType) {
+  let chartDataset: BarGaugeDatasetType;
   let labels: string[] = [];
   let valueData: number[] = [];
-  let datasetArray: ChartDatasetType[] = [];
+  let datasetArray: BarGaugeDatasetDataType[] = [];
 
-  data.data.map(({ label, score }) => {
+  data.data.map(({ label, value }) => {
     labels.push(label);
-    valueData.push(score);
+    valueData.push(value);
   });
   datasetArray.push({
     label: "Value",
@@ -95,9 +70,9 @@ export function datasetGenerator(data: DatasetType) {
     return valueArray;
   };
 
-  data.parameter.map(({ name, value }, index) => {
+  data.parameter.map(({ label, value }, index) => {
     datasetArray.push({
-      label: name,
+      label: label,
       stack: "stack2",
       order: 2,
       data: generateParameterData(value),
@@ -113,8 +88,8 @@ export function datasetGenerator(data: DatasetType) {
   return chartDataset;
 }
 
-const BarGaugeChart: React.FC<SunburstChartProps> = ({ width, height }) => {
-  const dataset: any = datasetGenerator(data);
+const BarGaugeChart: React.FC<BarGaugeProps> = ({ width, height, data }) => {
+  const dataset: BarGaugeDatasetType = generateDataset(data);
 
   const options: any = {
     indexAxis: "y",
