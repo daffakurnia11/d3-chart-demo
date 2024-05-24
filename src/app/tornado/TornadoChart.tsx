@@ -10,6 +10,12 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import chroma from "chroma-js";
+import {
+  TornadoDataType,
+  TornadoDatasetType,
+  TornadoProps,
+} from "./TornadoChartType";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -18,39 +24,21 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import data from "./data.json";
-
-interface SunburstChartProps {
-  width: number;
-  height: number;
-}
 
 const colorPalette = chroma.scale(["#8DDAEE", "#00474F"]).mode("lch").colors(2);
 
-type ChartDatasetType = {
-  label: string;
-  data: number[];
-  backgroundColor?: string | null;
-};
-
-type ChartDataType = {
-  labels: string[];
-  datasets: ChartDatasetType[];
-};
-
-export function datasetGenerator(data: any) {
-  let chartDataset: ChartDataType;
+function generateDataset(data: TornadoDataType) {
   let labels: string[] = [];
   let positiveData: number[] = [];
   let negativeData: number[] = [];
 
-  data.data.map(({ category, value }) => {
-    labels.push(category);
+  data.data.map(({ label, value }) => {
+    labels.push(label);
     positiveData.push(value);
     negativeData.push(value - 100);
   });
 
-  chartDataset = {
+  return {
     labels: labels,
     datasets: [
       {
@@ -65,12 +53,10 @@ export function datasetGenerator(data: any) {
       },
     ],
   };
-
-  return chartDataset;
 }
 
-const TornadoChart: React.FC<SunburstChartProps> = ({ width, height }) => {
-  const dataset: any = datasetGenerator(data);
+const TornadoChart: React.FC<TornadoProps> = ({ width, height, data }) => {
+  const dataset: TornadoDatasetType = generateDataset(data);
 
   const options: any = {
     indexAxis: "y" as const,
@@ -95,7 +81,7 @@ const TornadoChart: React.FC<SunburstChartProps> = ({ width, height }) => {
 
   return (
     <div style={{ width, height }}>
-      <Bar options={options} data={dataset} />
+      <Bar options={options} data={dataset as any} />
     </div>
   );
 };
