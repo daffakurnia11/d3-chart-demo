@@ -27,44 +27,44 @@
   ],
   "data": [
     {
-      "category": "Workplace Processes",
-      "value": 75
+      "label": "Workplace Processes",
+      "score": 75
     },
     {
-      "category": "Value Proposition",
-      "value": 73
+      "label": "Value Proposition",
+      "score": 73
     },
     {
-      "category": "Leadership",
-      "value": 69
+      "label": "Leadership",
+      "score": 69
     },
     {
-      "category": "Sales Processes",
-      "value": 66
+      "label": "Sales Processes",
+      "score": 66
     },
     {
-      "category": "Financial Structures",
-      "value": 65
+      "label": "Financial Structures",
+      "score": 65
     },
     {
-      "category": "Operating Model",
-      "value": 61
+      "label": "Operating Model",
+      "score": 61
     },
     {
-      "category": "Governance",
-      "value": 58
+      "label": "Governance",
+      "score": 58
     },
     {
-      "category": "HR Processes",
-      "value": 55
+      "label": "HR Processes",
+      "score": 55
     },
     {
-      "category": "HR Strategy",
-      "value": 50
+      "label": "HR Strategy",
+      "score": 50
     },
     {
-      "category": "Management Processes",
-      "value": 47
+      "label": "Management Processes",
+      "score": 47
     }
   ]
 }

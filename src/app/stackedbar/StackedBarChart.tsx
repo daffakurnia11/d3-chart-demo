@@ -36,8 +36,8 @@ type DatasetType = {
     value: number;
   }[];
   data: {
-    category: string;
-    value: number;
+    label: string;
+    score: number;
   }[];
 };
 
@@ -74,9 +74,9 @@ export function datasetGenerator(data: DatasetType) {
   let valueData: number[] = [];
   let datasetArray: ChartDatasetType[] = [];
 
-  data.data.map(({ category, value }) => {
-    labels.push(category);
-    valueData.push(value);
+  data.data.map(({ label, score }) => {
+    labels.push(label);
+    valueData.push(score);
   });
   datasetArray.push({
     label: "Value",
