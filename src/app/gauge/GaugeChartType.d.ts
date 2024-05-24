@@ -1,9 +1,11 @@
 export type BarGaugeDataType = {
   parameter: {
+    id: number;
     label: string;
     value: number;
   }[];
   data: {
+    id: number;
     label: string;
     value: number;
   }[];
