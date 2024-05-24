@@ -31,14 +31,14 @@ interface SunburstChartProps {
 }
 
 type DatasetType = {
-  category: string;
-  non_active: number;
-  non_complaint: number;
-  grudging: number;
-  complaint: number;
-  engaged: number;
-  committed: number;
-  value: number;
+  parameter: {
+    name: string;
+    value: number;
+  }[];
+  data: {
+    category: string;
+    value: number;
+  }[];
 };
 
 type ChartDatasetType = {
@@ -73,91 +73,48 @@ const colorPalette = chroma
   .mode("lch")
   .colors(7);
 
-export function datasetGenerator(data: DatasetType[]) {
+export function datasetGenerator(data: DatasetType) {
   let chartDataset: ChartDataType | any;
   let labels: string[] = [];
-  let nonActiveData: number[] = [];
-  let nonComplaintData: number[] = [];
-  let grudgingData: number[] = [];
-  let complaintData: number[] = [];
-  let engagedData: number[] = [];
-  let committedData: number[] = [];
   let valueData: number[] = [];
+  let datasetArray: Object[] = [];
 
-  data.map((item: DatasetType) => {
-    labels.push(item.category);
-    nonActiveData.push(item.non_active);
-    nonComplaintData.push(item.non_complaint);
-    grudgingData.push(item.grudging);
-    complaintData.push(item.complaint);
-    engagedData.push(item.engaged);
-    committedData.push(item.committed);
-    valueData.push(item.value);
+  data.data.map(({ category, value }) => {
+    labels.push(category);
+    valueData.push(value);
   });
+  datasetArray.push({
+    label: "Value",
+    stack: "stack1",
+    order: 1,
+    data: valueData,
+    backgroundColor: colorPalette[6],
+    type: "bar",
+  });
+
+  const generateParameterData = (value) => {
+    let valueArray: number[] = [];
+    for (let i = 0; i < data.data.length; i++) {
+      valueArray.push(value);
+    }
+    return valueArray;
+  };
+
+  data.parameter.map(({ name, value }, index) => {
+    datasetArray.push({
+      label: name,
+      stack: "stack2",
+      order: 2,
+      data: generateParameterData(value),
+      backgroundColor: colorPalette[index],
+      type: "bar",
+    });
+  });
+  console.log(datasetArray);
 
   chartDataset = {
     labels: labels,
-    datasets: [
-      {
-        label: "Value",
-        stack: "stack1",
-        order: 1,
-        data: valueData,
-        backgroundColor: colorPalette[6],
-        borderColor: colorPalette[6],
-        type: "bar",
-        pointRadius: 5,
-        pointHoverRadius: 7,
-      },
-      {
-        label: "Non-Active",
-        stack: "stack2",
-        order: 2,
-        data: nonActiveData,
-        backgroundColor: colorPalette[0],
-        type: "bar",
-      },
-      {
-        label: "Non-Complaint",
-        stack: "stack2",
-        order: 2,
-        data: nonComplaintData,
-        backgroundColor: colorPalette[1],
-        type: "bar",
-      },
-      {
-        label: "Grudging",
-        stack: "stack2",
-        order: 2,
-        data: grudgingData,
-        backgroundColor: colorPalette[2],
-        type: "bar",
-      },
-      {
-        label: "Complaint",
-        stack: "stack2",
-        order: 2,
-        data: complaintData,
-        backgroundColor: colorPalette[3],
-        type: "bar",
-      },
-      {
-        label: "Engaged",
-        stack: "stack2",
-        order: 2,
-        data: engagedData,
-        backgroundColor: colorPalette[4],
-        type: "bar",
-      },
-      {
-        label: "Committed",
-        stack: "stack2",
-        order: 2,
-        data: committedData,
-        backgroundColor: colorPalette[5],
-        type: "bar",
-      },
-    ],
+    datasets: datasetArray,
   };
   return chartDataset;
 }
