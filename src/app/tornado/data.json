@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "category": "Workplace Processes",
+      "value": 75
+    },
+    {
+      "category": "Value Proposition",
+      "value": 73
+    },
+    {
+      "category": "Leadership",
+      "value": 69
+    },
+    {
+      "category": "Sales Processes",
+      "value": 66
+    },
+    {
+      "category": "Financial Structures",
+      "value": 65
+    },
+    {
+      "category": "Operating Model",
+      "value": 61
+    },
+    {
+      "category": "Governance",
+      "value": 58
+    },
+    {
+      "category": "HR Processes",
+      "value": 55
+    },
+    {
+      "category": "HR Strategy",
+      "value": 50
+    },
+    {
+      "category": "Management Processes",
+      "value": 47
+    }
+  ]
+}

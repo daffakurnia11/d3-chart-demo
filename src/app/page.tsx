@@ -41,6 +41,11 @@ export default function Home() {
               Gauge
             </button>
           </Link>
+          <Link href={"/tornado"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
+              Tornado
+            </button>
+          </Link>
           <h2 className="text-xl font-bold mt-4 mb-3">
             Organization Dashboard Report Demo
           </h2>

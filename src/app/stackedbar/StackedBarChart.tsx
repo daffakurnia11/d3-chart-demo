@@ -42,16 +42,11 @@ type DatasetType = {
 };
 
 type ChartDatasetType = {
-  label:
-    | "Non-Active"
-    | "Non-Complaint"
-    | "Grudging"
-    | "Complaint"
-    | "Engaged"
-    | "Committed"
-    | "Value";
-  data: number[];
-  backgroundColor?: string | null;
+  label: string;
+  stack: string;
+  order: number;
+  data: string[] | number[];
+  backgroundColor: string;
   type: string;
 };
 
@@ -74,10 +69,10 @@ const colorPalette = chroma
   .colors(7);
 
 export function datasetGenerator(data: DatasetType) {
-  let chartDataset: ChartDataType | any;
+  let chartDataset: ChartDataType;
   let labels: string[] = [];
   let valueData: number[] = [];
-  let datasetArray: Object[] = [];
+  let datasetArray: ChartDatasetType[] = [];
 
   data.data.map(({ category, value }) => {
     labels.push(category);
@@ -110,7 +105,6 @@ export function datasetGenerator(data: DatasetType) {
       type: "bar",
     });
   });
-  console.log(datasetArray);
 
   chartDataset = {
     labels: labels,
