@@ -3,15 +3,9 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { assignColorsToData } from "../utils";
+import { SunburstProps } from "./SunburstChartType";
 
-interface SunburstChartProps {
-  data: any;
-  state?: "all" | "positive" | "negative";
-  width?: number | string;
-  height?: number | string;
-}
-
-const SunburstChart: React.FC<SunburstChartProps> = ({
+const SunburstChart: React.FC<SunburstProps> = ({
   width,
   height,
   data,

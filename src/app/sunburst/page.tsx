@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import SunburstChart from "./SunburstChart";
 import data from "./data.json";
+import { SunburstStateType } from "./SunburstChartType";
 
 export default function SankeyPage() {
-  const [state, setState] = useState<"all" | "positive" | "negative">("all");
+  const [state, setState] = useState<SunburstStateType>("all");
 
   return (
     <div className="w-screen min-h-screen flex items-center justify-center flex-col">
