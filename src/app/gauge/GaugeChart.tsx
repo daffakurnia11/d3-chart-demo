@@ -1,13 +1,36 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import chroma from "chroma-js";
-import dataset from "./data.json";
+import {
+  BarGaugeDataType,
+  BarGaugeDatasetType,
+  GenerateDatasetType,
+} from "./GaugeChartType";
 
-const GaugeChart = () => {
+const generateDataset = (data: BarGaugeDataType, index: number) => {
+  const { value } = data.data[index];
+  let dataArray: BarGaugeDatasetType[] = [];
+  let increament = 0;
+  for (let i = 0; i < data.parameter.length; i++) {
+    dataArray.push({
+      label: data.parameter[i].label,
+      min: increament,
+      max: increament + data.parameter[i].value,
+    });
+    increament = increament + data.parameter[i].value;
+  }
+
+  return {
+    value,
+    data: dataArray,
+  };
+};
+
+const GaugeChart = ({ data }: { data: BarGaugeDataType }) => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const data: any = dataset.data;
+    const dataset: GenerateDatasetType = generateDataset(data, 0);
 
     const width = 800;
     const height = 400;
@@ -17,7 +40,7 @@ const GaugeChart = () => {
     const colorScale = chroma
       .scale(["#535554", "#5D6768", "#01474F", "#206970", "#0097B2", "#A9EDF8"])
       .mode("lch")
-      .colors(data.length);
+      .colors(6);
 
     const svg = d3
       .select(ref.current)
@@ -40,7 +63,7 @@ const GaugeChart = () => {
 
     const arcs = svg
       .selectAll(".arc")
-      .data(pie(data))
+      .data(pie(dataset.data as any))
       .enter()
       .append("g")
       .attr("class", "arc");
@@ -53,10 +76,9 @@ const GaugeChart = () => {
     // Separator lines
     const separatorLines = arcs.data().map((d: any, i) => {
       return {
-        // angle: (d.startAngle + d.endAngle) / 2,
         angle: d.endAngle,
-        label: data[i].label, // Assuming your data items have a 'label' property
-        stroke: i !== data.length - 1,
+        label: data.data[i].label, // Assuming your data items have a 'label' property
+        stroke: i !== data.data.length - 1,
       };
     });
 
@@ -80,14 +102,11 @@ const GaugeChart = () => {
         const angle = (d.startAngle + d.endAngle) / 2;
         return `translate(${centroid}) rotate(${(angle * 180) / Math.PI})`;
       })
-      .attr("dy", "0.35em")
+      .attr("dy", "1em")
       .style("text-anchor", "middle")
       .style("font-size", "12px")
       .selectAll("tspan")
-      .data((d: any) => {
-        const label = d.data.label.split("-");
-        return label;
-      })
+      .data((d: any) => d.data.label)
       .enter()
       .append("tspan")
       .text((text: any, i: number, nodes: any) => {
@@ -113,9 +132,7 @@ const GaugeChart = () => {
         }
 
         return text;
-      })
-      .attr("x", 0)
-      .attr("dy", (_, i) => i * 16);
+      });
 
     const scale = d3
       .scaleLinear()
@@ -227,7 +244,7 @@ const GaugeChart = () => {
       .attr("font-size", "2em")
       .attr("font-weight", "bold")
       .text(`${needleValue}%`);
-  }, []);
+  }, [data]);
 
   return <svg ref={ref} />;
 };

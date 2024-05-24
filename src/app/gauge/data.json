@@ -1,35 +1,70 @@
 {
-  "value": 73,
+  "parameter": [
+    {
+      "label": "Non-Active",
+      "value": 25
+    },
+    {
+      "label": "Non-Compliant",
+      "value": 20
+    },
+    {
+      "label": "Grudging",
+      "value": 15
+    },
+    {
+      "label": "Compliant",
+      "value": 15
+    },
+    {
+      "label": "Engaged",
+      "value": 15
+    },
+    {
+      "label": "Committed",
+      "value": 10
+    }
+  ],
   "data": [
     {
-      "label": "Deteriorating-(Apathic)",
-      "min": 0,
-      "max": 25
+      "label": "Workplace Processes",
+      "value": 75
     },
     {
-      "label": "Inhibiting-(Non Compliant)",
-      "min": 25,
-      "max": 45
+      "label": "Value Proposition",
+      "value": 73
     },
     {
-      "label": "Entropic-(Formal)",
-      "min": 45,
-      "max": 60
+      "label": "Leadership",
+      "value": 69
     },
     {
-      "label": "Scalable-(Compliant)",
-      "min": 60,
-      "max": 75
+      "label": "Sales Processes",
+      "value": 66
     },
     {
-      "label": "Innovative-(Enrolled)",
-      "min": 75,
-      "max": 90
+      "label": "Financial Structures",
+      "value": 65
     },
     {
-      "label": "Regenerative-(Committed)",
-      "min": 90,
-      "max": 100
+      "label": "Operating Model",
+      "value": 61
+    },
+    {
+      "label": "Governance",
+      "value": 58
+    },
+    {
+      "label": "HR Processes",
+      "value": 55
+    },
+    {
+      "label": "HR Strategy",
+      "value": 50
+    },
+    {
+      "label": "Management Processes",
+      "value": 47
     }
   ]
 }
