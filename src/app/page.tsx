@@ -21,11 +21,6 @@ export default function Home() {
               Bar
             </button>
           </Link>
-          <Link href={"/stackedbar"} className="block w-full">
-            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
-              Stacked Bar
-            </button>
-          </Link>
           <Link href={"/circles"} className="block w-full">
             <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
               Packed Circles
@@ -39,6 +34,11 @@ export default function Home() {
           <Link href={"/gauge"} className="block w-full">
             <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
               Gauge
+            </button>
+          </Link>
+          <Link href={"/bargauge"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full">
+              Bar Gauge
             </button>
           </Link>
           <Link href={"/tornado"} className="block w-full">

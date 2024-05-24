@@ -113,7 +113,7 @@ export function datasetGenerator(data: DatasetType) {
   return chartDataset;
 }
 
-const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
+const BarGaugeChart: React.FC<SunburstChartProps> = ({ width, height }) => {
   const dataset: any = datasetGenerator(data);
 
   const options: any = {
@@ -160,4 +160,4 @@ const StackedBarChart: React.FC<SunburstChartProps> = ({ width, height }) => {
   );
 };
 
-export default StackedBarChart;
+export default BarGaugeChart;
