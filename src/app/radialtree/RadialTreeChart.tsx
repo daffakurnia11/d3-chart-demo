@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { createRoot } from "react-dom/client";
 import { assignColorsToData } from "../utils";
 import { RadialTreeProps } from "./RadialTreeChartType";
+import Link from "next/link";
 
 const RadialTreeChart: React.FC<RadialTreeProps> = ({
   width,
   height,
   data,
+  detailPagePrefix,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -90,6 +93,7 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .attr("y", "-0.5em") // Align with the text vertically
       .attr("width", 0) // Set a fixed width or calculate based on text length
       .attr("height", "1em") // Height based on text size
+      .attr("id", (_, i: number) => `bar-${i}`)
       .style("fill", (d: any) =>
         d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
           ? d.data.color
@@ -128,6 +132,37 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .style("cursor", "default")
       .style("opacity", 0)
       .style("transition", "opacity 0.3s ease-in-out");
+
+    nodes
+      .append("foreignObject")
+      .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28) // Set a fixed width or calculate based on text length
+      .attr("height", "1em")
+      .attr("x", -5)
+      .attr("y", "-0.5em")
+      .append("xhtml:div")
+      .attr("id", (_, i: number) => `bar-${i}-link`)
+      .style("width", "100%")
+      .style("height", "100%");
+
+    nodes.each(function (d: any, i: number) {
+      if (d.data.name !== "ROOT") {
+        const dom = document.getElementById(`bar-${i}-link`);
+        if (dom) {
+          const root = createRoot(dom as Element);
+          root.render(
+            <Link
+              href={detailPagePrefix + "/" + d.parent.data.name.toLowerCase()}
+              className="cursor-pointer block z-50"
+              style={{
+                width: `${(d.data.score / 100) * (100 - 28) + 28}`,
+                height: "1em",
+                content: "",
+              }}
+            ></Link>
+          );
+        }
+      }
+    });
 
     // Draw node labels
     const barsLabel = nodes

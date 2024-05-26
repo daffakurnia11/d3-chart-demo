@@ -15,6 +15,7 @@ export type RadialTreeDataType = {
 
 export type RadialTreeProps = {
   data: RadialTreeDataType
+  detailPagePrefix?: string;
   width?: number | string;
   height?: number | string;
 }
