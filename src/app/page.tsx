@@ -31,6 +31,11 @@ export default function Home() {
               Sunburst
             </button>
           </Link>
+          <Link href={"/radialtree"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50">
+              Radial Tree
+            </button>
+          </Link>
           <Link href={"/sankey"} className="block w-full" aria-disabled>
             <button
               className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50"
@@ -45,14 +50,6 @@ export default function Home() {
               disabled
             >
               Bar
-            </button>
-          </Link>
-          <Link href={"/radialtree"} className="block w-full" aria-disabled>
-            <button
-              className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50"
-              disabled
-            >
-              Radial Tree
             </button>
           </Link>
           <h2 className="text-xl font-bold mt-4 mb-3">
