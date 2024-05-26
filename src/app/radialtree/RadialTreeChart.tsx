@@ -10,6 +10,7 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
   height,
   data,
   detailPagePrefix,
+  state,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -84,7 +85,13 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .attr("id", (_, i: number) => `node-${i}`)
       .append("circle")
       .attr("r", 5)
-      .style("fill", (d: any) => (d.data.color ? d.data.color : "transparent"));
+      .style("fill", (d: any) => (d.data.color ? d.data.color : "transparent"))
+      .style("filter", (d: any) => {
+        if (state && d.data.name !== state?.toUpperCase()) {
+          return "grayscale(100%)";
+        }
+        return "grayscale(0)";
+      });
 
     // Draw node percentage bars
     const bars = nodes
@@ -99,6 +106,16 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
           ? d.data.color
           : "transparent"
       )
+      .style("filter", (d: any) => {
+        if (
+          state &&
+          d.data.name !== "ROOT" &&
+          d.parent.data.name !== state?.toUpperCase()
+        ) {
+          return "grayscale(100%)";
+        }
+        return "grayscale(0)";
+      })
       .style("transition", "opacity 0.3s ease-in-out");
 
     bars
@@ -135,7 +152,12 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
 
     nodes
       .append("foreignObject")
-      .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28) // Set a fixed width or calculate based on text length
+      .attr("width", (d: any) => {
+        if (d.data.name !== "ROOT" && d.parent.data.name === "ROOT") {
+          return 10;
+        }
+        return (d.data.score / 100) * (100 - 28) + 28;
+      }) // Set a fixed width or calculate based on text length
       .attr("height", "1em")
       .attr("x", -5)
       .attr("y", "-0.5em")
@@ -152,6 +174,27 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
           root.render(
             <Link
               href={detailPagePrefix + "/" + d.parent.data.name.toLowerCase()}
+              className="cursor-pointer block z-50"
+              style={{
+                width: `${(d.data.score / 100) * (100 - 28) + 28}`,
+                height: "1em",
+                content: "",
+              }}
+            ></Link>
+          );
+        }
+        const parentDom = document.getElementById(`node-${i}`);
+        if (parentDom) {
+          const root = createRoot(dom as Element);
+          root.render(
+            <Link
+              href={
+                detailPagePrefix +
+                "/" +
+                (d.parent.data.name === "ROOT"
+                  ? d.data.name
+                  : d.parent.data.name.toLowerCase())
+              }
               className="cursor-pointer block z-50"
               style={{
                 width: `${(d.data.score / 100) * (100 - 28) + 28}`,
