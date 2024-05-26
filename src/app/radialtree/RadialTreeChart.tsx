@@ -84,11 +84,11 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .style("fill", (d: any) => (d.data.color ? d.data.color : "transparent"));
 
     // Draw node percentage bars
-    nodes
+    const bars = nodes
       .append("rect")
       .attr("x", -5) // Position based on the text
       .attr("y", "-0.5em") // Align with the text vertically
-      .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28) // Set a fixed width or calculate based on text length
+      .attr("width", 0) // Set a fixed width or calculate based on text length
       .attr("height", "1em") // Height based on text size
       .style("fill", (d: any) =>
         d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
@@ -96,6 +96,11 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
           : "transparent"
       )
       .style("transition", "opacity 0.3s ease-in-out");
+
+    bars
+      .transition()
+      .duration(500)
+      .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28); // Set a fixed width or calculate based on text length
 
     // Draw node percentage labels
     nodes
@@ -125,13 +130,13 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .style("transition", "opacity 0.3s ease-in-out");
 
     // Draw node labels
-    nodes
+    const barsLabel = nodes
       .append("text")
       .attr("dy", ".31em")
       .attr("x", (d: any) => {
         let padding: number;
         if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
-          padding = (d.data.score / 100) * (100 - 28) + 28;
+          return 0;
         } else {
           padding = 6;
         }
@@ -150,6 +155,19 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       )
       .style("cursor", "default")
       .style("transition", "opacity 0.3s ease-in-out");
+
+    barsLabel
+      .transition()
+      .duration(500)
+      .attr("x", (d: any) => {
+        let padding: number;
+        if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
+          padding = (d.data.score / 100) * (100 - 28) + 28;
+        } else {
+          padding = 6;
+        }
+        return d.x < Math.PI === !d.children ? padding : -padding;
+      });
 
     // Add interaction of hovering over nodes
     nodes
