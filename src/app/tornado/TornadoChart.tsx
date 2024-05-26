@@ -25,37 +25,44 @@ ChartJS.register(
   Legend
 );
 
-const colorPalette = chroma.scale(["#8DDAEE", "#00474F"]).mode("lch").colors(2);
+const TornadoChart: React.FC<TornadoProps> = ({
+  width,
+  height,
+  data,
+  color,
+}) => {
+  const colorPalette = chroma
+    .scale(color ? [color, "#A4A4AB"] : ["#8DDAEE", "#00474F"])
+    .mode("lch")
+    .colors(2);
 
-function generateDataset(data: TornadoDataType) {
-  let labels: string[] = [];
-  let positiveData: number[] = [];
-  let negativeData: number[] = [];
+  function generateDataset(data: TornadoDataType) {
+    let labels: string[] = [];
+    let positiveData: number[] = [];
+    let negativeData: number[] = [];
 
-  data.data.map(({ label, value }) => {
-    labels.push(label);
-    positiveData.push(value);
-    negativeData.push(value - 100);
-  });
+    data.data.map(({ label, value }) => {
+      labels.push(label);
+      positiveData.push(value);
+      negativeData.push(value - 100);
+    });
 
-  return {
-    labels: labels,
-    datasets: [
-      {
-        label: "Positive",
-        data: positiveData,
-        backgroundColor: colorPalette[0],
-      },
-      {
-        label: "Negative",
-        data: negativeData,
-        backgroundColor: colorPalette[1],
-      },
-    ],
-  };
-}
-
-const TornadoChart: React.FC<TornadoProps> = ({ width, height, data }) => {
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: "Positive",
+          data: positiveData,
+          backgroundColor: colorPalette[0],
+        },
+        {
+          label: "Negative",
+          data: negativeData,
+          backgroundColor: colorPalette[1],
+        },
+      ],
+    };
+  }
   const dataset: TornadoDatasetType = generateDataset(data);
 
   const options: any = {
@@ -64,7 +71,7 @@ const TornadoChart: React.FC<TornadoProps> = ({ width, height, data }) => {
     maintainAspectRatio: true,
     plugins: {
       legend: {
-        position: "right" as const,
+        display: false,
       },
     },
     scales: {
