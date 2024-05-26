@@ -36,6 +36,11 @@ export default function Home() {
               Radial Tree
             </button>
           </Link>
+          <Link href={"/blueprintgauge"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50">
+              Blueprint
+            </button>
+          </Link>
           <Link href={"/sankey"} className="block w-full" aria-disabled>
             <button
               className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50"
