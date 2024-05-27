@@ -21,3 +21,9 @@ export type GenerateDatasetType = {
   value: number;
   data: GaugeDatasetType[];
 };
+
+export type GaugeProps = {
+  data: GaugeDataType;
+  width?: number | string,
+  height?: number | string,
+}

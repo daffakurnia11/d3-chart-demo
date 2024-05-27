@@ -4,6 +4,7 @@ import chroma from "chroma-js";
 import {
   GaugeDataType,
   GaugeDatasetType,
+  GaugeProps,
   GenerateDatasetType,
 } from "./GaugeChartType";
 
@@ -26,8 +27,12 @@ const generateDataset = (data: GaugeDataType, index: number) => {
   };
 };
 
-const GaugeChart = ({ data }: { data: GaugeDataType }) => {
-  const ref = useRef(null);
+const GaugeChart: React.FC<GaugeProps> = ({
+  data,
+  width = 800,
+  height = 800,
+}) => {
+  const svgRef = useRef(null);
 
   useEffect(() => {
     const dataset: GenerateDatasetType = generateDataset(data, 0);
@@ -43,7 +48,7 @@ const GaugeChart = ({ data }: { data: GaugeDataType }) => {
       .colors(6);
 
     const svg = d3
-      .select(ref.current)
+      .select(svgRef.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
@@ -246,7 +251,12 @@ const GaugeChart = ({ data }: { data: GaugeDataType }) => {
       .text(`${needleValue}%`);
   }, [data]);
 
-  return <svg ref={ref} />;
+  // return <svg ref={ref} />;
+  return (
+    <svg width={width} height={height} viewBox="0 0 800 400">
+      <svg ref={svgRef} width={"100%"} height={"100%"} />
+    </svg>
+  );
 };
 
 export default GaugeChart;
