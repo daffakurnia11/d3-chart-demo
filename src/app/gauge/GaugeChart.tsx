@@ -37,7 +37,7 @@ const GaugeChart: React.FC<GaugeProps> = ({
   useEffect(() => {
     const dataset: GenerateDatasetType = generateDataset(data, 0);
 
-    const width = 800;
+    const width = 400;
     const height = 400;
     const innerRadius = 100;
     const outerRadius = 200;
@@ -253,7 +253,7 @@ const GaugeChart: React.FC<GaugeProps> = ({
 
   // return <svg ref={ref} />;
   return (
-    <svg width={width} height={height} viewBox="0 0 800 400">
+    <svg width={width} height={height} viewBox="0 0 400 400">
       <svg ref={svgRef} width={"100%"} height={"100%"} />
     </svg>
   );

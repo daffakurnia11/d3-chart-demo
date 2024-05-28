@@ -9,7 +9,7 @@ export default function SankeyPage() {
     <div className="w-screen min-h-screen flex items-center justify-center flex-col">
       <h1 className="text-3xl font-bold text-center">Gauge Chart Test</h1>
       <div className="flex justify-center items-center">
-        <GaugeChart data={data} width={800} height={400} />
+        <GaugeChart data={data} width={400} height={400} />
       </div>
     </div>
   );
