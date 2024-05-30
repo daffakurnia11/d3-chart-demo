@@ -4,13 +4,8 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
-import chroma from "chroma-js";
-import data from "./data.json";
-
-interface SankeyChartProps {
-  width: number;
-  height: number;
-}
+import { assignSankeyColor } from "../utils";
+import { SankeyProps } from "./SankeyChartType";
 
 function hideTextBasedOnConstraints(svg: any, links: any) {
   svg
@@ -56,26 +51,34 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
     });
 }
 
-const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
+const SankeyChart: React.FC<SankeyProps> = ({
+  data,
+  width = 1200,
+  height = 600,
+}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const sankeyData = data;
+  const sankeyData = assignSankeyColor(data);
 
   useEffect(() => {
-    if (!sankeyData) {
-      return;
-    }
+    if (!containerRef.current || !sankeyData) return;
+
+    const containerWidth = containerRef.current.clientWidth;
+    const containerHeight =
+      height === "auto"
+        ? containerWidth * 0.5
+        : containerRef.current.clientHeight;
+
     const sankeyGenerator = sankey()
       .nodeWidth(16)
       .nodePadding(8)
       .extent([
         [45, 15],
-        [width - 15, height - 15],
+        [containerWidth - 15, containerHeight - 15],
       ]);
 
     const { nodes, links } = sankeyGenerator(sankeyData as any);
-
-    const colorScale = chroma.scale("Set2").colors(nodes.length);
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
@@ -96,12 +99,12 @@ const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
     grads
       .append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", (d: any) => colorScale[d.source.index]);
+      .attr("stop-color", (d: any) => d.source.color);
 
     grads
       .append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", (d: any) => colorScale[d.target.index]);
+      .attr("stop-color", (d: any) => d.target.color);
 
     const link = svg
       .append("g")
@@ -124,7 +127,7 @@ const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
       .append("text")
       .attr("class", (d) => `link-text link-text-${d.index}`)
       .attr("x", (d: any) =>
-        d.source.index === 0 ? d.source.x0 - 20 : d.source.x1 + 20
+        d.source.targetLinks.length === 0 ? d.source.x0 - 20 : d.source.x1 + 20
       )
       .attr("y", (d: any) => d.y0)
       .attr("dy", "0.35em")
@@ -154,16 +157,20 @@ const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
       .attr("height", (d: any) => d.y1 - d.y0)
       .attr("width", sankeyGenerator.nodeWidth())
       .attr("class", (d) => `node-rect node-rect-${d.index}`)
-      .style("fill", (_, i) => colorScale[i])
+      .style("fill", (d: any, i) => d.color)
       .style("opacity", 1)
       .style("transition", "opacity 0.3s ease-in-out");
 
     node
       .append("text")
-      .attr("x", (d: any, i) => (i === 0 ? d.x1 + 6 : d.x0 - 6))
+      .attr("x", (d: any, i) =>
+        d.targetLinks?.length === 0 ? d.x1 + 6 : d.x0 - 6
+      )
       .attr("y", (d: any) => (d.y1 + d.y0) / 2)
       .attr("dy", "0.35em")
-      .attr("text-anchor", (d, i) => (i === 0 ? "start" : "end"))
+      .attr("text-anchor", (d, i) =>
+        d.targetLinks?.length === 0 ? "start" : "end"
+      )
       .text((d: any) => d.name)
       .style("font", "16px sans-serif")
       .style("pointer-events", "none")
@@ -241,8 +248,8 @@ const SankeyChart: React.FC<SankeyChartProps> = ({ width, height }) => {
   }, [width, height]);
 
   return (
-    <div style={{ width: "fit-content", overflowX: "auto" }}>
-      <svg ref={svgRef} width={width} height={height} />
+    <div ref={containerRef} style={{ width, height }}>
+      <svg ref={svgRef} width="100%" height="100%" viewBox={`0 0 1200 600`} />
     </div>
   );
 };
