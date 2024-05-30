@@ -16,9 +16,14 @@ export type BluePrintGaugeProps = {
   data: BluePrintGaugeDataType;
 };
 
+export type ImpactGaugeProps = {
+  data: BluePrintGaugeDataType;
+};
+
 export type BluePrintGaugeCombinedProps = {
   firstData: BluePrintGaugeDataType;
   secondData: BluePrintGaugeDataType;
+  thirdData: BluePrintGaugeDataType;
   firstTitle: string | React.ReactElement;
   secondTitle: string | React.ReactElement;
 }

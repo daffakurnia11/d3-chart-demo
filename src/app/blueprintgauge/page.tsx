@@ -1,6 +1,7 @@
 import React from "react";
 import firstData from "./data1.json";
 import secondData from "./data2.json";
+import thirdData from "./data3.json";
 import BluePrintGauge from "./BluePrintGauge";
 
 export default function page() {
@@ -13,6 +14,7 @@ export default function page() {
         <BluePrintGauge
           firstData={firstData}
           secondData={secondData}
+          thirdData={thirdData}
           firstTitle={"First Title"}
           secondTitle={"Second Title"}
         />

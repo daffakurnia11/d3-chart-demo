@@ -42,7 +42,7 @@ const BluePrintGaugeChart: React.FC<BluePrintGaugeProps> = ({
               key={index}
               className="absolute left-0 top-3 text-[12px]"
               style={{
-                left: `${item.position}%`,
+                left: `calc(${item.position}% + 5px)`,
                 transform: "translateX(-50%)",
               }}
             >
