@@ -46,11 +46,8 @@ export default function Home() {
               Sankey
             </button>
           </Link>
-          <Link href={"/bar"} className="block w-full" aria-disabled>
-            <button
-              className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50"
-              disabled
-            >
+          <Link href={"/bar"} className="block w-full">
+            <button className="border border-solid rounded px-4 py-2 mb-3 w-full disabled:opacity-50">
               Bar
             </button>
           </Link>

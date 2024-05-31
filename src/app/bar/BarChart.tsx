@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { BarDataType, BarDatasetType, BarProps } from "./BarChartType";
 
 ChartJS.register(
   CategoryScale,
@@ -19,36 +20,12 @@ ChartJS.register(
   Legend
 );
 
-interface SunburstChartProps {
-  data: any;
-  width?: number | string;
-  height?: number | string;
-  color?: string;
-}
-
-type DatasetType = {
-  label: string;
-  score: number;
-};
-
-type ChartDatasetType = {
-  label: "Score" | "Baseline";
-  data: number[];
-  backgroundColor?: string | null;
-  borderRadius?: number;
-};
-
-type ChartDataType = {
-  labels: string[];
-  datasets: ChartDatasetType[];
-};
-
-export function datasetGenerator(data: DatasetType[], color?: string) {
-  let chartDataset: ChartDataType;
+export function datasetGenerator(data: BarDataType[], color?: string) {
+  let chartDataset: BarDatasetType;
   let labels: string[] = [];
   let scoreData: number[] = [];
 
-  data.map((item: DatasetType) => {
+  data.map((item: BarDataType) => {
     labels.push(item.label);
     scoreData.push(item.score);
   });
@@ -67,12 +44,7 @@ export function datasetGenerator(data: DatasetType[], color?: string) {
   return chartDataset;
 }
 
-const BarChart: React.FC<SunburstChartProps> = ({
-  width,
-  height,
-  data,
-  color,
-}) => {
+const BarChart: React.FC<BarProps> = ({ width, height, data, color }) => {
   const dataset: any = datasetGenerator(data, color);
 
   const options: any = {
