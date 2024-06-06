@@ -1,92 +1,103 @@
-// eslint-disable-file
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
+import {
+  SankeyLinksDataType,
+  SankeyNodesDataType,
+  SankeyProps,
+} from "./SankeyChartType";
 import { assignSankeyColor } from "../utils";
-import { SankeyProps } from "./SankeyChartType";
 
 function hideTextBasedOnConstraints(svg: any, links: any) {
-  svg
-    .selectAll(".node-text")
-    .style("opacity", 1)
-    .each(function (this: SVGTextElement, d: any) {
-      const self = d3.select(this);
-      const bbox = self.node()!.getBBox();
-      const textHeight = bbox.height;
-      const nodeHeight = d.y1 - d.y0;
+  svg.selectAll(".node-text").each(function (this: SVGTextElement, d: any) {
+    const self = d3.select(this);
+    const textLength = self.node()!.getComputedTextLength();
+    let availableWidth;
 
-      if (textHeight > nodeHeight) {
-        self.style("opacity", 0);
-      }
-    });
+    if (d.targetLinks.length === 0) {
+      const minTargetX0 = Math.min(
+        ...links.filter((l: any) => l.source === d).map((l: any) => l.target.x0)
+      );
+      availableWidth = minTargetX0 - d.x1 - 50;
+    } else {
+      const maxSourceX1 = Math.max(
+        ...links.filter((l: any) => l.target === d).map((l: any) => l.source.x1)
+      );
+      availableWidth = d.x0 - maxSourceX1 - 10;
+    }
 
-  svg
-    .selectAll(".node-text")
-    .each(function (this: SVGTextElement, d: any, i: number) {
-      const self = d3.select(this);
-      const textLength = self.node()!.getComputedTextLength();
-      let availableWidth;
-
-      if (i === 0) {
-        const minTargetX0 = Math.min(
-          ...links
-            .filter((l: any) => l.source === d)
-            .map((l: any) => l.target.x0)
-        );
-        availableWidth = minTargetX0 - d.x1 - 12;
-      } else {
-        const maxSourceX1 = Math.max(
-          ...links
-            .filter((l: any) => l.target === d)
-            .map((l: any) => l.source.x1)
-        );
-        availableWidth = d.x0 - maxSourceX1 - 10;
-      }
-
-      if (textLength > availableWidth) {
-        self.style("opacity", 0);
-      }
-    });
+    if (textLength > availableWidth) {
+      self.style("opacity", 0);
+    }
+  });
 }
 
-const SankeyChart: React.FC<SankeyProps> = ({
-  data,
-  width = 1200,
-  height = 600,
-}) => {
+const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [dimensions, setDimensions] = useState<{
+    width: number;
+    height: number;
+  }>({ width: 0, height: 0 });
 
-  const sankeyData = assignSankeyColor(data);
+  const aspectRatio = 1200 / 800;
 
   useEffect(() => {
-    if (!containerRef.current || !sankeyData) return;
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!entries || entries.length === 0) return;
+      const { width } = entries[0].contentRect;
+      const height = width / aspectRatio;
+      setDimensions({ width, height });
+    });
 
-    const containerWidth = containerRef.current.clientWidth;
-    const containerHeight =
-      height === "auto"
-        ? containerWidth * 0.5
-        : containerRef.current.clientHeight;
+    if (wrapperRef.current) {
+      resizeObserver.observe(wrapperRef.current);
+    }
 
-    const sankeyGenerator = sankey()
+    return () => {
+      if (wrapperRef.current) {
+        resizeObserver.unobserve(wrapperRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!data || dimensions.width === 0 || dimensions.height === 0) return;
+
+    const { nodes, links } = assignSankeyColor(data);
+    const { width, height } = dimensions;
+
+    // Select the SVG element and set its width and height
+    const svg = d3
+      .select(svgRef.current)
+      .attr("width", width)
+      .attr("height", height);
+
+    // Initialize the sankey generator with specified node width, padding, and extent
+    const sankeyGenerator = sankey<SankeyNodesDataType, SankeyLinksDataType>()
       .nodeWidth(16)
-      .nodePadding(8)
+      .nodePadding(16)
       .extent([
         [45, 15],
-        [containerWidth - 15, containerHeight - 15],
+        [width - 15, height - 15],
       ]);
 
-    const { nodes, links } = sankeyGenerator(sankeyData as any);
+    // Generate the sankey layout data (nodes and links)
+    const { nodes: sankeyNodes, links: sankeyLinks } = sankeyGenerator({
+      nodes: nodes.map((d: any) => ({ ...d })),
+      links: links.map((d: any) => ({ ...d })),
+    });
 
-    const svg = d3.select(svgRef.current);
+    // Clear any existing elements in the SVG
     svg.selectAll("*").remove();
 
+    // Define gradients for each link
     const grads = svg
       .append("defs")
       .selectAll("linearGradient")
-      .data(links)
+      .data(sankeyLinks)
       .enter()
       .append("linearGradient")
       .attr("id", (_, i: number) => `grad-${i}`)
@@ -96,33 +107,37 @@ const SankeyChart: React.FC<SankeyProps> = ({
       .attr("y1", (d: any) => (d.source.y0 + d.source.y1) / 2)
       .attr("y2", (d: any) => (d.target.y0 + d.target.y1) / 2);
 
+    // Gradient start color
     grads
       .append("stop")
       .attr("offset", "0%")
       .attr("stop-color", (d: any) => d.source.color);
 
+    // Gradient end color
     grads
       .append("stop")
       .attr("offset", "100%")
       .attr("stop-color", (d: any) => d.target.color);
 
+    // Add links (paths) to the SVG
     const link = svg
       .append("g")
       .attr("fill", "none")
-      .selectAll("path")
-      .data(links)
+      .selectAll(".link")
+      .data(sankeyLinks)
       .enter()
       .append("path")
-      .attr("d", sankeyLinkHorizontal())
+      .attr("d", sankeyLinkHorizontal()) // Define the path generator for links
       .attr("class", (d) => `node-link node-link-${d.index}`)
-      .style("stroke", (_, i) => `url(#grad-${i})`)
-      .style("stroke-width", (d: any) => Math.max(1, d.width))
-      .style("stroke-opacity", 1)
+      .attr("stroke", (_, i) => `url(#grad-${i})`) // Use the defined gradient
+      .attr("stroke-width", (d: any) => Math.max(1, d.width)) // Set the width of the link
+      .attr("stroke-opacity", 1)
       .style("transition", "stroke-opacity 0.3s ease-in-out");
 
+    // Define the value of the nodes
     svg
       .selectAll(".link-text")
-      .data(links)
+      .data(sankeyLinks)
       .enter()
       .append("text")
       .attr("class", (d) => `link-text link-text-${d.index}`)
@@ -133,7 +148,7 @@ const SankeyChart: React.FC<SankeyProps> = ({
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
       .text((d) => `${d.value}%`)
-      .style("font", "14px sans-serif")
+      .style("font", "10px sans-serif")
       .style("fill", "#000")
       .style("opacity", 0)
       .style(
@@ -142,37 +157,39 @@ const SankeyChart: React.FC<SankeyProps> = ({
       )
       .style("transition", "opacity 0.3s ease-in-out");
 
+    // Add nodes (rectangles) to the SVG
     const node = svg
       .append("g")
       .selectAll(".node")
-      .data(nodes)
+      .data(sankeyNodes)
       .enter()
       .append("g")
-      .classed("node", true);
+      .attr("class", "node")
+      .attr("transform", (d) => `translate(${d.x0},${d.y0})`); // Position the nodes
 
+    // Add rectangles for each node
     node
       .append("rect")
-      .attr("x", (d: any) => d.x0)
-      .attr("y", (d: any) => d.y0)
-      .attr("height", (d: any) => d.y1 - d.y0)
-      .attr("width", sankeyGenerator.nodeWidth())
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("height", (d: any) => d.y1 - d.y0) // Set the height of the rectangle
+      .attr("width", sankeyGenerator.nodeWidth()) // Set the width of the rectangle
       .attr("class", (d) => `node-rect node-rect-${d.index}`)
-      .style("fill", (d: any, i) => d.color)
+      .style("fill", (d: any) => d.color)
       .style("opacity", 1)
       .style("transition", "opacity 0.3s ease-in-out");
 
+    // Add text labels for each node
     node
       .append("text")
-      .attr("x", (d: any, i) =>
-        d.targetLinks?.length === 0 ? d.x1 + 6 : d.x0 - 6
-      )
-      .attr("y", (d: any) => (d.y1 + d.y0) / 2)
+      .attr("x", (d: any) => (d.targetLinks?.length === 0 ? 20 : -6))
+      .attr("y", (d: any) => (d.y1 - d.y0) / 2) // Position the text in the center of the node
       .attr("dy", "0.35em")
-      .attr("text-anchor", (d, i) =>
+      .attr("text-anchor", (d) =>
         d.targetLinks?.length === 0 ? "start" : "end"
       )
-      .text((d: any) => d.name)
-      .style("font", "16px sans-serif")
+      .text((d) => d.name)
+      .style("font", "12px sans-serif")
       .style("pointer-events", "none")
       .style("fill", "#000")
       .style("transition", "opacity 0.3s ease-in-out")
@@ -182,7 +199,7 @@ const SankeyChart: React.FC<SankeyProps> = ({
       )
       .attr("class", (d) => `node-text node-text-${d.index}`);
 
-    hideTextBasedOnConstraints(svg, links);
+    hideTextBasedOnConstraints(svg, sankeyLinks);
 
     link
       .on("mouseenter", function (_, d: any) {
@@ -205,10 +222,11 @@ const SankeyChart: React.FC<SankeyProps> = ({
       })
       .on("mouseleave", function () {
         d3.selectAll(link.nodes()).style("stroke-opacity", 1);
+        svg.selectAll(".node-text").style("opacity", 1);
 
         node.selectAll(".node-rect").style("opacity", 1);
         svg.selectAll(".link-text").style("opacity", 0);
-        hideTextBasedOnConstraints(svg, links);
+        hideTextBasedOnConstraints(svg, sankeyLinks);
       });
 
     node
@@ -240,16 +258,17 @@ const SankeyChart: React.FC<SankeyProps> = ({
       })
       .on("mouseleave", function () {
         node.selectAll(".node-rect").style("opacity", 1);
+        svg.selectAll(".node-text").style("opacity", 1);
         d3.selectAll(link.nodes()).style("stroke-opacity", 1);
         svg.selectAll(".link-text").style("opacity", 0);
 
-        hideTextBasedOnConstraints(svg, links);
+        hideTextBasedOnConstraints(svg, sankeyLinks);
       });
-  }, [width, height]);
+  }, [data, dimensions]);
 
   return (
-    <div ref={containerRef} style={{ width, height }}>
-      <svg ref={svgRef} width="100%" height="100%" viewBox={`0 0 1200 600`} />
+    <div ref={wrapperRef} style={{ width: "100%", height: "100%" }}>
+      <svg ref={svgRef}></svg>
     </div>
   );
 };

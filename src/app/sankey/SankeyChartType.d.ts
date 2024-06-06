@@ -1,6 +1,7 @@
 export type SankeyNodesDataType = {
   name: string;
   category: string;
+  color?: string;
 };
 
 export type SankeyLinksDataType = {
