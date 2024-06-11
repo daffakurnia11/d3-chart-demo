@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { assignPaletteData } from "../utils";
 import { PackedCirclesProps } from "./PackedCirclesChartType";
-import Tooltip from "../Tooltip";
+import Tooltip, { useTooltipHook } from "../Tooltip";
 
 const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   width,
@@ -12,12 +12,7 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   data,
 }) => {
   const svgRef = useRef(null);
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-    x: 0,
-    y: 0,
-    content: "",
-  });
+  const { tooltip, setTooltip } = useTooltipHook();
 
   const wrapText = (text: any, diameter: number) => {
     let words = text.text().split(/\s+/);

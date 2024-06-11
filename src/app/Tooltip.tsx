@@ -1,5 +1,7 @@
+"use client";
+
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 
 const Tooltip = ({ x, y, content, visible }) => {
   return (
@@ -22,6 +24,17 @@ const Tooltip = ({ x, y, content, visible }) => {
       </div>
     </>
   );
+};
+
+export const useTooltipHook = () => {
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: "",
+  });
+
+  return { tooltip, setTooltip };
 };
 
 export default Tooltip;
