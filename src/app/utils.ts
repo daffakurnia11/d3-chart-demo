@@ -90,7 +90,7 @@ export const assignSankeyColor = (data: any) => {
               return colorData[2];
           }
         case "SDG":
-          return colorData[Number(name.split(" ")[1]) - 1];
+          return colorData[Number(name.split(" ")[1].split(":")[0]) - 1];
         default:
           return colorData;
       }

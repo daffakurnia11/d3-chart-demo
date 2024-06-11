@@ -20,7 +20,7 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
       const minTargetX0 = Math.min(
         ...links.filter((l: any) => l.source === d).map((l: any) => l.target.x0)
       );
-      availableWidth = minTargetX0 - d.x1 - 50;
+      availableWidth = minTargetX0 - d.x1 - 30;
     } else {
       const maxSourceX1 = Math.max(
         ...links.filter((l: any) => l.target === d).map((l: any) => l.source.x1)
@@ -188,7 +188,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .attr("text-anchor", (d) =>
         d.targetLinks?.length === 0 ? "start" : "end"
       )
-      .text((d) => d.name)
+      .text((d) => d.name.split(":")[0])
       .style("font", "12px sans-serif")
       .style("pointer-events", "none")
       .style("fill", "#000")
@@ -197,7 +197,20 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
         "text-shadow",
         "2px 2px 4px white, 2px -2px 4px white, -2px 2px 4px white, -2px -2px 4px white"
       )
-      .attr("class", (d) => `node-text node-text-${d.index}`);
+      .attr("class", (d) => `node-text node-text-${d.index}`)
+      .append("tspan")
+      .attr("x", -6)
+      .attr("y", (d: any) => (d.y1 - d.y0) / 2 + 16)
+      .text((d) => d.name.split(":")[1] ?? "")
+      .style("font", "12px sans-serif")
+      .style("pointer-events", "none")
+      .style("fill", "#000")
+      .style("transition", "opacity 0.3s ease-in-out")
+      .style(
+        "text-shadow",
+        "2px 2px 4px white, 2px -2px 4px white, -2px 2px 4px white, -2px -2px 4px white"
+      )
+      .attr("class", (d) => `node-text node-desc-${d.index}`);
 
     hideTextBasedOnConstraints(svg, sankeyLinks);
 
@@ -237,6 +250,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
         );
         svg.selectAll(".node-text").style("opacity", 0);
         svg.select(`.node-text-${d.index}`).style("opacity", 1);
+        svg.select(`.node-desc-${d.index}`).style("opacity", 1);
         node.selectAll(".node-rect").style("opacity", 0.3);
         node.select(`.node-rect-${d.index}`).style("opacity", 1);
         d.sourceLinks.forEach((linkData: any) => {
