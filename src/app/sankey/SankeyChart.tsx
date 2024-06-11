@@ -9,6 +9,7 @@ import {
   SankeyProps,
 } from "./SankeyChartType";
 import { assignSankeyColor } from "../utils";
+import Tooltip, { useTooltipHook } from "../Tooltip";
 
 function hideTextBasedOnConstraints(svg: any, links: any) {
   svg.selectAll(".node-text").each(function (this: SVGTextElement, d: any) {
@@ -37,6 +38,7 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
 const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const { tooltip, setTooltip } = useTooltipHook();
   const [dimensions, setDimensions] = useState<{
     width: number;
     height: number;
@@ -269,20 +271,35 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
           svg.select(`.node-text-${linkData.source.index}`).style("opacity", 1);
           svg.select(`.link-text-${linkData.index}`).style("opacity", 1);
         });
+        if (d.description) {
+          console.log(d);
+          setTooltip({
+            visible: true,
+            x: d.x0 + (d.x1 - d.x0) / 2,
+            y: d.y1 + 6,
+            content: d.description,
+          });
+        }
       })
       .on("mouseleave", function () {
         node.selectAll(".node-rect").style("opacity", 1);
         svg.selectAll(".node-text").style("opacity", 1);
         d3.selectAll(link.nodes()).style("stroke-opacity", 1);
         svg.selectAll(".link-text").style("opacity", 0);
+        setTooltip((prev) => ({ ...prev, visible: false }));
 
         hideTextBasedOnConstraints(svg, sankeyLinks);
       });
   }, [data, dimensions]);
 
   return (
-    <div ref={wrapperRef} style={{ width: "100%", height: "100%" }}>
+    <div
+      className="relative"
+      ref={wrapperRef}
+      style={{ width: "100%", height: "100%" }}
+    >
       <svg ref={svgRef}></svg>
+      <Tooltip {...tooltip} />
     </div>
   );
 };

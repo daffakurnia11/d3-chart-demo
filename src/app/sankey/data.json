@@ -86,71 +86,88 @@
     },
     {
       "name": "SDG 1:No Poverty",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "End poverty in all its forms everywhere"
     },
     {
       "name": "SDG 2:Zero Hunger",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "End hunger, achieve food security and improved nutrition and promote sustainable agriculture"
     },
     {
       "name": "SDG 3:Good Health and Well-being",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Ensure healthy lives and promote well-being for all at all ages"
     },
     {
       "name": "SDG 4:Quality Education",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"
     },
     {
       "name": "SDG 5:Gender Equality",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Achieve gender equality and empower all women and girls"
     },
     {
       "name": "SDG 6:Clean Water and Sanitation",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Ensure availability and sustainable management of water and sanitation for all"
     },
     {
       "name": "SDG 7:Affordable and Clean Energy",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Ensure access to affordable, reliable, sustainable and modern energy for all"
     },
     {
       "name": "SDG 8:Decent Work and Economic Growth",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all"
     },
     {
       "name": "SDG 9:Industry, Innovation and Infrastructure",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation"
     },
     {
       "name": "SDG 10:Reduced Inequalities",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Reduce inequality within and among countries"
     },
     {
       "name": "SDG 11:Sustainable Cities and Communities",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Make cities and human settlements inclusive, safe, resilient and sustainable"
     },
     {
       "name": "SDG 12:Responsible Consumption and Production",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Ensure sustainable consumption and production patterns"
     },
     {
       "name": "SDG 13:Climate Action",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Take urgent action to combat climate change and its impacts"
     },
     {
       "name": "SDG 14:Life Below Water",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Conserve and sustainably use the oceans, seas and marine resources for sustainable development"
     },
     {
       "name": "SDG 15:Life on Land",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss"
     },
     {
       "name": "SDG 16:Peace, Justice and Strong Institutions",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels"
     },
     {
       "name": "SDG 17:Partnerships for the Goals",
-      "category": "SDG"
+      "category": "SDG",
+      "description": "Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development"
     },
     {
       "name": "Co-creation skills",
