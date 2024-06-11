@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { assignPaletteData } from "../utils";
 import { PackedCirclesProps } from "./PackedCirclesChartType";
+
+const Tooltip = ({ x, y, content, visible }) => {
+  return visible ? (
+    <div className="tooltip" style={{ left: x, top: y }}>
+      {content}
+    </div>
+  ) : null;
+};
 
 const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   width,
@@ -11,6 +19,12 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   data,
 }) => {
   const svgRef = useRef(null);
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: "",
+  });
 
   const wrapText = (text: any, diameter: number) => {
     let words = text.text().split(/\s+/);
@@ -92,12 +106,27 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
         })
         .style("opacity", 1)
         .style("transition", "opacity 0.3s ease-in-out")
-        .on("mouseenter", function () {
+        .on("mouseenter", function (_, d: any) {
           d3.selectAll("circle").style("opacity", 0.2);
           d3.select(this).style("opacity", 1);
+          setTooltip({
+            visible: true,
+            x: d.x,
+            y: d.y + d.r,
+            content: `${d.data.description}`,
+          });
         })
+        // .on("mousemove", function (event: any) {
+        //   setTooltip((prev) => ({
+        //     ...prev,
+        //     x: event.pageX + 10,
+        //     y: event.pageY - 10,
+        //   }));
+        // })
+
         .on("mouseleave", function () {
           d3.selectAll("circle").style("opacity", 1);
+          setTooltip((prev) => ({ ...prev, visible: false }));
         });
 
       node
@@ -109,24 +138,31 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
         .text((d: any) => d.data.label + ":" + d.data.value + "%")
         .each(function (d: any) {
           wrapText(d3.select(this), d.r * 2 - 25);
-        });
-
-      node
-        .selectAll("text") // Select all the text elements within the group
-        .on("mouseenter", function (this: any) {
+        })
+        .on("mouseenter", function (this: any, _, d: any) {
           d3.selectAll("circle").style("opacity", 0.2);
-          d3.select(this?.parentNode).select("circle").style("opacity", 1); // Select the circle within the same group
+          d3.select(this?.parentNode).select("circle").style("opacity", 1);
+          setTooltip({
+            visible: true,
+            x: d.x,
+            y: d.y,
+            content: `${d.data.description}`,
+          });
         })
         .on("mouseleave", function () {
           d3.selectAll("circle").style("opacity", 1);
+          setTooltip((prev) => ({ ...prev, visible: false }));
         });
     }
   }, [data]);
 
   return (
-    <svg width={width} height={height} viewBox="0 0 400 400">
-      <svg ref={svgRef} width={"100%"} height={"100%"} />
-    </svg>
+    <div style={{ position: "relative" }}>
+      <svg width={width} height={height} viewBox="0 0 400 400">
+        <svg ref={svgRef} width={"100%"} height={"100%"} />
+      </svg>
+      <Tooltip {...tooltip} />
+    </div>
   );
 };
 
