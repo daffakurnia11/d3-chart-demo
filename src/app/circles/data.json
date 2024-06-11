@@ -1,32 +1,28 @@
 {
   "data": [
     {
-      "id": 1,
       "label": "Long Term Orientation and Visioning",
       "type": "THINKING",
       "value": 45,
-      "description": "Description 1"
+      "description": "Long-term orientation and ability to formulate and sustain commitment to visions relating to the larger context."
     },
     {
-      "id": 2,
       "label": "Openness and Learning Mindset",
       "type": "BEING",
       "value": 41,
-      "description": "Description 2"
+      "description": "Having a basic mindset of curiosity and a willingness to be vulnerable and embrace change and grow."
     },
     {
-      "id": 3,
       "label": "Connectedness",
       "type": "RELATING",
       "value": 37,
-      "description": "Description 3"
+      "description": "Having a keen sense of being connected with and/or being a part of a larger whole, such as a community, humanity or global ecosystem."
     },
     {
-      "id": 4,
       "label": "Inclusive mindset and intercultural competence",
       "type": "COLLABORATING",
       "value": 41,
-      "description": "Description 4"
+      "description": "Willingness and competence to embrace diversity and include people and collectives with different views and backgrounds."
     }
   ]
 }
