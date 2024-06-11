@@ -67,56 +67,60 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   };
 
   useEffect(() => {
-    const width = 400,
-      height = 400;
-    const svg = d3.select(svgRef.current);
-    const pack = d3.pack().size([width, height]).padding(3);
-    const root = d3.hierarchy({ children: data.data }).sum((d: any) => d.value);
-    pack(root as any);
+    if (data && data.data.length > 0) {
+      const width = 400,
+        height = 400;
+      const svg = d3.select(svgRef.current);
+      const pack = d3.pack().size([width, height]).padding(3);
+      const root = d3
+        .hierarchy({ children: data.data })
+        .sum((d: any) => d.value);
+      pack(root as any);
 
-    const node = svg
-      .append("g")
-      .selectAll("g")
-      .data(root.leaves())
-      .join("g")
-      .attr("transform", (d: any) => `translate(${d.x}, ${d.y})`);
+      const node = svg
+        .append("g")
+        .selectAll("g")
+        .data(root.leaves())
+        .join("g")
+        .attr("transform", (d: any) => `translate(${d.x}, ${d.y})`);
 
-    node
-      .append("circle")
-      .attr("r", (d: any) => d.r)
-      .style("fill", (d: any) => {
-        return assignPaletteData(d.data.type)[0];
-      })
-      .style("opacity", 1)
-      .style("transition", "opacity 0.3s ease-in-out")
-      .on("mouseenter", function () {
-        d3.selectAll("circle").style("opacity", 0.2);
-        d3.select(this).style("opacity", 1);
-      })
-      .on("mouseleave", function () {
-        d3.selectAll("circle").style("opacity", 1);
-      });
+      node
+        .append("circle")
+        .attr("r", (d: any) => d.r)
+        .style("fill", (d: any) => {
+          return assignPaletteData(d.data.type)[0];
+        })
+        .style("opacity", 1)
+        .style("transition", "opacity 0.3s ease-in-out")
+        .on("mouseenter", function () {
+          d3.selectAll("circle").style("opacity", 0.2);
+          d3.select(this).style("opacity", 1);
+        })
+        .on("mouseleave", function () {
+          d3.selectAll("circle").style("opacity", 1);
+        });
 
-    node
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.3em")
-      .style("fill", "white")
-      .style("font-size", "14px")
-      .text((d: any) => d.data.label + ":" + d.data.value + "%")
-      .each(function (d: any) {
-        wrapText(d3.select(this), d.r * 2 - 10);
-      });
+      node
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", "0.3em")
+        .style("fill", "white")
+        .style("font-size", "12px")
+        .text((d: any) => d.data.label + ":" + d.data.value + "%")
+        .each(function (d: any) {
+          wrapText(d3.select(this), d.r * 2 - 25);
+        });
 
-    node
-      .selectAll("text") // Select all the text elements within the group
-      .on("mouseenter", function (this: any) {
-        d3.selectAll("circle").style("opacity", 0.2);
-        d3.select(this?.parentNode).select("circle").style("opacity", 1); // Select the circle within the same group
-      })
-      .on("mouseleave", function () {
-        d3.selectAll("circle").style("opacity", 1);
-      });
+      node
+        .selectAll("text") // Select all the text elements within the group
+        .on("mouseenter", function (this: any) {
+          d3.selectAll("circle").style("opacity", 0.2);
+          d3.select(this?.parentNode).select("circle").style("opacity", 1); // Select the circle within the same group
+        })
+        .on("mouseleave", function () {
+          d3.selectAll("circle").style("opacity", 1);
+        });
+    }
   }, [data]);
 
   return (

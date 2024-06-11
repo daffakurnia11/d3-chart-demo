@@ -1,19 +1,28 @@
 {
   "data": [
     {
-      "label": "Courage",
-      "type": "ACTING",
-      "value": 36
-    },
-    {
       "label": "Long Term Orientation and Visioning",
       "type": "THINKING",
-      "value": 55
+      "value": 45,
+      "description": "Description 1"
     },
     {
-      "label": "Critical Thinking",
-      "type": "THINKING",
-      "value": 45
+      "label": "Openness and Learning Mindset",
+      "type": "BEING",
+      "value": 41,
+      "description": "Description 2"
+    },
+    {
+      "label": "Connectedness",
+      "type": "RELATING",
+      "value": 37,
+      "description": "Description 3"
+    },
+    {
+      "label": "Inclusive mindset and intercultural competence",
+      "type": "COLLABORATING",
+      "value": 41,
+      "description": "Description 4"
     }
   ]
 }

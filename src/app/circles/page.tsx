@@ -11,7 +11,7 @@ export default function SankeyPage() {
         Packed Circles Chart Test
       </h1>
       <div className="flex justify-center items-center">
-        <PackedCirclesChart width={300} height={300} data={data} />
+        <PackedCirclesChart width={400} height={"auto"} data={data} />
       </div>
     </div>
   );
