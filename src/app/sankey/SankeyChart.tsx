@@ -68,7 +68,9 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
   useEffect(() => {
     if (!data || dimensions.width === 0 || dimensions.height === 0) return;
 
-    const { nodes, links } = assignSankeyColor(data);
+    const sortedNodes = data.nodes.sort((a, b) => a.id - b.id);
+
+    const { nodes, links } = assignSankeyColor({ ...data, nodes: sortedNodes });
     const { width, height } = dimensions;
 
     // Select the SVG element and set its width and height
