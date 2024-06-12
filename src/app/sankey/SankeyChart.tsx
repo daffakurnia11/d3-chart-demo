@@ -81,6 +81,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
     const sankeyGenerator = sankey<SankeyNodesDataType, SankeyLinksDataType>()
       .nodeWidth(16)
       .nodePadding(16)
+      .nodeSort((d) => d.id)
       .extent([
         [45, 15],
         [width - 15, height - 15],
