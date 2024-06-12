@@ -15,7 +15,7 @@ const Tooltip = ({ x, y, content, visible }) => {
       ></div>
       <div
         className={classNames(
-          "absolute bg-gray-500 font-text text-xs text-center text-white py-1 px-2.5 rounded -translate-x-1/2 transition duration-500 w-[200px]",
+          "absolute bg-gray-500 font-text text-xs text-center text-white py-1 px-2.5 rounded -translate-x-1/2 transition duration-500 max-w-[200px]",
           visible ? "opacity-100 visible" : "opacity-0 invisible"
         )}
         style={{ left: x, top: y }}
