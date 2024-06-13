@@ -3,6 +3,7 @@ export type PackedCirclesDataType = {
     label: string;
     type: string | "COLLABORATING" | "BEING" | "ACTING" | "THINKING" | "RELATING";
     value: number;
+    description?: string | null;
   }[];
 };
 
