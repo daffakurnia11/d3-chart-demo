@@ -57,8 +57,6 @@ const data = {
   ],
 };
 
-console.log(typeof data.opportunities[0].description);
-
 export default function NegativeAnalysis() {
   return (
     <div className="grid grid-cols-2 gap-3">

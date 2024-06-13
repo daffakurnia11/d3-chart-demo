@@ -21,7 +21,7 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
       const minTargetX0 = Math.min(
         ...links.filter((l: any) => l.source === d).map((l: any) => l.target.x0)
       );
-      availableWidth = minTargetX0 - d.x1 - 30;
+      availableWidth = minTargetX0 - d.x1 - 10;
     } else {
       const maxSourceX1 = Math.max(
         ...links.filter((l: any) => l.target === d).map((l: any) => l.source.x1)
@@ -44,7 +44,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
     height: number;
   }>({ width: 0, height: 0 });
 
-  const aspectRatio = 1200 / 800;
+  const aspectRatio = 1200 / 700;
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -85,7 +85,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .nodePadding(16)
       .nodeSort((d) => d.id)
       .extent([
-        [45, 15],
+        [45, 50],
         [width - 15, height - 15],
       ]);
 
@@ -147,7 +147,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .append("text")
       .attr("class", (d) => `link-text link-text-${d.index}`)
       .attr("x", (d: any) =>
-        d.source.targetLinks.length === 0 ? d.source.x0 - 20 : d.source.x1 + 20
+        d.source.layer <= 1 ? d.source.x0 - 20 : d.source.x1 + 20
       )
       .attr("y", (d: any) => d.y0)
       .attr("dy", "0.35em")
@@ -187,13 +187,11 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
     // Add text labels for each node
     node
       .append("text")
-      .attr("x", (d: any) => (d.targetLinks?.length === 0 ? 20 : -6))
+      .attr("x", (d: any) => (d.layer <= 1 ? 20 : -6))
       .attr("y", (d: any) => (d.y1 - d.y0) / 2) // Position the text in the center of the node
       .attr("dy", "0.35em")
-      .attr("text-anchor", (d) =>
-        d.targetLinks?.length === 0 ? "start" : "end"
-      )
-      .text((d) => d.name.split(":")[0])
+      .attr("text-anchor", (d: any) => (d.layer <= 1 ? "start" : "end"))
+      .text((d) => d.name)
       .style("font", "12px sans-serif")
       .style("pointer-events", "none")
       .style("fill", "#000")
@@ -202,20 +200,73 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
         "text-shadow",
         "2px 2px 4px white, 2px -2px 4px white, -2px 2px 4px white, -2px -2px 4px white"
       )
-      .attr("class", (d) => `node-text node-text-${d.index}`)
-      .append("tspan")
-      .attr("x", -6)
-      .attr("y", (d: any) => (d.y1 - d.y0) / 2 + 16)
-      .text((d) => d.name.split(":")[1] ?? "")
-      .style("font", "12px sans-serif")
-      .style("pointer-events", "none")
-      .style("fill", "#000")
-      .style("transition", "opacity 0.3s ease-in-out")
-      .style(
-        "text-shadow",
-        "2px 2px 4px white, 2px -2px 4px white, -2px 2px 4px white, -2px -2px 4px white"
-      )
-      .attr("class", (d) => `node-text node-desc-${d.index}`);
+      .attr("class", (d) => `node-text node-text-${d.index}`);
+
+    let categoryArray = Array.from(
+      { length: 5 },
+      (_, index) => sankeyNodes.filter((node: any) => node.layer === index)[0]
+    );
+
+    const category = svg
+      .append("g")
+      .selectAll(".node")
+      .data(categoryArray)
+      .enter();
+    const widthCategory = 190,
+      heightCategory = 30;
+
+    category
+      .append("rect")
+      .attr("x", (d: any) => {
+        if (d.layer === 0) {
+          return d.x0;
+        } else if (d.layer === 4) {
+          return d.x1 - widthCategory;
+        } else {
+          return d.x0 + (d.x1 - d.x0) / 2 - widthCategory / 2;
+        }
+      })
+      .attr("y", 10)
+      .attr("rx", 5)
+      .attr("ry", 5)
+      .attr("height", heightCategory)
+      .attr("width", widthCategory)
+      .style("fill", "#7B8794");
+
+    category
+      .append("text")
+      .attr("x", (d: any) => {
+        if (d.layer === 0) {
+          return widthCategory / 2 + d.x0;
+        } else if (d.layer === 4) {
+          return widthCategory / 2 + (d.x1 - widthCategory);
+        } else {
+          return (
+            widthCategory / 2 + (d.x0 + (d.x1 - d.x0) / 2 - widthCategory / 2)
+          );
+        }
+      })
+      .attr("y", heightCategory / 2 + 10)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .text((d: any) => {
+        switch (d.layer) {
+          case 0:
+            return "ESG Material Impacts";
+          case 1:
+            return "How well are we doing?";
+          case 2:
+            return "What is the Priority?";
+          case 3:
+            return "Which SDGS can we impact?";
+          case 4:
+            return "Which IDG skills are needed?";
+          default:
+            return "";
+        }
+      })
+      .style("fill", "#fff")
+      .style("font-size", "12px");
 
     hideTextBasedOnConstraints(svg, sankeyLinks);
 
@@ -275,7 +326,6 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
           svg.select(`.link-text-${linkData.index}`).style("opacity", 1);
         });
         if (d.description) {
-          console.log(d);
           setTooltip({
             visible: true,
             x: d.x0 + (d.x1 - d.x0) / 2,

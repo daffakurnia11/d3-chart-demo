@@ -146,7 +146,6 @@ export const assignSankeyColor = (data: any) => {
     const colorData = colorPalette.find(
       (value) => value.category === category
     )?.color;
-    console.log(colorData);
     if (colorData) {
       switch (category) {
         case "Evaluation":
