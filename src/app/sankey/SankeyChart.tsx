@@ -234,7 +234,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .attr("ry", 5)
       .attr("height", heightCategory)
       .attr("width", widthCategory)
-      .style("fill", "#7B8794");
+      .style("fill", "#0097B2");
 
     category
       .append("text")
