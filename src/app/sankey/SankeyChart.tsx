@@ -8,7 +8,7 @@ import {
   SankeyNodesDataType,
   SankeyProps,
 } from "./SankeyChartType";
-import { assignSankeyColor } from "../utils";
+import { modifySankeyData } from "../utils";
 import Tooltip, { useTooltipHook } from "../Tooltip";
 
 function hideTextBasedOnConstraints(svg: any, links: any) {
@@ -70,7 +70,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
 
     const sortedNodes = data.nodes.sort((a, b) => a.id - b.id);
 
-    const { nodes, links } = assignSankeyColor({ ...data, nodes: sortedNodes });
+    const { nodes, links } = modifySankeyData({ ...data, nodes: sortedNodes });
     const { width, height } = dimensions;
 
     // Select the SVG element and set its width and height
@@ -84,6 +84,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .nodeWidth(16)
       .nodePadding(16)
       .nodeSort((d) => d.id)
+      .nodeAlign((d) => d.layer)
       .extent([
         [45, 50],
         [width - 15, height - 15],
@@ -215,17 +216,19 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
     const widthCategory = 190,
       heightCategory = 30;
 
+    const categoryPosition = (layer: number) => {
+      const position =
+        ((categoryArray[categoryArray.length - 1].x1 as number) -
+          widthCategory -
+          (categoryArray[0].x0 as number)) /
+        4;
+
+      return (categoryArray[0].x0 as number) + layer * position;
+    };
+
     category
       .append("rect")
-      .attr("x", (d: any) => {
-        if (d.layer === 0) {
-          return d.x0;
-        } else if (d.layer === 4) {
-          return d.x1 - widthCategory;
-        } else {
-          return d.x0 + (d.x1 - d.x0) / 2 - widthCategory / 2;
-        }
-      })
+      .attr("x", (d: any) => categoryPosition(d.layer))
       .attr("y", 10)
       .attr("rx", 5)
       .attr("ry", 5)
@@ -235,17 +238,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
 
     category
       .append("text")
-      .attr("x", (d: any) => {
-        if (d.layer === 0) {
-          return widthCategory / 2 + d.x0;
-        } else if (d.layer === 4) {
-          return widthCategory / 2 + (d.x1 - widthCategory);
-        } else {
-          return (
-            widthCategory / 2 + (d.x0 + (d.x1 - d.x0) / 2 - widthCategory / 2)
-          );
-        }
-      })
+      .attr("x", (d: any) => categoryPosition(d.layer) + widthCategory / 2)
       .attr("y", heightCategory / 2 + 10)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")

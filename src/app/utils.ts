@@ -1,21 +1,25 @@
 import * as palette from "./colors";
 
-export const assignSankeyColor = (data: any) => {
+export const modifySankeyData = (data: any) => {
   const colorPalette = [
     {
-      category: "Environment",
+      category: "Environmental Impacts",
       color: "#85D45E",
+      layer: 0,
     },
     {
-      category: "Social Capital",
+      category: "Societal Impacts",
       color: "#37B6FE",
+      layer: 0,
     },
     {
-      category: "Human Capital",
+      category: "Governance Impacts",
       color: "#FB6724",
+      layer: 0,
     },
     {
-      category: "Evaluation",
+      category: "Evolution",
+      layer: 1,
       color: [
         {
           name: "Satisfactorily",
@@ -32,7 +36,8 @@ export const assignSankeyColor = (data: any) => {
       ],
     },
     {
-      category: "Prioritization",
+      category: "Priority",
+      layer: 2,
       color: [
         {
           name: "High",
@@ -50,6 +55,7 @@ export const assignSankeyColor = (data: any) => {
     },
     {
       category: "SDG",
+      layer: 3,
       color: [
         {
           name: "No Poverty",
@@ -124,22 +130,27 @@ export const assignSankeyColor = (data: any) => {
     {
       category: "Being",
       color: "#D4B88C",
+      layer: 4,
     },
     {
       category: "Thinking",
       color: "#E585A1",
+      layer: 4,
     },
     {
       category: "Relating",
       color: "#E84139",
+      layer: 4,
     },
     {
       category: "Collaborating",
       color: "#FF6821",
+      layer: 4,
     },
     {
       category: "Acting",
       color: "#661A30",
+      layer: 4,
     },
   ];
   const getColor = (category: string, name: string) => {
@@ -148,13 +159,13 @@ export const assignSankeyColor = (data: any) => {
     )?.color;
     if (colorData) {
       switch (category) {
-        case "Evaluation":
+        case "Evolution":
           return (colorData as any).find((data: any) => data.name === name)
             ?.color;
-        case "Prioritization":
+        case "Priority":
           return (colorData as any).find((data: any) => data.name === name)
             ?.color;
-            case "SDG":
+        case "SDG":
           return (colorData as any).find((data: any) => data.name === name)
             ?.color;
         default:
@@ -163,10 +174,21 @@ export const assignSankeyColor = (data: any) => {
     }
   };
 
+  const getLayer = (category: string) => {
+    const layerData = colorPalette.find(
+      (value) => value.category === category
+    )?.layer;
+    return layerData;
+  };
+
   return {
     ...data,
     nodes: data.nodes.map((node: any) => {
-      return { ...node, color: getColor(node.category, node.name) };
+      return {
+        ...node,
+        color: getColor(node.category, node.name),
+        layer: getLayer(node.category),
+      };
     }),
   };
 };

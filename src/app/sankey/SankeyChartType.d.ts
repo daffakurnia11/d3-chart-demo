@@ -3,7 +3,8 @@ export type SankeyNodesDataType = {
   name: string;
   category: string;
   color?: string;
-  description?: string | null
+  description?: string | null;
+  layer: number;
 };
 
 export type SankeyLinksDataType = {
