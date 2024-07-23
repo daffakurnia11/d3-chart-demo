@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Bar } from "react-chartjs-2";
 import { BarDataType, BarDatasetType, BarProps } from "./BarChartType";
 
@@ -17,7 +18,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 export function datasetGenerator(data: BarDataType[], color?: string) {
@@ -27,7 +29,7 @@ export function datasetGenerator(data: BarDataType[], color?: string) {
 
   data.map((item: BarDataType) => {
     labels.push(item.label);
-    scoreData.push(item.score);
+    scoreData.push(Math.ceil(item.value));
   });
 
   chartDataset = {
@@ -38,27 +40,57 @@ export function datasetGenerator(data: BarDataType[], color?: string) {
         data: scoreData,
         borderRadius: 2,
         backgroundColor: color ?? "#FF6821",
+        datalabels: {
+          align: "end",
+          anchor: "end",
+        },
       },
     ],
   };
   return chartDataset;
 }
 
-const BarChart: React.FC<BarProps> = ({ width, height, data, color }) => {
+const BarChart: React.FC<BarProps> = ({
+  width,
+  height,
+  data,
+  color,
+  title,
+  print = false,
+}) => {
   const dataset: any = datasetGenerator(data, color);
 
   const options: any = {
+    animation: !print,
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        display: true,
         position: "bottom" as const,
+        title: {
+          display: true,
+          text: title,
+          font: {
+            size: 12,
+          },
+          padding: 4,
+        },
+      },
+      datalabels: {
+        color: "black",
+        display: true,
+        font: {
+          weight: "normal",
+          size: 8,
+        },
+        formatter: (data: string) => `${data}%`,
       },
     },
     scales: {
       x: {
-        suggestedMax: 10,
+        max: 100,
         grid: {
           color: "rgba(0, 0, 0, 0.05)",
         },
@@ -70,9 +102,16 @@ const BarChart: React.FC<BarProps> = ({ width, height, data, color }) => {
         ticks: {
           callback: function (value: number) {
             const stringValue = dataset.labels[value].toString();
-            return stringValue.length > 20
-              ? stringValue.substring(0, 20) + "..."
-              : stringValue;
+            if (!print) {
+              return stringValue.length > 20
+                ? stringValue.substring(0, 20) + "..."
+                : stringValue;
+            } else {
+              return stringValue;
+            }
+          },
+          font: {
+            size: 10,
           },
         },
       },
@@ -80,7 +119,7 @@ const BarChart: React.FC<BarProps> = ({ width, height, data, color }) => {
   };
 
   return (
-    <div style={{ width, height }}>
+    <div style={{ width, height: height ?? data.length * 20 + 90 }}>
       <Bar options={options} data={dataset} />
     </div>
   );

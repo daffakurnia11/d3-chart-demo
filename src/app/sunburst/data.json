@@ -2,139 +2,200 @@
   "name": "ROOT",
   "children": [
     {
-      "name": "COLLABORATING",
+      "name": "Thinking",
+      "description": "Developing our cognitive skills by taking different perspectives, evaluating information and making sense of the world as an interconnected whole, is essential for wise decision-making.",
       "children": [
         {
-          "name": "Co-creation skills",
-          "score": 76,
-          "value": 1
-        },
-        {
-          "name": "Communication skills",
-          "score": 91,
-          "value": 1
-        },
-        {
-          "name": "Inclusive mindset and intercultural competence",
-          "score": 67,
-          "value": 1
-        },
-        {
-          "name": "Mobilization skills",
-          "score": 54,
-          "value": 1
-        },
-        {
-          "name": "Trust",
-          "score": 73,
-          "value": 1
-        }
-      ]
-    },
-    {
-      "name": "BEING",
-      "children": [
-        {
-          "name": "Presence",
-          "score": 85,
-          "value": 1
-        },
-        {
-          "name": "Inner Compass",
-          "score": 91,
-          "value": 1
-        },
-        {
-          "name": "Integrity and Authenticity",
-          "score": 58,
-          "value": 1
-        },
-        {
-          "name": "Openness and Learning Mindset",
-          "score": 63,
-          "value": 1
-        }
-      ]
-    },
-    {
-      "name": "ACTING",
-      "children": [
-        {
-          "name": "Optimism",
-          "score": 92,
-          "value": 1
-        },
-        {
-          "name": "Perseverance",
-          "score": 58,
-          "value": 1
-        },
-        {
-          "name": "Courage",
-          "score": 64,
-          "value": 1
-        },
-        {
-          "name": "Creativity",
-          "score": 71,
-          "value": 1
-        }
-      ]
-    },
-    {
-      "name": "THINKING",
-      "children": [
-        {
-          "name": "Perspective Skills",
-          "score": 73,
-          "value": 1
+          "name": "Critical Thinking",
+          "score": 74.4,
+          "value": 1,
+          "description": "Ability to critically reviewing the validity of views, evidence and plans.",
+          "color": "#E585A1"
         },
         {
           "name": "Complexity Awareness",
-          "score": 91,
-          "value": 1
+          "score": 68.8,
+          "value": 1,
+          "description": "Understanding of and skills in working with complex and systemic conditions and causalities.",
+          "color": "#EFB7C7"
         },
         {
-          "name": "Long-term orientation and Visioning",
-          "score": 59,
-          "value": 1
+          "name": "Perspective Skills",
+          "score": 75.2,
+          "value": 1,
+          "description": "Seeking, understanding and actively making use of insights from contrasting perspectives.",
+          "color": "#E585A1"
         },
         {
-          "name": "Sense-making",
-          "score": 82,
-          "value": 1
+          "name": "Sense Making",
+          "score": 66.4,
+          "value": 1,
+          "description": "Seeing patterns, structuring the unknown, and being able to consciously create stories.",
+          "color": "#EFB7C7"
         },
         {
-          "name": "Critical Thinking",
-          "score": 66,
-          "value": 1
+          "name": "Long Term Orientation and Visioning",
+          "score": 72,
+          "value": 1,
+          "description": "Formulate and sustain commitment to visions relating to the larger context.",
+          "color": "#E585A1"
         }
-      ]
+      ],
+      "color": "#E585A1"
     },
     {
-      "name": "RELATING",
+      "name": "Relating",
+      "description": "Appreciating, caring for and feeling connected to others, such as neighbours, future generations or the biosphere, helps us create more just and sustainable systems and societies for everyone.",
       "children": [
         {
-          "name": "Empathy and Compassion",
-          "score": 75,
-          "value": 1
-        },
-        {
           "name": "Appreciation",
-          "score": 92,
-          "value": 1
-        },
-        {
-          "name": "Humility",
-          "score": 60,
-          "value": 1
+          "score": 73.6,
+          "value": 1,
+          "description": "Relating to others and to the world with a basic sense of appreciation, gratitude and joy.",
+          "color": "#E84139"
         },
         {
           "name": "Connectedness",
-          "score": 63,
-          "value": 1
+          "score": 70.4,
+          "value": 1,
+          "description": "A keen sense of being connected with and/or being part of a larger whole, such as a community, humanity or global ecosystem.",
+          "color": "#E84139"
+        },
+        {
+          "name": "Humility",
+          "score": 70.4,
+          "value": 1,
+          "description": "Acting in accordance with the needs of the situation, without concern for one's own importance.",
+          "color": "#E84139"
+        },
+        {
+          "name": "Empathy and Compassion",
+          "score": 73.6,
+          "value": 1,
+          "description": "Relate to others, oneself and nature with kindness, empathy, and compassion and the intention to address the related suffering.",
+          "color": "#E84139"
         }
-      ]
+      ],
+      "color": "#E84139"
+    },
+    {
+      "name": "Collaborating",
+      "description": "To make progress on shared concerns, we need to develop our abilities to include, hold space and communicate with stakeholders with different values, skills, and competencies.",
+      "children": [
+        {
+          "name": "Co-Creation Skills",
+          "score": 72,
+          "value": 1,
+          "description": "Skills and motivation to build, develop and facilitate collaborative relations with diverse stakeholders, characterised by psychological safety and genuine co-creation.",
+          "color": "#FF6821"
+        },
+        {
+          "name": "Inclusive Mindset and Intercultural Competence",
+          "score": 72,
+          "value": 1,
+          "description": "Willingness and competence to embrace diversity and include people and collectives with different views and backgrounds.",
+          "color": "#FF6821"
+        },
+        {
+          "name": "Trust",
+          "score": 69.6,
+          "value": 1,
+          "description": "Show trust and create and maintain trusting relationships.",
+          "color": "#FF6821"
+        },
+        {
+          "name": "Communication Skills",
+          "score": 73.6,
+          "value": 1,
+          "description": "To really listen to others, to foster genuine dialogue, to advocate own views skilfully, to manage conflicts constructively and to adapt communication to diverse groups.",
+          "color": "#FF6821"
+        },
+        {
+          "name": "Mobilization Skills",
+          "score": 72,
+          "value": 1,
+          "description": "Inspiring and mobilising others to engage in shared purpose.",
+          "color": "#FF6821"
+        }
+      ],
+      "color": "#FF6821"
+    },
+    {
+      "name": "Acting",
+      "description": "Qualities such as courage and optimism help us acquire true agency, break old patterns, generate original ideas and act with persistence in uncertain times.",
+      "children": [
+        {
+          "name": "Creativity",
+          "score": 75.2,
+          "value": 1,
+          "description": "Generate and develop original ideas, innovate and being willing to disrupt conventional patterns.",
+          "color": "#661A30"
+        },
+        {
+          "name": "Optimism",
+          "score": 68.8,
+          "value": 1,
+          "description": "Sustain and communicate a sense of hope, positive attitude and confidence in the possibility of meaningful change.",
+          "color": "#B52929"
+        },
+        {
+          "name": "Perseverance",
+          "score": 70.4,
+          "value": 1,
+          "description": "Sustain engagement and remain determined and patient even when efforts take a long time to bear fruit.",
+          "color": "#661A30"
+        },
+        {
+          "name": "Courage",
+          "score": 68,
+          "value": 1,
+          "description": "Stand up for values, make decisions, take decisive action and, if need be, change and disrupt existing structures and views.",
+          "color": "#B52929"
+        }
+      ],
+      "color": "#661A30"
+    },
+    {
+      "name": "Being",
+      "description": "Cultivating our inner life and developing and deepening our relationship to our thoughts, feelings and body help us be present, intentional and non-reactive when we face complexity.",
+      "children": [
+        {
+          "name": "Inner Compass",
+          "score": 72.8,
+          "value": 1,
+          "description": "A deep sense of responsibility, and commitment to values and goals that benefit the greater good.",
+          "color": "#D4B88C"
+        },
+        {
+          "name": "Integrity and Authenticity",
+          "score": 78.4,
+          "value": 1,
+          "description": "Commitment and the ability to act with sincerity, honesty and integrity.",
+          "color": "#D4B88C"
+        },
+        {
+          "name": "Openness and Learning Mindset",
+          "score": 67.2,
+          "value": 1,
+          "description": "A basic mindset of curiosity and a willingness to be vulnerable, embrace change, and grow.",
+          "color": "#E1CFB1"
+        },
+        {
+          "name": "Self Awareness",
+          "score": 68.8,
+          "value": 1,
+          "description": "Being in a reflective contact with our thoughts, feelings and desires; having a realistic self-image and ability to regulate oneself.",
+          "color": "#E1CFB1"
+        },
+        {
+          "name": "Presence",
+          "score": 59.2,
+          "value": 1,
+          "description": "Ability to be in the here and now, without judgement and in a state of open-ended presence.",
+          "color": "#EEE3D2"
+        }
+      ],
+      "color": "#D4B88C"
     }
   ]
 }

@@ -10,14 +10,15 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Bar } from "react-chartjs-2";
 import chroma from "chroma-js";
 import {
-  BarGaugeDataType,
-  BarGaugeDatasetDataType,
-  BarGaugeDatasetType,
-  BarGaugeProps,
-} from "./BarGaugeChartType";
+  StackedBarDataType,
+  StackedBarDatasetDataType,
+  StackedBarDatasetType,
+  StackedBarProps,
+} from "./StackedBarChartType";
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +28,8 @@ ChartJS.register(
   Tooltip,
   Legend,
   PointElement,
-  LineElement
+  LineElement,
+  ChartDataLabels
 );
 
 const colorPalette = chroma
@@ -43,15 +45,37 @@ const colorPalette = chroma
   .mode("lch")
   .colors(7);
 
-function generateDataset(data: BarGaugeDataType) {
-  let chartDataset: BarGaugeDatasetType;
-  let labels: string[] = [];
+function wrapText(label: string) {
+  const maxLength = 50;
+  let words = label.split(" ");
+  let lines: string[] = [];
+  let currentLine: string = "";
+
+  words.forEach((word) => {
+    if ((currentLine + word).length <= maxLength) {
+      currentLine += (currentLine ? " " : "") + word;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  });
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines;
+}
+
+function generateDataset(data: StackedBarDataType) {
+  let chartDataset: StackedBarDatasetType;
+  let labels: string[][] = [];
   let valueData: number[] = [];
-  let datasetArray: BarGaugeDatasetDataType[] = [];
+  let datasetArray: StackedBarDatasetDataType[] = [];
 
   data.data.map(({ label, value }) => {
-    labels.push(label);
-    valueData.push(value);
+    labels.push(wrapText(label));
+    valueData.push(Math.ceil(value));
   });
   datasetArray.push({
     label: "Value",
@@ -60,9 +84,13 @@ function generateDataset(data: BarGaugeDataType) {
     data: valueData,
     backgroundColor: colorPalette[6],
     type: "bar",
+    datalabels: {
+      align: "start",
+      anchor: "end",
+    },
   });
 
-  const generateParameterData = (value) => {
+  const generateParameterData = (value: any) => {
     let valueArray: number[] = [];
     for (let i = 0; i < data.data.length; i++) {
       valueArray.push(value);
@@ -88,13 +116,19 @@ function generateDataset(data: BarGaugeDataType) {
   return chartDataset;
 }
 
-const BarGaugeChart: React.FC<BarGaugeProps> = ({ width, height, data }) => {
-  const dataset: BarGaugeDatasetType = generateDataset(data);
+const StackedBarChart: React.FC<StackedBarProps> = ({
+  width,
+  height,
+  data,
+  animation = true,
+}) => {
+  const dataset: StackedBarDatasetType = generateDataset(data);
 
   const options: any = {
+    animation,
     indexAxis: "y",
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -104,17 +138,26 @@ const BarGaugeChart: React.FC<BarGaugeProps> = ({ width, height, data }) => {
           return tooltipItem.dataset.stack === "stack1";
         },
       },
+      datalabels: {
+        color: "#0F424B",
+        display: (data: any) => data.dataset.stack !== "stack2",
+        font: {
+          weight: "normal",
+          size: 6,
+        },
+        formatter: (data: string) => `${data}%`,
+      },
     },
     scales: {
       y: {
         stacked: true,
         ticks: {
-          callback: function (value: number) {
-            const stringValue = dataset.labels[value].toString();
-            return stringValue.length > 25
-              ? stringValue.substring(0, 25) + "..."
-              : stringValue;
+          font: {
+            size: 8,
           },
+        },
+        afterFit: function (scale: any) {
+          scale.width = 220;
         },
       },
       x: {
@@ -129,10 +172,10 @@ const BarGaugeChart: React.FC<BarGaugeProps> = ({ width, height, data }) => {
   };
 
   return (
-    <div style={{ width, height }}>
+    <div style={{ width, height: height ?? (data.data.length + 1) * 30 }}>
       <Bar options={options} data={dataset} />
     </div>
   );
 };
 
-export default BarGaugeChart;
+export default StackedBarChart;

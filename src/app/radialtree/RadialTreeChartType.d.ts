@@ -19,4 +19,5 @@ export type RadialTreeProps = {
   state?: string;
   width?: number | string;
   height?: number | string;
+  print?: boolean;
 }

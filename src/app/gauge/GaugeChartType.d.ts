@@ -24,6 +24,7 @@ export type GenerateDatasetType = {
 
 export type GaugeProps = {
   data: GaugeDataType;
-  width?: number | string,
-  height?: number | string,
-}
+  width?: number | string;
+  height?: number | string;
+  animation?: boolean;
+};

@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { assignColorsToData } from "../utils";
 import { SunburstProps } from "./SunburstChartType";
+import { assignColorsToData } from "../utils";
 
 const SunburstChart: React.FC<SunburstProps> = ({
   width,

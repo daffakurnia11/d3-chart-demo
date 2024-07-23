@@ -1,16 +1,26 @@
+export type BarDatasetDataType = {
+  label: string;
+  data: number[];
+  borderRadius: number;
+  backgroundColor: string;
+  datalabels?: any;
+};
+
 export type BarDatasetType = {
   labels: string[];
-  datasets: ChartDatasetType[];
+  datasets: BarDatasetDataType[];
 };
 
 export type BarDataType = {
   label: string;
-  score: number;
+  value: number;
 };
 
 export type BarProps = {
   data: any;
+  title?: string;
   width?: number | string;
   height?: number | string;
   color?: string;
+  print?: boolean;
 };

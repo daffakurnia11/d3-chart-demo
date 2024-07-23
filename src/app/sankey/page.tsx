@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import data from "./sankey-test-data-2.json";
+import data from "./data.json";
 import SankeyChart from "./SankeyChart";
 
 export default function SankeyPage() {

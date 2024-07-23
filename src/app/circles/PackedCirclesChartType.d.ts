@@ -11,4 +11,5 @@ export type PackedCirclesProps = {
   data: PackedCirclesDataType;
   width?: number | string;
   height?: number | string;
+  print?: boolean;
 };

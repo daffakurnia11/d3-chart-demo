@@ -3,228 +3,288 @@
   "children": [
     {
       "name": "BEING",
+      "type": "radial_tree",
       "children": [
         {
-          "name": "Value Propotion",
-          "score": 0
-        },
-        {
-          "name": "Workspace Processes",
-          "score": 100
-        },
-        {
-          "name": "Leadership",
-          "score": 73
-        },
-        {
-          "name": "Financial Structures",
-          "score": 88
-        },
-        {
           "name": "HR Processes",
-          "score": 73
-        },
-        {
-          "name": "Governance",
-          "score": 65
-        },
-        {
-          "name": "Management Processes",
-          "score": 50
-        },
-        {
-          "name": "Sales Processes",
-          "score": 94
-        },
-        {
-          "name": "Operating Model",
-          "score": 92
+          "score": 46.833333333333336,
+          "color": "#EEE3D2"
         },
         {
           "name": "HR Strategy",
-          "score": 72
-        }
-      ]
-    },
-    {
-      "name": "ACTING",
-      "children": [
-        {
-          "name": "Value Propotion",
-          "score": 0
-        },
-        {
-          "name": "Workspace Processes",
-          "score": 86
-        },
-        {
-          "name": "Leadership",
-          "score": 61
-        },
-        {
-          "name": "Financial Structures",
-          "score": 91
-        },
-        {
-          "name": "HR Processes",
-          "score": 79
-        },
-        {
-          "name": "Governance",
-          "score": 73
+          "score": 47.22222222222222,
+          "color": "#EEE3D2"
         },
         {
           "name": "Management Processes",
-          "score": 69
+          "score": 44.375,
+          "color": "#EEE3D2"
         },
         {
-          "name": "Sales Processes",
-          "score": 39
+          "name": "Operating Model and Organization Structures",
+          "score": 47.5,
+          "color": "#EEE3D2"
         },
         {
-          "name": "Operating Model",
-          "score": 85
-        },
-        {
-          "name": "HR Strategy",
-          "score": 54
-        }
-      ]
-    },
-    {
-      "name": "COLLABORATING",
-      "children": [
-        {
-          "name": "Value Propotion",
-          "score": 56
-        },
-        {
-          "name": "Workspace Processes",
-          "score": 45
-        },
-        {
-          "name": "Leadership",
-          "score": 89
+          "name": "Board and Governance",
+          "score": 46.666666666666664,
+          "color": "#EEE3D2"
         },
         {
           "name": "Financial Structures",
-          "score": 58
+          "score": 47.083333333333336,
+          "color": "#EEE3D2"
         },
         {
-          "name": "HR Processes",
-          "score": 39
-        },
-        {
-          "name": "Governance",
-          "score": 42
-        },
-        {
-          "name": "Management Processes",
-          "score": 100
+          "name": "Leadership",
+          "score": 48.333333333333336,
+          "color": "#EEE3D2"
         },
         {
           "name": "Sales Processes",
-          "score": 94
+          "score": 48.333333333333336,
+          "color": "#EEE3D2"
         },
         {
-          "name": "Operating Model",
-          "score": 94
+          "name": "Value Proposition",
+          "score": 50.625,
+          "color": "#EEE3D2"
         },
         {
-          "name": "HR Strategy",
-          "score": 77
+          "name": "Workplace Processes",
+          "score": 50,
+          "color": "#EEE3D2"
         }
-      ]
+      ],
+      "color": "#D4B88C"
     },
     {
       "name": "THINKING",
+      "type": "radial_tree",
       "children": [
         {
-          "name": "Value Propotion",
-          "score": 67
-        },
-        {
-          "name": "Workspace Processes",
-          "score": 81
-        },
-        {
-          "name": "Leadership",
-          "score": 81
+          "name": "Operating Model and Organization Structures",
+          "score": 48.333333333333336,
+          "color": "#F7D9E2"
         },
         {
           "name": "Financial Structures",
-          "score": 90
+          "score": 47.916666666666664,
+          "color": "#F7D9E2"
         },
         {
           "name": "HR Processes",
-          "score": 83
+          "score": 48,
+          "color": "#F7D9E2"
         },
         {
-          "name": "Governance",
-          "score": 74
-        },
-        {
-          "name": "Management Processes",
-          "score": 72
+          "name": "Leadership",
+          "score": 49.583333333333336,
+          "color": "#F7D9E2"
         },
         {
           "name": "Sales Processes",
-          "score": 65
+          "score": 48.333333333333336,
+          "color": "#F7D9E2"
         },
         {
-          "name": "Operating Model",
-          "score": 93
+          "name": "Value Proposition",
+          "score": 51.041666666666664,
+          "color": "#F7D9E2"
+        },
+        {
+          "name": "Workplace Processes",
+          "score": 50.55555555555556,
+          "color": "#F7D9E2"
+        },
+        {
+          "name": "Board and Governance",
+          "score": 49.166666666666664,
+          "color": "#F7D9E2"
         },
         {
           "name": "HR Strategy",
-          "score": 96
+          "score": 47.5,
+          "color": "#F7D9E2"
+        },
+        {
+          "name": "Management Processes",
+          "score": 44.583333333333336,
+          "color": "#F7D9E2"
         }
-      ]
+      ],
+      "color": "#E585A1"
     },
     {
       "name": "RELATING",
+      "type": "radial_tree",
       "children": [
         {
-          "name": "Value Propotion",
-          "score": 76
-        },
-        {
-          "name": "Workspace Processes",
-          "score": 84
-        },
-        {
-          "name": "Leadership",
-          "score": 62
-        },
-        {
-          "name": "Financial Structures",
-          "score": 68
-        },
-        {
-          "name": "HR Processes",
-          "score": 70
-        },
-        {
-          "name": "Governance",
-          "score": 95
-        },
-        {
-          "name": "Management Processes",
-          "score": 41
+          "name": "Board and Governance",
+          "score": 45,
+          "color": "#F5A9A5"
         },
         {
           "name": "Sales Processes",
-          "score": 77
+          "score": 48.333333333333336,
+          "color": "#F5A9A5"
         },
         {
-          "name": "Operating Model",
-          "score": 99
+          "name": "Workplace Processes",
+          "score": 50.27777777777778,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "Value Proposition",
+          "score": 51.041666666666664,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "Financial Structures",
+          "score": 47.916666666666664,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "HR Processes",
+          "score": 47,
+          "color": "#F5A9A5"
         },
         {
           "name": "HR Strategy",
-          "score": 68
+          "score": 46.111111111111114,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "Leadership",
+          "score": 48.47222222222222,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "Management Processes",
+          "score": 43.75,
+          "color": "#F5A9A5"
+        },
+        {
+          "name": "Operating Model and Organization Structures",
+          "score": 46.666666666666664,
+          "color": "#F5A9A5"
         }
-      ]
+      ],
+      "color": "#E84139"
+    },
+    {
+      "name": "COLLABORATING",
+      "type": "radial_tree",
+      "children": [
+        {
+          "name": "Workplace Processes",
+          "score": 51.94444444444444,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Board and Governance",
+          "score": 47.5,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Financial Structures",
+          "score": 48.333333333333336,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Sales Processes",
+          "score": 49.166666666666664,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Value Proposition",
+          "score": 51.458333333333336,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Operating Model and Organization Structures",
+          "score": 48.333333333333336,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "HR Processes",
+          "score": 47.833333333333336,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "HR Strategy",
+          "score": 49.166666666666664,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Leadership",
+          "score": 51.388888888888886,
+          "color": "#FFBFA3"
+        },
+        {
+          "name": "Management Processes",
+          "score": 44.791666666666664,
+          "color": "#FFBFA3"
+        }
+      ],
+      "color": "#FF6821"
+    },
+    {
+      "name": "ACTING",
+      "type": "radial_tree",
+      "children": [
+        {
+          "name": "Financial Structures",
+          "score": 48.333333333333336,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "HR Processes",
+          "score": 47.833333333333336,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "HR Strategy",
+          "score": 46.388888888888886,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Leadership",
+          "score": 48.888888888888886,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Management Processes",
+          "score": 44.375,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Board and Governance",
+          "score": 47.5,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Sales Processes",
+          "score": 50.833333333333336,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Value Proposition",
+          "score": 51.041666666666664,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Workplace Processes",
+          "score": 50.833333333333336,
+          "color": "#DB5F5F"
+        },
+        {
+          "name": "Operating Model and Organization Structures",
+          "score": 47.5,
+          "color": "#DB5F5F"
+        }
+      ],
+      "color": "#661A30"
     }
   ]
 }

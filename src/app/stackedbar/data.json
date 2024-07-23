@@ -1,0 +1,114 @@
+{
+  "parameter": [
+    {
+      "id": 1,
+      "label": "Non-Active",
+      "value": 25,
+      "description": "initiatives and changes take place only in groups and clusters, with little vision or ambitions for these to be echoed, at large, in the organisation."
+    },
+    {
+      "id": 2,
+      "label": "Non-Compliant",
+      "value": 20,
+      "description": "when change is initiated it is adopted with difficulty, lack of cohesion, and strong explicit or implicit resistance."
+    },
+    {
+      "id": 3,
+      "label": "Grudging",
+      "value": 15,
+      "description": "the over consumption of time and efforts results in permeating dissatisfaction, and a sense of frustration and lack of wellbeing and consistency."
+    },
+    {
+      "id": 4,
+      "label": "Compliant",
+      "value": 15,
+      "description": "people adapt consistently, and formally, to change adoption, operating from gradual and progressive learnings."
+    },
+    {
+      "id": 5,
+      "label": "Engaged",
+      "value": 15,
+      "description": "as change is initiated by driven individuals, it easily enrols a large number of people, feeling positive to expedite and deliver the expected results."
+    },
+    {
+      "id": 6,
+      "label": "Committed",
+      "value": 10,
+      "description": "change and innovation are initiated by the majority of individuals in the organisation within their role and capacity, with a sense of purpose and undertaking."
+    }
+  ],
+  "data": [
+    {
+      "label": "Critical Thinking",
+      "value": 74.4,
+      "type": "THINKING",
+      "description": "Ability to critically reviewing the validity of views, evidence and plans."
+    },
+    {
+      "label": "Appreciation",
+      "value": 73.6,
+      "type": "RELATING",
+      "description": "Relating to others and to the world with a basic sense of appreciation, gratitude and joy."
+    },
+    {
+      "label": "Communication Skills",
+      "value": 73.6,
+      "type": "COLLABORATING",
+      "description": "To really listen to others, to foster genuine dialogue, to advocate own views skilfully, to manage conflicts constructively and to adapt communication to diverse groups."
+    },
+    {
+      "label": "Empathy and Compassion",
+      "value": 73.6,
+      "type": "RELATING",
+      "description": "Relate to others, oneself and nature with kindness, empathy, and compassion and the intention to address the related suffering."
+    },
+    {
+      "label": "Inner Compass",
+      "value": 72.8,
+      "type": "BEING",
+      "description": "A deep sense of responsibility, and commitment to values and goals that benefit the greater good."
+    },
+    {
+      "label": "Co-Creation Skills",
+      "value": 72,
+      "type": "COLLABORATING",
+      "description": "Skills and motivation to build, develop and facilitate collaborative relations with diverse stakeholders, characterised by psychological safety and genuine co-creation."
+    },
+    {
+      "label": "Inclusive Mindset and Intercultural Competence",
+      "value": 72,
+      "type": "COLLABORATING",
+      "description": "Willingness and competence to embrace diversity and include people and collectives with different views and backgrounds."
+    },
+    {
+      "label": "Long Term Orientation and Visioning",
+      "value": 72,
+      "type": "THINKING",
+      "description": "Formulate and sustain commitment to visions relating to the larger context."
+    },
+    {
+      "label": "Mobilization Skills",
+      "value": 72,
+      "type": "COLLABORATING",
+      "description": "Inspiring and mobilising others to engage in shared purpose."
+    },
+    {
+      "label": "Connectedness",
+      "value": 70.4,
+      "type": "RELATING",
+      "description": "A keen sense of being connected with and/or being part of a larger whole, such as a community, humanity or global ecosystem."
+    },
+    {
+      "label": "Humility",
+      "value": 70.4,
+      "type": "RELATING",
+      "description": "Acting in accordance with the needs of the situation, without concern for one's own importance."
+    },
+    {
+      "label": "Perseverance",
+      "value": 70.4,
+      "type": "ACTING",
+      "description": "Sustain engagement and remain determined and patient even when efforts take a long time to bear fruit."
+    }
+  ]
+}

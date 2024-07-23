@@ -18,7 +18,7 @@ export const modifySankeyData = (data: any) => {
       layer: 0,
     },
     {
-      category: "Evolution",
+      category: "Evaluation",
       layer: 1,
       color: [
         {
@@ -36,7 +36,7 @@ export const modifySankeyData = (data: any) => {
       ],
     },
     {
-      category: "Priority",
+      category: "Prioritization",
       layer: 2,
       color: [
         {
@@ -159,10 +159,10 @@ export const modifySankeyData = (data: any) => {
     )?.color;
     if (colorData) {
       switch (category) {
-        case "Evolution":
+        case "Evaluation":
           return (colorData as any).find((data: any) => data.name === name)
             ?.color;
-        case "Priority":
+        case "Prioritization":
           return (colorData as any).find((data: any) => data.name === name)
             ?.color;
         case "SDG":

@@ -1,26 +1,54 @@
 [
   {
-    "label": "Sense Making",
-    "score": 4.8
+    "label": "Customer Privacy",
+    "value": 95
   },
   {
-    "label": "Complexity Awareness",
-    "score": 5.2
+    "label": "Data Security",
+    "value": 91
   },
   {
-    "label": "Perspective Skills",
-    "score": 5.1
+    "label": "Employee Health and Safety",
+    "value": 86
   },
   {
-    "label": "Self Awareness",
-    "score": 5.0
+    "label": "Business Ethics",
+    "value": 86
   },
   {
-    "label": "Courage",
-    "score": 4.7
+    "label": "Customer Welfare",
+    "value": 84
   },
   {
-    "label": "Inner Compass",
-    "score": 4.9
+    "label": "Management of the Legal and Regulatory Environment",
+    "value": 82
+  },
+  {
+    "label": "Selling Practices and Product Labelling",
+    "value": 82
+  },
+  {
+    "label": "Employee Engagement, Diversity and Inclusion",
+    "value": 77
+  },
+  {
+    "label": "Labour Practices",
+    "value": 75
+  },
+  {
+    "label": "Access and Affordability",
+    "value": 73
+  },
+  {
+    "label": "Business Model Resilience",
+    "value": 66
+  },
+  {
+    "label": "Systemic Risk Management",
+    "value": 57
+  },
+  {
+    "label": "Physical Impacts of Climate Change",
+    "value": 46
   }
 ]

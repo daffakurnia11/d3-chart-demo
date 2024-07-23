@@ -1,44 +1,124 @@
 {
   "data": [
     {
-      "label": "Workplace Processes",
-      "value": 75
+      "label": "Learning and Development opportunities and processes within the organisation",
+      "value": 55.10204081632653
     },
     {
-      "label": "Value Proposition",
-      "value": 73
+      "label": "Day to day operating and collaborative practices in the organisation - office life",
+      "value": 53.46938775510204
     },
     {
-      "label": "Leadership",
-      "value": 69
+      "label": "Customer Relations Management",
+      "value": 53.46938775510204
+    },
+    {
+      "label": "Performance Objective and Management Framework in the organisation",
+      "value": 52.6530612244898
+    },
+    {
+      "label": "The Culture and Employee Engagement in the organisation",
+      "value": 51.83673469387755
+    },
+    {
+      "label": "Branding, Marketing and Positioning",
+      "value": 51.83673469387755
+    },
+    {
+      "label": "The Vision, Mission and Values of the organisation",
+      "value": 51.02040816326531
+    },
+    {
+      "label": "The Strategy of the organisation",
+      "value": 51.02040816326531
+    },
+    {
+      "label": "Services and Product Design",
+      "value": 50.204081632653065
+    },
+    {
+      "label": "Day to day operating and collaborative practices in the organisation - tools and processes",
+      "value": 50.204081632653065
+    },
+    {
+      "label": "Day to day operating and collaborative practices within the organisation - Remote working",
+      "value": 50.204081632653065
+    },
+    {
+      "label": "The choice of Personnel in C-levels and Director positions",
+      "value": 50.204081632653065
+    },
+    {
+      "label": "Career Development Pathways and processes within the organisation",
+      "value": 49.38775510204081
+    },
+    {
+      "label": "Employee Value Proposition within the organisation",
+      "value": 48.57142857142857
+    },
+    {
+      "label": "Strategies and Actualisation of Equity, Diversity and Inclusion in the Workplace",
+      "value": 48.57142857142857
+    },
+    {
+      "label": "Employee Reward and Recognition programs and processes within the organisation",
+      "value": 48.57142857142857
     },
     {
       "label": "Sales Processes",
-      "value": 66
+      "value": 48.57142857142857
+    },
+    {
+      "label": "The choice of Personnel in Management positions",
+      "value": 47.755102040816325
     },
     {
       "label": "Financial Structures",
-      "value": 65
+      "value": 47.755102040816325
     },
     {
-      "label": "Operating Model",
-      "value": 61
+      "label": "The Financial incentives within the organisation",
+      "value": 47.755102040816325
     },
     {
-      "label": "Governance",
-      "value": 58
+      "label": "Operating Model and Organization Structures",
+      "value": 47.755102040816325
     },
     {
-      "label": "HR Processes",
-      "value": 55
+      "label": "Handling of health (physical and mental) related issues within the organisation",
+      "value": 47.755102040816325
     },
     {
-      "label": "HR Strategy",
-      "value": 50
+      "label": "Value Chain and Collaboration",
+      "value": 47.755102040816325
     },
     {
-      "label": "Management Processes",
-      "value": 47
+      "label": "Board and Governance",
+      "value": 46.93877551020408
+    },
+    {
+      "label": "Systems and Processes for Resources Allocation within the organisation",
+      "value": 46.12244897959184
+    },
+    {
+      "label": "Salary scales and Promotion Criteria within the organisation",
+      "value": 44.48979591836735
+    },
+    {
+      "label": "Information and Communication Flows within the organisation",
+      "value": 43.673469387755105
+    },
+    {
+      "label": "Change Management and Continuous Improvement within the organisation",
+      "value": 43.673469387755105
+    },
+    {
+      "label": "Decision Making Processes within the organisation",
+      "value": 43.673469387755105
+    },
+    {
+      "label": "Conflict management and resolution processes within the organisation",
+      "value": 39.59183673469388
     }
   ]
 }

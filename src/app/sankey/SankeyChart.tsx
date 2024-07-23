@@ -2,14 +2,19 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
-import { sankey, sankeyLinkHorizontal } from "d3-sankey";
+import {
+  SankeyLink,
+  SankeyNode,
+  sankey,
+  sankeyLinkHorizontal,
+} from "d3-sankey";
 import {
   SankeyLinksDataType,
   SankeyNodesDataType,
   SankeyProps,
 } from "./SankeyChartType";
-import { modifySankeyData } from "../utils";
 import Tooltip, { useTooltipHook } from "../Tooltip";
+import { modifySankeyData } from "../utils";
 
 function hideTextBasedOnConstraints(svg: any, links: any) {
   svg.selectAll(".node-text").each(function (this: SVGTextElement, d: any) {
@@ -33,6 +38,93 @@ function hideTextBasedOnConstraints(svg: any, links: any) {
       self.style("opacity", 0);
     }
   });
+}
+
+function narrowingLayers(
+  sankeyNodes: SankeyNode<SankeyNodesDataType, SankeyLinksDataType>[],
+  sankeyLinks: SankeyLink<SankeyNodesDataType, SankeyLinksDataType>[],
+  translate: number
+) {
+  sankeyNodes = sankeyNodes.map((node: any) => {
+    if (node.category === "Evaluation") {
+      return {
+        ...node,
+        x0: node.x0 + translate,
+        x1: node.x1 + translate,
+      };
+    }
+    if (node.category === "Prioritization") {
+      return {
+        ...node,
+        x0: node.x0 - translate,
+        x1: node.x1 - translate,
+      };
+    }
+    if (node.category === "SDG") {
+      return {
+        ...node,
+        x0: node.x0 - translate / 2,
+        x1: node.x1 - translate / 2,
+      };
+    }
+    return node;
+  });
+
+  sankeyLinks = sankeyLinks.map((link: any) => {
+    if (link.target.category === "Evaluation") {
+      return {
+        ...link,
+        target: {
+          ...link.target,
+          x0: link.target.x0 + translate,
+          x1: link.target.x1 + translate,
+        },
+      };
+    }
+    if (link.source.category === "Evaluation") {
+      return {
+        ...link,
+        source: {
+          ...link.source,
+          x0: link.source.x0 + translate,
+          x1: link.source.x1 + translate,
+        },
+        target: {
+          ...link.target,
+          x0: link.target.x0 - translate,
+          x1: link.target.x1 - translate,
+        },
+      };
+    }
+    if (link.source.category === "Prioritization") {
+      return {
+        ...link,
+        source: {
+          ...link.source,
+          x0: link.source.x0 - translate,
+          x1: link.source.x1 - translate,
+        },
+        target: {
+          ...link.target,
+          x0: link.target.x0 - translate / 2,
+          x1: link.target.x1 - translate / 2,
+        },
+      };
+    }
+    if (link.source.category === "SDG") {
+      return {
+        ...link,
+        source: {
+          ...link.source,
+          x0: link.source.x0 - translate / 2,
+          x1: link.source.x1 - translate / 2,
+        },
+      };
+    }
+    return link;
+  });
+
+  return { sankeyLinks, sankeyNodes };
 }
 
 const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
@@ -84,17 +176,24 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .nodeWidth(16)
       .nodePadding(16)
       .nodeSort((d) => d.id)
-      .nodeAlign((d) => d.layer)
+      .nodeAlign((d) => d.layer ?? 0)
       .extent([
-        [45, 50],
+        [45, 75],
         [width - 15, height - 15],
       ]);
 
     // Generate the sankey layout data (nodes and links)
-    const { nodes: sankeyNodes, links: sankeyLinks } = sankeyGenerator({
+    let { nodes: generatedNodes, links: generatedLinks } = sankeyGenerator({
       nodes: nodes.map((d: any) => ({ ...d })),
       links: links.map((d: any) => ({ ...d })),
     });
+
+    const translateNumber: number = 40;
+    const { sankeyNodes, sankeyLinks } = narrowingLayers(
+      generatedNodes,
+      generatedLinks,
+      translateNumber
+    );
 
     // Clear any existing elements in the SVG
     svg.selectAll("*").remove();
@@ -137,7 +236,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .attr("class", (d) => `node-link node-link-${d.index}`)
       .attr("stroke", (_, i) => `url(#grad-${i})`) // Use the defined gradient
       .attr("stroke-width", (d: any) => Math.max(1, d.width)) // Set the width of the link
-      .attr("stroke-opacity", 1)
+      .attr("stroke-opacity", 0.2)
       .style("transition", "stroke-opacity 0.3s ease-in-out");
 
     // Define the value of the nodes
@@ -153,7 +252,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .attr("y", (d: any) => d.y0)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .text((d) => `${d.value}%`)
+      .text((d) => `${Math.ceil(d.value as number)}%`)
       .style("font", "10px sans-serif")
       .style("fill", "#000")
       .style("opacity", 0)
@@ -213,7 +312,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .selectAll(".node")
       .data(categoryArray)
       .enter();
-    const widthCategory = 190,
+    const widthCategory = 160,
       heightCategory = 30;
 
     const categoryPosition = (layer: number) => {
@@ -222,19 +321,30 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
           widthCategory -
           (categoryArray[0].x0 as number)) /
         4;
-
-      return (categoryArray[0].x0 as number) + layer * position;
+      let renderPosition = (categoryArray[0].x0 as number) + layer * position;
+      if (layer === 2 || layer === 3) {
+        renderPosition = renderPosition - translateNumber;
+      }
+      return renderPosition;
     };
 
     category
       .append("rect")
-      .attr("x", (d: any) => categoryPosition(d.layer))
+      .attr("x", (d: any) => {
+        if (d.layer !== 4) {
+          const firstX1 = categoryPosition(d.layer) + widthCategory;
+          const secondX0 = categoryPosition(d.layer + 1);
+          const positionX = firstX1 + (secondX0 - firstX1) / 2;
+          return positionX;
+        }
+        return 0;
+      })
       .attr("y", 10)
       .attr("rx", 5)
       .attr("ry", 5)
       .attr("height", heightCategory)
-      .attr("width", widthCategory)
-      .style("fill", "#0097B2");
+      .attr("width", 1)
+      .style("fill", (d: any) => (d.layer !== 4 ? "#A4A4AB" : "transparent"));
 
     category
       .append("text")
@@ -258,32 +368,51 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
             return "";
         }
       })
-      .style("fill", "#fff")
-      .style("font-size", "12px");
+      .style("fill", "#3E4C59")
+      .style("font-size", "10px");
 
     hideTextBasedOnConstraints(svg, sankeyLinks);
 
+    const highlight = (index: number, targetIndex?: number) => {
+      // Highlighting the label
+      svg.select(`.node-text-${targetIndex || index}`).style("opacity", 1);
+
+      // Showing the node value
+      svg.select(`.link-text-${index}`).style("opacity", 1);
+
+      // Highlighting the node
+      node.select(`.node-rect-${targetIndex || index}`).style("opacity", 1);
+
+      // Highlighting the path link
+      d3.select(`.node-link-${index}`).style("stroke-opacity", 1);
+    };
+
+    const recursiveHighlight = (
+      links: any[],
+      key: "targetLinks" | "sourceLinks"
+    ) => {
+      links.forEach((link: any) => {
+        if (key === "targetLinks") {
+          highlight(link.index, link.source.index);
+          recursiveHighlight(link.source[key], key);
+        } else {
+          highlight(link.index, link.target.index);
+          recursiveHighlight(link.target[key], key);
+        }
+      });
+    };
+
     link
       .on("mouseenter", function (_, d: any) {
-        d3.selectAll(link.nodes().map((el) => (el === this ? null : el))).style(
-          "stroke-opacity",
-          0.3
-        );
-
         node.selectAll(".node-rect").style("opacity", 0.3);
-        node.select(`.node-rect-${d.source.index}`).style("opacity", 1);
-        node.select(`.node-rect-${d.target.index}`).style("opacity", 1);
-
         svg.selectAll(".node-text").style("opacity", 0);
-        svg.select(`.node-text-${d.source.index}`).style("opacity", 1);
-        svg.select(`.node-text-${d.target.index}`).style("opacity", 1);
-
-        svg.select(`.link-text-${d.index}`).style("opacity", 1);
-
-        d3.select(this).style("stroke-opacity", 1);
+        highlight(d.index, d.source.index);
+        highlight(d.index, d.target.index);
+        recursiveHighlight(d.source.targetLinks, "targetLinks");
+        recursiveHighlight(d.target.sourceLinks, "sourceLinks");
       })
       .on("mouseleave", function () {
-        d3.selectAll(link.nodes()).style("stroke-opacity", 1);
+        d3.selectAll(link.nodes()).style("stroke-opacity", 0.2);
         svg.selectAll(".node-text").style("opacity", 1);
 
         node.selectAll(".node-rect").style("opacity", 1);
@@ -293,31 +422,13 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
 
     node
       .on("mouseenter", function (_, d: any) {
-        d3.selectAll(link.nodes().map((el) => (el === this ? null : el))).style(
-          "stroke-opacity",
-          0.3
-        );
         svg.selectAll(".node-text").style("opacity", 0);
-        svg.select(`.node-text-${d.index}`).style("opacity", 1);
-        svg.select(`.node-desc-${d.index}`).style("opacity", 1);
         node.selectAll(".node-rect").style("opacity", 0.3);
-        node.select(`.node-rect-${d.index}`).style("opacity", 1);
-        d.sourceLinks.forEach((linkData: any) => {
-          node
-            .select(`.node-rect-${linkData.target.index}`)
-            .style("opacity", 1);
-          d3.select(`.node-link-${linkData.index}`).style("stroke-opacity", 1);
-          svg.select(`.node-text-${linkData.target.index}`).style("opacity", 1);
-          svg.select(`.link-text-${linkData.index}`).style("opacity", 1);
-        });
-        d.targetLinks.forEach((linkData: any) => {
-          node
-            .select(`.node-rect-${linkData.source.index}`)
-            .style("opacity", 1);
-          d3.select(`.node-link-${linkData.index}`).style("stroke-opacity", 1);
-          svg.select(`.node-text-${linkData.source.index}`).style("opacity", 1);
-          svg.select(`.link-text-${linkData.index}`).style("opacity", 1);
-        });
+        highlight(d.index);
+        recursiveHighlight(d.sourceLinks, "sourceLinks");
+        recursiveHighlight(d.targetLinks, "targetLinks");
+
+        // Showing description tooltip
         if (d.description) {
           setTooltip({
             visible: true,
@@ -330,7 +441,7 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
       .on("mouseleave", function () {
         node.selectAll(".node-rect").style("opacity", 1);
         svg.selectAll(".node-text").style("opacity", 1);
-        d3.selectAll(link.nodes()).style("stroke-opacity", 1);
+        d3.selectAll(link.nodes()).style("stroke-opacity", 0.2);
         svg.selectAll(".link-text").style("opacity", 0);
         setTooltip((prev) => ({ ...prev, visible: false }));
 

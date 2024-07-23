@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { createRoot } from "react-dom/client";
-import { assignColorsToData } from "../utils";
 import { RadialTreeProps } from "./RadialTreeChartType";
-import Link from "next/link";
+import { assignColorsToData } from "../utils";
+import { useRouter } from "next/navigation";
 
 const RadialTreeChart: React.FC<RadialTreeProps> = ({
   width,
@@ -11,8 +10,20 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
   data,
   detailPagePrefix,
   state,
+  print = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const router = useRouter();
+
+  const onChangePage = (d: any) => {
+    if (detailPagePrefix) {
+      if (d.parent.data.name !== "ROOT") {
+        router.push(`${detailPagePrefix}/${d.parent.data.name.toLowerCase()}`);
+      } else {
+        router.push(`${detailPagePrefix}/${d.data.name.toLowerCase()}`);
+      }
+    }
+  };
 
   useEffect(() => {
     const width = 700;
@@ -118,17 +129,21 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       })
       .style("transition", "opacity 0.3s ease-in-out");
 
-    bars
-      .transition()
-      .duration(500)
-      .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28); // Set a fixed width or calculate based on text length
+    if (print) {
+      bars.attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28);
+    } else {
+      bars
+        .transition()
+        .duration(800)
+        .attr("width", (d: any) => (d.data.score / 100) * (100 - 28) + 28); // Set a fixed width or calculate based on text length
+    }
 
     // Draw node percentage labels
     nodes
       .append("text")
       .attr("dy", ".31em")
       .attr("x", (d: any) => {
-        let padding: number = 20;
+        let padding: number = 30;
         return d.x < Math.PI === !d.children ? padding : -padding;
       })
       .attr("text-anchor", (d: any) =>
@@ -137,7 +152,7 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .attr("transform", (d: any) => (d.x >= Math.PI ? "rotate(180)" : null))
       .text((d: any) =>
         d.data.name !== "ROOT" && d.parent.data.name !== "ROOT"
-          ? d.data.score + "%"
+          ? parseFloat(d.data.score as any).toFixed(2) + "%"
           : ""
       )
       .style("font-size", "8px")
@@ -147,7 +162,7 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
         "2px 2px 3px white, 2px -2px 3px white, -2px 2px 3px white, -2px -2px 3px white"
       )
       .style("cursor", "default")
-      .style("opacity", 0)
+      .style("opacity", () => (print ? 1 : 0))
       .style("transition", "opacity 0.3s ease-in-out");
 
     nodes
@@ -166,47 +181,6 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .style("width", "100%")
       .style("height", "100%");
 
-    nodes.each(function (d: any, i: number) {
-      if (d.data.name !== "ROOT") {
-        const dom = document.getElementById(`bar-${i}-link`);
-        if (dom) {
-          const root = createRoot(dom as Element);
-          root.render(
-            <Link
-              href={detailPagePrefix + "/" + d.parent.data.name.toLowerCase()}
-              className="cursor-pointer block z-50"
-              style={{
-                width: `${(d.data.score / 100) * (100 - 28) + 28}`,
-                height: "1em",
-                content: "",
-              }}
-            ></Link>
-          );
-        }
-        const parentDom = document.getElementById(`node-${i}`);
-        if (parentDom) {
-          const root = createRoot(dom as Element);
-          root.render(
-            <Link
-              href={
-                detailPagePrefix +
-                "/" +
-                (d.parent.data.name === "ROOT"
-                  ? d.data.name
-                  : d.parent.data.name.toLowerCase())
-              }
-              className="cursor-pointer block z-50"
-              style={{
-                width: `${(d.data.score / 100) * (100 - 28) + 28}`,
-                height: "1em",
-                content: "",
-              }}
-            ></Link>
-          );
-        }
-      }
-    });
-
     // Draw node labels
     const barsLabel = nodes
       .append("text")
@@ -224,8 +198,14 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
         d.x < Math.PI === !d.children ? "start" : "end"
       )
       .attr("transform", (d: any) => (d.x >= Math.PI ? "rotate(180)" : null))
-      .text((d) => (d.data.name !== "ROOT" ? d.data.name : ""))
-      .style("font-size", "8px")
+      .text((d) => {
+        return d.data.name !== "ROOT"
+          ? d.data.name === "Operating Model and Organization Structures"
+            ? "Operating Model"
+            : d.data.name
+          : "";
+      })
+      .style("font-size", "10px")
       .style("user-select", "none")
       .style(
         "text-shadow",
@@ -234,10 +214,8 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       .style("cursor", "default")
       .style("transition", "opacity 0.3s ease-in-out");
 
-    barsLabel
-      .transition()
-      .duration(500)
-      .attr("x", (d: any) => {
+    if (print) {
+      barsLabel.attr("x", (d: any) => {
         let padding: number;
         if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
           padding = (d.data.score / 100) * (100 - 28) + 28;
@@ -246,6 +224,20 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
         }
         return d.x < Math.PI === !d.children ? padding : -padding;
       });
+    } else {
+      barsLabel
+        .transition()
+        .duration(500)
+        .attr("x", (d: any) => {
+          let padding: number;
+          if (d.data.name !== "ROOT" && d.parent.data.name !== "ROOT") {
+            padding = (d.data.score / 100) * (100 - 28) + 28;
+          } else {
+            padding = 6;
+          }
+          return d.x < Math.PI === !d.children ? padding : -padding;
+        });
+    }
 
     // Add interaction of hovering over nodes
     nodes
@@ -266,8 +258,12 @@ const RadialTreeChart: React.FC<RadialTreeProps> = ({
       })
       .on("mouseleave", () => {
         d3.selectAll(".node").style("opacity", 1);
-        d3.selectAll(".node").select("text").style("opacity", 0);
+        d3.selectAll(".node")
+          .select("text")
+          .style("opacity", () => (print ? 1 : 0));
       });
+
+    nodes.on("click", (_, d) => onChangePage(d)).style("cursor", "pointer");
 
     return () => {
       svg.selectAll("*").remove();

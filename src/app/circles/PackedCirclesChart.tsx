@@ -2,14 +2,15 @@
 
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
-import { assignPaletteData } from "../utils";
 import { PackedCirclesProps } from "./PackedCirclesChartType";
+import { assignPaletteData } from "../utils";
 import Tooltip, { useTooltipHook } from "../Tooltip";
 
 const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
   width,
   height,
   data,
+  print = false,
 }) => {
   const svgRef = useRef(null);
   const { tooltip, setTooltip } = useTooltipHook();
@@ -95,15 +96,17 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
         .style("opacity", 1)
         .style("transition", "opacity 0.3s ease-in-out")
         .on("mouseenter", function (_, d: any) {
-          d3.selectAll("circle").style("opacity", 0.2);
-          d3.select(this).style("opacity", 1);
-          if (d.data.description) {
-            setTooltip({
-              visible: true,
-              x: d.x,
-              y: d.y + d.r,
-              content: d.data.description,
-            });
+          if (!print) {
+            d3.selectAll("circle").style("opacity", 0.2);
+            d3.select(this).style("opacity", 1);
+            if (d.data.description) {
+              setTooltip({
+                visible: true,
+                x: d.x,
+                y: d.y + d.r,
+                content: d.data.description,
+              });
+            }
           }
         })
         .on("mouseleave", function () {
@@ -117,20 +120,22 @@ const PackedCirclesChart: React.FC<PackedCirclesProps> = ({
         .attr("dy", "0.3em")
         .style("fill", "white")
         .style("font-size", "12px")
-        .text((d: any) => d.data.label + ":" + d.data.value + "%")
+        .text((d: any) => d.data.label + ":" + Math.ceil(d.data.value) + "%")
         .each(function (d: any) {
           wrapText(d3.select(this), d.r * 2 - 25);
         })
         .on("mouseenter", function (this: any, _, d: any) {
-          d3.selectAll("circle").style("opacity", 0.2);
-          d3.select(this?.parentNode).select("circle").style("opacity", 1);
-          if (d.data.description) {
-            setTooltip({
-              visible: true,
-              x: d.x,
-              y: d.y + d.r,
-              content: d.data.description,
-            });
+          if (!print) {
+            d3.selectAll("circle").style("opacity", 0.2);
+            d3.select(this?.parentNode).select("circle").style("opacity", 1);
+            if (d.data.description) {
+              setTooltip({
+                visible: true,
+                x: d.x,
+                y: d.y + d.r,
+                content: d.data.description,
+              });
+            }
           }
         })
         .on("mouseleave", function () {

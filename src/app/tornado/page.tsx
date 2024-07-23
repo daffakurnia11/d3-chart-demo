@@ -8,7 +8,7 @@ export default function SankeyPage() {
   const [color, setColor] = useState<string | null>(null);
 
   return (
-    <div className="w-screen min-h-screen flex items-center justify-center flex-col">
+    <div className="w-screen min-h-screen flex items-center justify-center flex-col py-10">
       <h1 className="text-3xl font-bold text-center">Tornado Chart Test</h1>
       <div className="flex justify-center gap-5 my-4">
         <button
@@ -49,7 +49,7 @@ export default function SankeyPage() {
         </button>
       </div>
       <div className="flex justify-center items-center">
-        <TornadoChart width={800} height={600} data={data} color={color} />
+        <TornadoChart width={800} data={data} color={color} />
       </div>
     </div>
   );
