@@ -6,9 +6,9 @@ import SankeyChart from "./SankeyChart";
 
 export default function SankeyPage() {
   return (
-    <div className="w-screen min-h-screen flex items-center justify-center flex-col">
+    <div className="w-screen min-h-screen flex items-center justify-center flex-col py-10">
       <h1 className="text-3xl font-bold text-center">Sankey Chart Test</h1>
-      <div className="flex justify-center items-center w-full h-full">
+      <div className="flex justify-center items-center w-full h-full px-20">
         <SankeyChart data={data as any} />
       </div>
     </div>
