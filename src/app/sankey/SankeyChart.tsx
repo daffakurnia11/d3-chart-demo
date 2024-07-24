@@ -322,9 +322,6 @@ const SankeyChart: React.FC<SankeyProps> = ({ data }) => {
           (categoryArray[0].x0 as number)) /
         4;
       let renderPosition = (categoryArray[0].x0 as number) + layer * position;
-      if (layer === 2 || layer === 3) {
-        renderPosition = renderPosition - translateNumber;
-      }
       return renderPosition;
     };
 
